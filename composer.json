@@ -1,0 +1,28 @@
+{
+  "name":"MiniKernel",
+  "description":"This is the smallest Kernel Framework",
+  "keywords": ["framework"],
+  "license": "MIT",
+  "require": {
+    "noahbuscher/macaw": "dev-master",
+    "illuminate/database": "*",
+    "filp/whoops": "*",
+    "phpmailer/phpmailer": "~5.2",
+    "XiaoLer/blade":"*",
+    "gregwar/captcha": "*",
+    "thenbsp/wechat":"*"
+  },
+  "authors": [
+    {
+      "name": "Ferule",
+      "email": "itxiao6@qq.com"
+    }
+  ],
+  "autoload": {
+    "classmap": [
+      "app",
+      "service",
+      "kernel"
+    ]
+  }
+}
