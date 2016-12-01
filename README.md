@@ -48,5 +48,4 @@
 &nbsp;&nbsp;&nbsp;&nbsp;2.在当前目录执行composer install<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;2.在当前目录执行composer update<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;3.在当前目录执行composer dump-autoload<br/>
->>>>>>> 14e77c2b6a337630e9c959e39e36af12e291adfd
-4.至此就可以使用本框架啦
+&nbsp;&nbsp;&nbsp;&nbsp;4.至此就可以使用本框架啦
