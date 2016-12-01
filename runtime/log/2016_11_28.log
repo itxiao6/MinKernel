@@ -1,0 +1,5 @@
+message:测试log1
+type:test1
+sql:select * from users1
+ip:220.181.132.197
+time:2016-11-28 15:20:23
