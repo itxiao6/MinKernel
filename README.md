@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+<h1>MiniKernel使用简介</h1>
 <br/>更新介绍:<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;邮件发送<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;视图集成<br/>
