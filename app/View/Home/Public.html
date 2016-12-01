@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<title>@yield('title')</title>
+		<link rel="stylesheet" href="/css/weui.css">
+		<link rel="stylesheet" href="/css/jquery-weui.css">
+		<link rel="stylesheet" href="/css/demos.css">
+		<link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+		<script src="/js/jquery.js"></script>
+		<script src="/js/jquery-weui.js"></script>
+		<script type="text/javascript" src="/js/bootstrap.js"></script>
+		@yield('vendor_js')
+		@yield('vendor_css')
+	</head>
+	<body>
+		<div class="weui_tab">
+			<div class="weui_navbar" style="background:#454545;color:#fff;">
+				<span style="margin-left:8px;padding:3px;" class="glyphicon glyphicon-menu-left"></span><font style="font-size:10px;padding:3px;padding-left:0px;">返回</font>
+			</div>
+		<div class="weui_tab_bd" style="padding-top:0px;">
+			<div class="weui_tab">
+				<div class="weui_tab_bd">
+					{{-- 内容区开始 --}}
+						@yield('content')
+					{{-- 内容区结束 --}}
+				</div>
+				<div class="weui_tabbar">
+					{{-- 导航区开始 --}}
+					<a href="" class="weui_tabbar_item @if( $__env->yieldContent('nav_1')==true ) weui_bar_item_on @endif">
+						<div class="weui_tabbar_icon">
+							<img src="/images/icon_nav_button.png" alt="...">
+						</div>
+						<p class="weui_tabbar_label">微信</p>
+					</a>
+					<a href="" class="weui_tabbar_item @if( $__env->yieldContent('nav_2')==true ) weui_bar_item_on @endif">
+						<div class="weui_tabbar_icon">
+							<img src="/images/icon_nav_cell.png" alt="...">
+						</div>
+						<p class="weui_tabbar_label">通讯录</p>
+					</a>
+					<a href="" class="weui_tabbar_item @if( $__env->yieldContent('nav_3')==true ) weui_bar_item_on @endif">
+						<div class="weui_tabbar_icon">
+							<img src="/images/icon_nav_toast.png" alt="...">
+						</div>
+						<p class="weui_tabbar_label">发现</p>
+					</a>
+					<a href="" class="weui_tabbar_item @if( $__env->yieldContent('nav_4')==true ) weui_bar_item_on @endif">
+						<div class="weui_tabbar_icon">
+							<img src="/images/icon_nav_dialog.png" alt="...">
+						</div>
+						<p class="weui_tabbar_label">我</p>
+					</a>
+					{{-- 导航区结束 --}}
+				</div>
+			</div>
+		</div>
+	</div>
+	</body>
+</html>

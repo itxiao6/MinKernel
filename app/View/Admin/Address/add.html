@@ -1,0 +1,54 @@
+{{-- 继承公用视图 --}}
+@extends('Admin.Public.Public')
+
+{{-- 分配path级别路径 --}}
+@section('nav_path')
+<li><a href="javascript:void(0);">地区管理</a></li>
+<li class="active">地区添加</li>
+@endsection
+
+{{-- 分配标题 --}}
+@section('title', '添加地区分类')
+
+{{-- 分配页面描述 --}}
+@section('description', '..')
+
+@section('content')
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                地区分类添加
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form method="post" role="form">
+                            <div class="form-group">
+                                <label>地区名称</label>
+                                <input name="name" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>父级地区</label>
+                                <select name="pid" class="form-control">
+                                    <option value="0">根地区</option>
+                                    @foreach($data as $value)
+                                    <option value="{{$value['id']}}">{{$value['name']}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-default">Submit Button</button>
+                            <button type="reset" class="btn btn-default">Reset Button</button>
+                        </form>
+                    </div>
+                </div>
+                <div style="margin-top:10px;" class="row bs-example" data-example-id="simple-alerts">
+                    <div class="alert alert-{{$_GET['status']}}" role="alert">
+                      <strong>{{$_GET['message']}}</strong>{{$_GET['description']}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
