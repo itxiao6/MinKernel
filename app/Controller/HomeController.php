@@ -14,7 +14,7 @@ class HomeController extends Controller{
   public function home(){
     // dd(M('address') -> get() -> toArray());
     // $this -> display('Home.Welcome');
-    $this -> display('Home.home');
+    $this -> display('Home.Welcome');
   }
 
   public function get_code(){
