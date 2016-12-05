@@ -10,4 +10,6 @@ return [
 	'password'=>'',
 	// session储存方式
 	'session'=>'file',
+	// log储存方式
+	'log'=>'file',
 ];
