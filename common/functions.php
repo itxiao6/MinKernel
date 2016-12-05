@@ -171,8 +171,9 @@ function dump($var, $echo=true, $label=null, $strict=true) {
     if ($echo) {
         echo($output);
         return null;
-    }else
+    }else{
         return $output;
+    }
 }
 
 /**
