@@ -10,7 +10,7 @@ return [
 	// 数据库密码
 	'password'=>'',
 	// session储存方式
-	'session'=>'file',
+	'session'=>'file',// file\database
 	// log储存方式
-	'log'=>'file',
+	'log'=>'file',// file\database
 ];
