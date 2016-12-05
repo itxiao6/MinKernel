@@ -1,3 +1,6 @@
 vendor
-env.php
 runtime
+.gitignore
+env.php
+composer.lock
+
