@@ -1,6 +1,38 @@
 <?php
 // 公用函数库
 
+/**
+ * 是否是AJAx提交的
+ * @return bool
+ */
+function isAjax(){
+    if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+/**
+ * 是否是GET提交的
+ */
+function isGet(){
+    return $_SERVER['REQUEST_METHOD'] == 'GET' ? true : false;
+}
+
+/**
+ * 是否是POST提交
+ * @return int
+ */
+function isPost(){
+    return ($_SERVER['REQUEST_METHOD'] == 'POST' && checkurlHash($GLOBALS['verify']) && (empty($_SERVER['HTTP_REFERER']) || preg_replace("~https?:\/\/([^\:\/]+).*~i", "\\1", $_SERVER['HTTP_REFERER']) == preg_replace("~([^\:]+).*~", "\\1", $_SERVER['HTTP_HOST']))) ? 1 : 0;
+}
+/**
+ * [env 读取环境配置]
+ * @param  [String] $param   [读取的项目]
+ * @param  [String] $default [默认值]
+ * @return [String]          [返回的值]
+ */
 function env($param,$default){
     global $env;
     // 判断配置文件是否加载过
@@ -20,8 +52,10 @@ function env($param,$default){
     }else{
         // 判断是否存在环境配置项
         if( isset($env[$param]) ){
+            // 返回读取到的值
             return $env[$param];
         }else{
+            // 返回默认值
             return $default;
         }
     }
