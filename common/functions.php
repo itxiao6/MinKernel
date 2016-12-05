@@ -2,24 +2,28 @@
 // 公用函数库
 
 function env($param,$default){
-    global $end;
+    global $env;
     // 判断配置文件是否加载过
-    if(!isset($end)){
-        $end = require(ROOT_PATH.'env.php');
+    if(!isset($env)){
+        $env = require(ROOT_PATH.'env.php');
     }
     // 是否读取全部配置
     if($param=='all'){
         // 判断操作是读还是写
         if($value != 'defaultValue'){
             // 修改值并返回
-            return $end = $value;
+            return $env = $value;
         }else{
             // 返回要取得的值
-            return $end;
+            return $env;
         }
     }else{
-        // 返回要取得的值
-        return $end[$param];
+        // 判断是否存在环境配置项
+        if( isset($env[$param]) ){
+            return $env[$param];
+        }else{
+            return $default;
+        }
     }
 }
 

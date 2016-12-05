@@ -1,4 +1,5 @@
 <?php
+// ENV 环境配置文件(用来适应不同的开发环境)
 return [
 	// 数据库主机
 	'dbhost'=>'localhost',
