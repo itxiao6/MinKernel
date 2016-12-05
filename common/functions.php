@@ -1,5 +1,30 @@
 <?php
 // 公用函数库
+
+function env($param,$default){
+    global $end;
+    // 判断配置文件是否加载过
+    if(!isset($end)){
+        $end = require(ROOT_PATH.'env.php');
+    }
+    // 是否读取全部配置
+    if($param=='all'){
+        // 判断操作是读还是写
+        if($value != 'defaultValue'){
+            // 修改值并返回
+            return $end = $value;
+        }else{
+            // 返回要取得的值
+            return $end;
+        }
+    }else{
+        // 返回要取得的值
+        return $end[$param];
+    }
+}
+
+
+
 /**
  * [C 读取 / 获取 配置]
  * @param [String] $key   [字段](如果为all则会返回本类型节点所有相)
