@@ -1,5 +1,6 @@
 vendor
 runtime
+.gitattributes
 .gitignore
 env.php
 composer.lock
