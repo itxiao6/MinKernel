@@ -7,6 +7,9 @@ use Service\Session;
 * 框架核心类
 */
 class Kernel{
+    /**
+     * 启动框架
+     */
 	public static function start(){
         // 引用Composer自动加载规则
         require(ROOT_PATH.'vendor/autoload.php');

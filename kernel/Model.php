@@ -72,7 +72,10 @@ class Model extends Eloquent{
    * @var string
    */
   protected $dateFormat;
-
+  
+  /**
+   * @param String 表名(可为空)
+   */
   public function __construct($tableName=''){
     // 调用父类构造方法
     parent::__construct();
@@ -92,6 +95,7 @@ class Model extends Eloquent{
     // 判断实例化的时候已经制定了表名
     $this -> table = $tableName;
   }
+
   /**
    * [setKey 定义主键]
    * @param [type] $key [表的主键]
