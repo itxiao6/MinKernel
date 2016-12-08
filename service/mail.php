@@ -1,6 +1,7 @@
 <?php
 namespace Service;
 use PHPMailer;
+use Exception;
 /**
 
 * \Mail
@@ -54,7 +55,7 @@ class Mail {
     // 发送邮件并判断是是否成功
     if( !$this -> mail->send() ){
       // 抛出异常
-      throw new \Exception($this -> mail->ErrorInfo);;
+      throw new Exception($this -> mail->ErrorInfo);;
     }else{
       // 发送成功返回真
       return true;

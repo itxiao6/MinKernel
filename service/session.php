@@ -6,7 +6,9 @@ use Illuminate\Database\Capsule\Manager as DB;
 * session管理类
 */
 class Session{
-	public $lifetime = ''; // session 有效期
+	// session 有效期
+	public $lifetime;
+	// 数据库存储表名
 	public $table = 'session';
 	/**
 	* 构造函数
