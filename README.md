@@ -44,6 +44,3 @@
 使用说明:<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;1.安装Composer<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;2.在当前目录执行composer install<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;2.在当前目录执行composer update<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;3.在当前目录执行composer dump-autoload<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;4.至此就可以使用本框架啦<br/>
