@@ -11,7 +11,7 @@
     "phpmailer/phpmailer": "~5.2",
     "XiaoLer/blade":"*",
     "gregwar/captcha": "*",
-    "thenbsp/wechat":"*"
+    "qiniu/php-sdk":"*"
   },
   "authors": [
     {
@@ -21,10 +21,10 @@
   ],
   "autoload": {
   	"classmap": [
-      "service",
-      "kernel"
     ],
   	"psr-4": {
+      "Kernel\\":"kernel/",
+      "Service\\":"service/",
   		"App\\Controller\\":"app/Controller/",
   		"App\\Model\\":"app/Model/"
   	}

@@ -11,8 +11,16 @@ class Kernel{
      * 启动框架
      */
 	public static function start(){
-        // 引用Composer自动加载规则
-        require(ROOT_PATH.'vendor/autoload.php');
+        // 判断是否下载了composer包
+        if (file_exists(ROOT_PATH.'vendor/autoload.php')) {
+            // 引用Composer自动加载规则
+            require(ROOT_PATH.'vendor/autoload.php');
+        }else{
+            // 设置协议头
+            header("Content-Type:text/html;charset=utf-8");
+            // 退出程序并提示
+            exit('请在项目根目录执行:composer install');
+        }
         // 判断是否为调试模式
         if( DE_BUG===TRUE ){
             // 屏蔽所有notice 和 warning 级别的错误
