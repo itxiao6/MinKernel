@@ -8,8 +8,8 @@ return [
 		'default_filter'        =>  'htmlspecialchars', // 默认参数过滤方法 用于I函数...
 		'default_ajax_return'   =>  'JSON',  // 默认AJAX 数据返回格式,可选JSON XML ...
 		// 七牛云存储参数
-		'Bucket_Name'=>env('Bucket_Name',''),// 空间名称
-		'accessKey'=>env('accessKey',''),// 空间名称
-		'secretKey'=>env('secretKey',''),// 空间名称
+		'Bucket_Name'=>'pinche',// 空间名称
+		'accessKey'=>'4vxg3kK0L5tQbFyzs7-n7LDaXGaAhbrg9d58pDxJ',// 空间名称
+		'secretKey'=>'9vGXLQtqCR64zIC9pT_7gXdiiXPg4C3Wo4mXi8VJ',// 空间名称
 		
 	];

@@ -20,7 +20,7 @@
 
 使用说明:<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;1.安装Composer<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;2.在当前目录执行composer install<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;2.在当前目录执行composer update<br/>
 
 更新介绍:<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;邮件发送<br/>

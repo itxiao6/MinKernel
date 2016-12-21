@@ -1,5 +1,5 @@
 <?php
-namespace App\Controller;
+namespace App\Controller\Home;
 use Kernel\Controller;
 use Service\Mail;
 use Service\Log;

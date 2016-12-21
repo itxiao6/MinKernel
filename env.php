@@ -2,19 +2,15 @@
 // ENV 环境配置文件(用来适应不同的开发环境)
 return [
 	// 数据库主机
-	'dbhost'=>'',
+	'dbhost'=>'localhost',
 	// 数据库名称
-	'database'=>'',
+	'database'=>'pinche',
 	// 数据库用户名
-	'username'=>'',
+	'username'=>'root',
 	// 数据库密码
-	'password'=>'',
+	'password'=>'hebidangzhen',
 	// session储存方式
-	'session'=>'file',// file\database
+	'session'=>'database',// file\database
 	// log储存方式
-	'log'=>'file',// file\database
-	// 七牛云存储参数
-	'Bucket_Name'=>'',// 空间名称
-	'accessKey'=>'',// 空间名称
-	'secretKey'=>'',// 空间名称
+	'log'=>'database',// file\database
 ];
