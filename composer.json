@@ -1,0 +1,31 @@
+{
+  "name":"MiniKernel",
+  "description":"This is the smallest Kernel Framework",
+  "keywords": ["framework"],
+  "license": "MIT",
+  "require": {
+    "illuminate/database": "*",
+    "illuminate/pagination": "*",
+    "filp/whoops": "*",
+    "phpmailer/phpmailer": "~5.2",
+    "XiaoLer/blade":"*",
+    "gregwar/captcha": "*",
+    "qiniu/php-sdk":"*"
+  },
+  "authors": [
+    {
+      "name": "Ferule",
+      "email": "itxiao6@qq.com"
+    }
+  ],
+  "autoload": {
+  	"classmap": [
+    ],
+  	"psr-4": {
+      "Kernel\\":"kernel/",
+      "Service\\":"service/",
+  		"App\\Controller\\":"app/Controller/",
+  		"App\\Model\\":"app/Model/"
+  	}
+  }
+}
