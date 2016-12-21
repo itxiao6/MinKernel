@@ -2,7 +2,7 @@
 namespace Config;
 use Service\Route;
 // 前台首页
-Route::get('/aa','Home\HomeController@home');
+Route::get('/','Home\HomeController@home');
 
 
 
