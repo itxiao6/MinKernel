@@ -4,6 +4,7 @@
   "keywords": ["framework"],
   "license": "MIT",
   "require": {
+    "noahbuscher/macaw": "dev-master",
     "illuminate/database": "*",
     "illuminate/pagination": "*",
     "filp/whoops": "*",

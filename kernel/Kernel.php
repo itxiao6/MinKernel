@@ -1,6 +1,7 @@
 <?php
 namespace Kernel;
 use Whoops\Run;
+use Service\Route;
 use Whoops\Handler\PrettyPageHandler;
 use Service\Session;
 /**
@@ -58,5 +59,7 @@ class Kernel{
         session_start();
         // 加载路由
         require(ROOT_PATH.'config/routes.php');
+        // 解析路由
+        Route::dispatch();
 	}
 }
