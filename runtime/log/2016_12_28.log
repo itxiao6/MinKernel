@@ -1,0 +1,6 @@
+message:WEB访问日志
+type:访问日志
+sql:
+ip:127.0.0.1
+url:/Admin/Login.html
+time:1482902089

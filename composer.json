@@ -12,7 +12,8 @@
     "gregwar/captcha": "*",
     "qiniu/php-sdk":"*",
     "thenbsp/wechat":"*",
-    "predis/predis":"*"
+    "predis/predis":"*",
+    "intervention/image":"*"
   },
   "authors": [
     {
