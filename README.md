@@ -9,7 +9,6 @@ MiniKernel使用简介</h1>
 &nbsp;&nbsp;&nbsp;&nbsp;Eloquent数据库模型操作<br>
 &nbsp;&nbsp;&nbsp;&nbsp;Session 数据库存储<br>
 &nbsp;&nbsp;&nbsp;&nbsp;phpmailer 邮件发送<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Macaw 路由管理<br>
 &nbsp;&nbsp;&nbsp;&nbsp;captcha 验证码<br></p>
 
 <p>设计思路<br>
@@ -26,6 +25,7 @@ MiniKernel使用简介</h1>
 <p>更新介绍:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;邮件发送<br>
 &nbsp;&nbsp;&nbsp;&nbsp;视图集成<br></p>
+&nbsp;&nbsp;&nbsp;&nbsp;隐式路由<br></p>
 
 <p>功能介绍<br>
 &nbsp;&nbsp;&nbsp;&nbsp;blade模板<br>

@@ -60,7 +60,6 @@ class Kernel{
         // 启动session
         session_start();
         // 加载路由
-        require(ROOT_PATH.'config/routes.php');
-        Route::dispatch();
+        Route::init();
 	}
 }

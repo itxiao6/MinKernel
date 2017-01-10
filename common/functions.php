@@ -59,7 +59,7 @@ function http($url, $data='', $method='GET'){
  * 是否是AJAx提交的
  * @return bool
  */
-function isAjax(){
+function IS_AJAX(){
     if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){
         return true;
     }else{
@@ -70,7 +70,7 @@ function isAjax(){
 /**
  * 是否是GET提交的
  */
-function isGet(){
+function IS_GET(){
     return $_SERVER['REQUEST_METHOD'] == 'GET' ? true : false;
 }
 
@@ -78,7 +78,7 @@ function isGet(){
  * 是否是POST提交
  * @return int
  */
-function isPost(){
+function IS_POST(){
     return ($_SERVER['REQUEST_METHOD'] == 'POST' && checkurlHash($GLOBALS['verify']) && (empty($_SERVER['HTTP_REFERER']) || preg_replace("~https?:\/\/([^\:\/]+).*~i", "\\1", $_SERVER['HTTP_REFERER']) == preg_replace("~([^\:]+).*~", "\\1", $_SERVER['HTTP_HOST']))) ? 1 : 0;
 }
 

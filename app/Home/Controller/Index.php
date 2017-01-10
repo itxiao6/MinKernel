@@ -1,13 +1,13 @@
 <?php
-namespace App\Controller\Admin;
+namespace App\Home\Controller;
 use Service\Mail;
 use Service\Log;
 /**
 * 初始欢迎页
 */
 
-class WelcomeController extends Base{
+class Index extends Base{
   public function index(){
-	echo "hello world";
+    echo "hello world";
   }
 }
