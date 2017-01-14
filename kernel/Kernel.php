@@ -42,6 +42,25 @@ class Kernel{
         }
         // 加载公用函数库
         require(ROOT_PATH.'common/functions.php');
+        // 定义系统常量
+        // 定义是否为AJAX请求
+        if(IS_AJAX()){
+            define('IS_AJAX',true);
+        }else{
+            define('IS_AJAX',false);
+        }
+        // 定义是否为GET请求
+        if(IS_GET()){
+            define('IS_GET',true);
+        }else{
+            define('IS_GET',false);
+        }
+        // 定义是否为POST请求
+        if(IS_POST()){
+            define('IS_POST',true);
+        }else{
+            define('IS_POST',false);
+        }
         // 定义全局数据库连接
         global $database;
         $database = false;
