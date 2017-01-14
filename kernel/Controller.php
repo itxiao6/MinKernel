@@ -33,7 +33,7 @@ class Controller{
    * @param  [Array] 要分配到模板引擎的变量
    * @return [渲染好的模板]
    */
-  public function display($view='default',Array $data = []){
+  protected function display($view='default',Array $data = []){
     // 判断是否传入的模板名称
     if($view=='default'){$view = CONTROLLER_NAME.'.'.ACTION_NAME;}
     // 判断是否传了要分配的值
@@ -50,7 +50,7 @@ class Controller{
    * @param  [data] 数据(可选)
    * @return [Object] 本对象(用于连贯操作)
    */
-  public function assign($key,$data = []){
+  protected function assign($key,$data = []){
     // 判断传的是否为数组
     if( is_array($key) ){
       $this -> viewData = array_merge($this -> viewData, $key);
@@ -94,6 +94,18 @@ class Controller{
               Hook::listen('ajax_return',$data);
       }
   }
+  // 成功跳转
+  protected function success(){
+    $this -> display('success');
+  }
+  // 失败跳转
+  protected function error(){
+    $this -> display('error');
+  }
+  // 输出信息
+  protected function info(){
+    $this -> display('info');
+  }
   // 析构方法
   public function __destruct(){
     $view = $this->view;
@@ -101,7 +113,6 @@ class Controller{
       extract($view->data);
       require $view->view;
     }
-
-}
+  }
 
 }

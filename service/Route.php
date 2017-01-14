@@ -42,7 +42,7 @@ class Route{
 		global $view_path;
 
 		// 定义视图模板路径
-		$view_path = [ROOT_PATH.'app/'.$route[0].'/View'];
+		$view_path = [ROOT_PATH.'app/'.$route[0].'/View',ROOT_PATH.'template/'];
 
 		// 判断控制器文件是否存在
 		if(file_exists(ROOT_PATH.'app/'.$route[0].'/Controller/'.$route[1].'.php')){
