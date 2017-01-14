@@ -33,7 +33,9 @@ class Controller{
    * @param  [Array] 要分配到模板引擎的变量
    * @return [渲染好的模板]
    */
-  public function display($view,Array $data = []){
+  public function display($view='default',Array $data = []){
+    // 判断是否传入的模板名称
+    if($view=='default'){$view = CONTROLLER_NAME.'.'.ACTION_NAME;}
     // 判断是否传了要分配的值
     if(count($data) > 0){
       // 分配模板的数组合并

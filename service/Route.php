@@ -26,12 +26,17 @@ class Route{
 			$route[1] = C('default_c_name','app');
 			$route[2] = C('default_a_name','app');
 		}else if(count($route)==0){
-
 			// 加载部分配置
 			$route[0] = C('default_m_name','app');
 			$route[1] = C('default_c_name','app');
 			$route[2] = C('default_a_name','app');
 		}
+		// 定义应用名称
+		define('APP_NAME',$route[0]);
+		// 定义控制器名称
+		define('CONTROLLER_NAME',$route[1]);
+		// 定义操作名称
+		define('ACTION_NAME',$route[2]);
 
 		// 获取全局视图路径
 		global $view_path;
