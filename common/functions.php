@@ -3,7 +3,10 @@
 
 
 
-// 数组转到XML
+/** 数组转换成XML
+ * @param $arr  Array 要转换的数组
+ * @return String 转换后的数组
+ */
 function arrayToXml($arr){ 
     $xml = "<xml>"; 
     foreach ($arr as $key=>$val){ 
@@ -16,7 +19,12 @@ function arrayToXml($arr){
     $xml.="</xml>"; 
     return $xml; 
 }
-// stdClass Object 转 array  
+
+/** 
+ * 对象类型数据转换成数组
+ * @param Object $array ： 要转换的对象 
+ * @return Array 转换后的数据 
+ */  
 function ObjectToArray($array) {  
     if(is_object($array)) {  
         $array = (array)$array;  
@@ -192,7 +200,7 @@ function L($key,$type='zh_en',$value='defaultValue'){
  * @return void
  */
 function redirect($url) {
-    header('Location: ' . $url);
+    header('Location:'.$url);
     exit();
 }
 /**
@@ -269,7 +277,7 @@ function dump($var, $echo=true, $label=null, $strict=true) {
  * 判断是否SSL协议
  * @return boolean
  */
-function is_ssl() {
+function IS_SSL() {
     if(isset($_SERVER['HTTPS']) && ('1' == $_SERVER['HTTPS'] || 'on' == strtolower($_SERVER['HTTPS']))){
         return true;
     }elseif(isset($_SERVER['SERVER_PORT']) && ('443' == $_SERVER['SERVER_PORT'] )) {

@@ -2,13 +2,13 @@
 namespace Kernel;
 use Nette\Mail\SmtpMailer;
 use Service\View;
-use Service\Log;
 /**
 
 * 控制器父类
 
 */
 class Controller{
+  
   // 视图对象
   protected $view;
 
@@ -24,8 +24,6 @@ class Controller{
   public function __construct(){
     // 获取视图实例
     $this -> viewObject = View::getView();
-    // 记录访问日志
-    Log::write('WEB访问日志','访问日志','');
   }
 
   /** 渲染模板

@@ -94,6 +94,11 @@ class Model extends Eloquent{
     }
     // 判断实例化的时候已经制定了表名
     $this -> table = $tableName;
+    // 判断是否定义了自定义初始化方法
+    if(method_exists($this,'init')){
+      // 调用自定义的初始化
+      $this -> init();
+    }
   }
 
   /**

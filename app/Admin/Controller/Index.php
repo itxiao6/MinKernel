@@ -1,7 +1,5 @@
 <?php
 namespace App\Admin\Controller;
-use Service\Mail;
-use Service\Log;
 
 /**
 * 后台测试控制器

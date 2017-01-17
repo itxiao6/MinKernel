@@ -1,7 +1,6 @@
 <?php
 namespace App\Home\Controller;
 use Kernel\Controller;
-use Service\Log;
 
 /**
 * 微信端中间件

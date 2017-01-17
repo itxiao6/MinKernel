@@ -61,8 +61,15 @@ class Kernel{
         }else{
             define('IS_POST',false);
         }
+        // 定义是否为IS_SSL请求
+        if(IS_SSL()){
+            define('IS_SSL',true);
+        }else{
+            define('IS_SSL',false);
+        }
         // 定义全局数据库连接
         global $database;
+        // 定义全局数据库链接为未连接
         $database = false;
         // 设置SessionCookie名称
         session_name('MiniKernelSession');

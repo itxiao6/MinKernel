@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class User extends Model
 {
 	protected $table = "users";
-	// function __construct(argument)
-	// {
-	// 	# code...
-	// }
+	
+	// 模型自定义的模型初始化操作
+	protected function init(){
+
+	}
 }

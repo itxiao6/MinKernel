@@ -1,7 +1,6 @@
 <?php
 namespace App\Admin\Controller;
 use Kernel\Controller;
-use Service\Log;
 
 /**
 * 后台中间件

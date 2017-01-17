@@ -33,8 +33,10 @@ class Route{
 		}
 		// 定义应用名称
 		define('APP_NAME',$route[0]);
+
 		// 定义控制器名称
 		define('CONTROLLER_NAME',$route[1]);
+		
 		// 定义操作名称
 		define('ACTION_NAME',$route[2]);
 

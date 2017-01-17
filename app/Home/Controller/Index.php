@@ -1,7 +1,5 @@
 <?php
 namespace App\Home\Controller;
-use Service\Mail;
-use Service\Log;
 /**
 * 初始欢迎页
 */
