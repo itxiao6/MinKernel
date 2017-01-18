@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Container\Container;
 // 公用函数库
 
 
@@ -203,6 +204,14 @@ function L($key,$type='zh_en',$value='defaultValue'){
 function redirect($url) {
     header('Location:'.$url);
     exit();
+}
+/**
+ * 使用DB基类
+ * @param string $table 表名
+ * @return void
+ */
+function DB(String $table) {
+    return Illuminate\Database\Capsule\Manager\DB::table($table);
 }
 /**
  * [M 创建一个虚拟的Model]
