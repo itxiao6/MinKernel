@@ -6,6 +6,6 @@ namespace App\Home\Controller;
 
 class Index extends Base{
   public function index(){
-    echo "hello world";
+    $this -> display();
   }
 }
