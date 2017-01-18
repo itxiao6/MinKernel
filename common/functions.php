@@ -3,7 +3,8 @@
 
 
 
-/** 数组转换成XML
+/** 
+ * 数组转换成XML
  * @param $arr  Array 要转换的数组
  * @return String 转换后的数组
  */
