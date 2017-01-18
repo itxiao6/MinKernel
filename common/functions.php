@@ -4,62 +4,62 @@ use Illuminate\Container\Container;
 
 
 
-/** 
+/**
  * 数组转换成XML
  * @param $arr  Array 要转换的数组
  * @return String 转换后的数组
  */
-function arrayToXml($arr){ 
-    $xml = "<xml>"; 
-    foreach ($arr as $key=>$val){ 
-        if(is_array($val)){ 
-            $xml.="<".$key.">".arrayToXml($val)."</".$key.">"; 
-        }else{ 
-            $xml.="<".$key.">".$val."</".$key.">"; 
-        } 
-    } 
-    $xml.="</xml>"; 
-    return $xml; 
+function arrayToXml($arr){
+    $xml = "<xml>";
+    foreach ($arr as $key=>$val){
+        if(is_array($val)){
+            $xml.="<".$key.">".arrayToXml($val)."</".$key.">";
+        }else{
+            $xml.="<".$key.">".$val."</".$key.">";
+        }
+    }
+    $xml.="</xml>";
+    return $xml;
 }
 
-/** 
+/**
  * 对象类型数据转换成数组
- * @param Object $array ： 要转换的对象 
- * @return Array 转换后的数据 
- */  
-function ObjectToArray($array) {  
-    if(is_object($array)) {  
-        $array = (array)$array;  
-     } if(is_array($array)) {  
-         foreach($array as $key=>$value) {  
-             $array[$key] = ObjectToArray($value);  
-             }  
-     }  
-     return $array;  
+ * @param Object $array ： 要转换的对象
+ * @return Array 转换后的数据
+ */
+function ObjectToArray($array) {
+    if(is_object($array)) {
+        $array = (array)$array;
+     } if(is_array($array)) {
+         foreach($array as $key=>$value) {
+             $array[$key] = ObjectToArray($value);
+             }
+     }
+     return $array;
 }
 
-/** 
- * 模拟提交参数，支持https提交 可用于各类api请求 
- * @param string $url ： 提交的地址 
- * @param array $data :POST数组 
- * @param string $method : POST/GET，默认GET方式 
- * @return mixed 
- */  
-function http($url, $data='', $method='GET'){   
-    $ch = curl_init();  
-    curl_setopt($ch, CURLOPT_URL, $url);  
-    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);  
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);  
-    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);  
-    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; MSIE 5.01; Windows NT 5.0)');  
-    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);  
-    curl_setopt($ch, CURLOPT_AUTOREFERER, 1);  
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);  
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);  
-    $result = curl_exec($ch);  
-    if (curl_errno($ch)) {  
-        exit(curl_error($ch));  
-    }  
+/**
+ * 模拟提交参数，支持https提交 可用于各类api请求
+ * @param string $url ： 提交的地址
+ * @param array $data :POST数组
+ * @param string $method : POST/GET，默认GET方式
+ * @return mixed
+ */
+function http($url, $data='', $method='GET'){
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; MSIE 5.01; Windows NT 5.0)');
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+    curl_setopt($ch, CURLOPT_AUTOREFERER, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $result = curl_exec($ch);
+    if (curl_errno($ch)) {
+        exit(curl_error($ch));
+    }
 
     curl_close($ch);
     // 返回结果集
@@ -298,7 +298,7 @@ function IS_SSL() {
 /**
  * 获取客户端IP地址
  * @param integer $type 返回类型 0 返回IP地址 1 返回IPV4地址数字
- * @param boolean $adv 是否进行高级模式获取（有可能被伪装） 
+ * @param boolean $adv 是否进行高级模式获取（有可能被伪装）
  * @return mixed
  */
 function get_client_ip($type = 0,$adv=false) {

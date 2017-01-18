@@ -11,5 +11,5 @@ return [
 		'Bucket_Name'=>env('Bucket_Name'),// 空间名称
 		'accessKey'=>env('accessKey'),// 空间名称
 		'secretKey'=>env('secretKey'),// 空间名称
-		
+
 	];

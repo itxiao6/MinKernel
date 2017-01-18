@@ -72,7 +72,7 @@ class Model extends Eloquent{
    * @var string
    */
   protected $dateFormat;
-  
+
   /**
    * @param String 表名(可为空)
    */

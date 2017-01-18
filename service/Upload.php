@@ -33,7 +33,7 @@ class Upload{
         $auth = new Auth($this -> accessKey, $this -> secretKey);
         // 生成上传 Token
         $this -> token = $auth->uploadToken($this -> Bucket_Name);
-        
+
     }
     public function upload_one($upFile){
         // 设置要上传的文件名
@@ -73,7 +73,7 @@ class Upload{
             $result[] = $this -> upload_one($arr[$i]);
         }
         // 返回结果
-        return $result;        
+        return $result;
     }
     /**
      * [get_Suffix_Name 获取上传文件的后缀名]
@@ -95,7 +95,7 @@ class Upload{
      */
     protected function get_rand_File_Name(){
         $str = "";
-        for ($i=0; $i < 10; $i++) { 
+        for ($i=0; $i < 10; $i++) {
             $str .= rand(0,9);
         }
         return time().$str;

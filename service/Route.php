@@ -36,7 +36,7 @@ class Route{
 
 		// 定义控制器名称
 		define('CONTROLLER_NAME',$route[1]);
-		
+
 		// 定义操作名称
 		define('ACTION_NAME',$route[2]);
 
