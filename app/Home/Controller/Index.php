@@ -6,6 +6,6 @@ namespace App\Home\Controller;
 
 class Index extends Base{
   public function index(){
-    $this -> display();
+    $this -> success('Hwllo World','恭喜您框架搭建成功');
   }
 }

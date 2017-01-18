@@ -93,16 +93,16 @@ class Controller{
       }
   }
   // 成功跳转
-  protected function success(){
-    $this -> display('success');
+  protected function success($title,$message,$url=''){
+    $this -> display('success',['title'=>$title,'message'=>$message,'url'=>$url]);
   }
   // 失败跳转
-  protected function error(){
-    $this -> display('error');
+  protected function error($title,$message,$content,$url=''){
+    $this -> display('error',['title'=>$title,'message'=>$message,'url'=>$url]);
   }
   // 输出信息
-  protected function info(){
-    $this -> display('info');
+  protected function info($title,$message,$content,$url=''){
+    $this -> display('info',['title'=>$title,'message'=>$message,'url'=>$url]);
   }
   // 析构方法
   public function __destruct(){
