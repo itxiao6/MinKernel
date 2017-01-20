@@ -9,7 +9,7 @@ MiniKernel使用简介</h1>
 &nbsp;&nbsp;&nbsp;&nbsp;Eloquent数据库模型操作<br>
 &nbsp;&nbsp;&nbsp;&nbsp;Session 数据库存储<br>
 &nbsp;&nbsp;&nbsp;&nbsp;phpmailer 邮件发送<br>
-&nbsp;&nbsp;&nbsp;&nbsp;captcha 验证码<br></p>
+&nbsp;&nbsp;&nbsp;&nbsp;验证码<br></p>
 
 <p>设计思路<br>
 &nbsp;&nbsp;&nbsp;&nbsp;采用了主流的Composer为主的库,使得 框架本身,更改灵活、拓展灵活、上手简单、体积极小。<br>
@@ -32,7 +32,7 @@ MiniKernel使用简介</h1>
 &nbsp;&nbsp;&nbsp;&nbsp;Eloquent数据库模型操作<br>
 &nbsp;&nbsp;&nbsp;&nbsp;Session 数据库存储<br>
 &nbsp;&nbsp;&nbsp;&nbsp;phpmailer 邮件发送<br>
-&nbsp;&nbsp;&nbsp;&nbsp;captcha 验证码<br></p>
+&nbsp;&nbsp;&nbsp;&nbsp;验证码<br></p>
 
 <p>设计思路<br>
 &nbsp;&nbsp;&nbsp;&nbsp;采用了主流的Composer为主的库,使得 框架本身,更改灵活、拓展灵活、上手简单、体积极小。<br>
