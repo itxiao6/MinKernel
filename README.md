@@ -1,8 +1,8 @@
 MiniKernel使用简介</h1>
 
 <p><br>更新介绍:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;邮件发送<br>
-&nbsp;&nbsp;&nbsp;&nbsp;视图集成<br></p>
+&nbsp;&nbsp;&nbsp;&nbsp;类似TP的隐式路由<br>
+&nbsp;&nbsp;&nbsp;&nbsp;更新了框架的目录结构<br></p>
 
 <p>功能介绍<br>
 &nbsp;&nbsp;&nbsp;&nbsp;blade模板<br>
