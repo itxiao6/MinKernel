@@ -114,7 +114,7 @@ class Session{
 	* @return bool
 	*/
 	public function destroy($sessionId){
-		return (Bool) DB::table($this -> table)->where('id', '=',$session_id)->delete();
+		return (Bool) DB::table($this -> table)->where('last_visit', '<',time() - $this -> lifetime)->where('id', '=',$session_id)->delete();
 
 	}
 	/**
