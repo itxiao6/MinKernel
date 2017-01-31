@@ -5,17 +5,21 @@ use Service\Log;
 class Route{
 	// 解析路由
 	public static function init(){
+
 		// 过滤url
-		$_SERVER['REDIRECT_URL'] = rtrim($_SERVER['REDIRECT_URL'],'.html').'.html';
-		// 获取路由信息
-		$route_url = ltrim(rtrim(substr($_SERVER['REDIRECT_URL'],0,strripos($_SERVER['REDIRECT_URL'],'.html')),'/'),'/');
-		// 获取GET参数
-		$get_parameter = ltrim(substr($_SERVER['REQUEST_URI'],strpos($_SERVER['REQUEST_URI'],'?')),'?');
+		$_SERVER['REDIRECT_URL'] = preg_replace('!\.php$|\.html$|\.jsp$|\.aspx$|\.asp$!','',$_SERVER['REDIRECT_URL']);
+		// 替换开头的/
+		$route_url = preg_replace('!^/!','',$_SERVER['REDIRECT_URL']);
+		
 		// 判断访问的是否为首页
-		if($route_url!=''){
+		if($route_url != ''){
 			// 获取控制器名称
 			$route = explode('/',$route_url);
+		}else{
+			// 定义路由信息为空
+			$route = [];
 		}
+
 		// 判断A是否为空
 		if(count($route)==2){
 			
