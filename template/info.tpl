@@ -3,8 +3,8 @@
 <head>
 	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
 	<title>{{$title}}</title>
-	<link rel="stylesheet" href="http://weui.io/weui.css">
-	<link rel="stylesheet" href="http://weui.io/example.css">
+	<link rel="stylesheet" href="/css/weui.css">
+	<link rel="stylesheet" href="/css/example.css">
 </head>
 <body>
 	<div class="container" id="container">

@@ -59,10 +59,11 @@ class Route{
 
 		// 获取全局视图路径
 		global $view_path;
-		
+
 		// 判断模块是否存在
 		if(!file_exists(ROOT_PATH.'app/'.$route[0])){
-			echo $route[0].'模块找不到';
+			// 指定模块找不到
+			throw new \Exception('找不到 '.$route[0].' 模块');
 		}
 
 		// 定义视图模板路径
@@ -85,11 +86,11 @@ class Route{
 			}else{
 
 				// 指定操作名找不到
-				throw new \Exception($route[2].'操作 找不到');
+				throw new \Exception('找不到 '.$route[2].' 操作');
 			}
 		}else{
 			// 指定控制器找不到
-			throw new \Exception($route[1].'控制器找不到');
+			throw new \Exception('找不到 '.$route[1].' 控制器');
 		}
 	}
 }
