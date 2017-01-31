@@ -6,7 +6,7 @@ MiniKernel使用简介</h1>
 &nbsp;&nbsp;&nbsp;&nbsp;DB()方法可以全局调用 等效DB::table()<br>
 &nbsp;&nbsp;&nbsp;&nbsp;域名模块绑定<br>
 &nbsp;&nbsp;&nbsp;&nbsp;模块化的模板默认<br>
-&nbsp;&nbsp;&nbsp;&nbsp;更新了框架的目录结构<br></p>
+&nbsp;&nbsp;&nbsp;&nbsp;更新了框架MVC的目录结构<br></p>
 
 <p>功能介绍<br>
 &nbsp;&nbsp;&nbsp;&nbsp;blade模板<br>
