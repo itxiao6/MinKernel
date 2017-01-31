@@ -4,9 +4,9 @@ return [
 	// 数据库主机
 	'dbhost'=>'localhost',
 	// 数据库名称
-	'database'=>'',
+	'database'=>'demo',
 	// 数据库用户名
-	'username'=>'',
+	'username'=>'root',
 	// 数据库密码
 	'password'=>'',
 	// session储存方式
@@ -17,6 +17,7 @@ return [
     'Bucket_Name'=>'',// 空间名称
     'accessKey'=>'',// 空间名称
     'secretKey'=>'',// 空间名称
+    'Bucket_Host'=>'',// 空间域名
 
 
 ];
