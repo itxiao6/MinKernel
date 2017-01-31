@@ -194,8 +194,21 @@ function redirect($url) {
  * @param string $table 表名
  * @return void
  */
-function DB(String $table) {
-    return Illuminate\Database\Capsule\Manager\DB::table($table);
+function DB($table) {
+    // 获取全局的数据库连接
+    global $database;
+    // 判断数据库是否已经连接
+    if ( $database === false ) {
+      // 连接数据库
+      $database = new Illuminate\Database\Capsule\Manager;
+      // 载入数据库配置
+      $database->addConnection(C('all','database'));
+      // 设置全局静态可访问
+      $database->setAsGlobal();
+      // 启动Eloquent
+      $database -> bootEloquent();
+    }
+    return Illuminate\Database\Capsule\Manager::table($table);
 }
 /**
  * [M 创建一个虚拟的Model]
