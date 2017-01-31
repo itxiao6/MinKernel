@@ -91,7 +91,12 @@ class Model extends Eloquent{
       $database->setAsGlobal();
       // 启动Eloquent
       $database -> bootEloquent();
+      // 判断是否开启LOG日志
+      if(C('database_log','sys')){
+        DB::connection()->enableQueryLog();
+      }
     }
+    
     // 判断实例化的时候已经制定了表名
     $this -> table = $tableName;
     // 判断是否定义了自定义初始化方法

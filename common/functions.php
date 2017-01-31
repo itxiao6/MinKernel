@@ -207,8 +207,16 @@ function DB($table) {
       $database->setAsGlobal();
       // 启动Eloquent
       $database -> bootEloquent();
+      // 判断是否开启LOG日志
+      if(C('database_log','sys')){
+        Illuminate\Database\Capsule\Manager::connection()->enableQueryLog();
+      }
     }
     return Illuminate\Database\Capsule\Manager::table($table);
+}
+// 获取数据库操作sql日志
+function DB_LOG(){
+    return \Illuminate\Database\Capsule\Manager::getQueryLog();
 }
 /**
  * [M 创建一个虚拟的Model]

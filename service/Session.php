@@ -26,6 +26,10 @@ class Session{
             $database->setAsGlobal();
             // 启动Eloquent
             $database -> bootEloquent();
+            // 判断是否开启LOG日志
+			if(C('database_log','sys')){
+				DB::connection()->enableQueryLog();
+			}
 		}
 		// 获取session 有效时间
 		$this -> lifetime = C('session_lifetime','sys');
