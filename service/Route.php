@@ -16,18 +16,35 @@ class Route{
 			// 获取控制器名称
 			$route = explode('/',$route_url);
 		}
-		// 加载默认配置
+		// 判断A是否为空
 		if(count($route)==2){
-
+			
 			// 加载部分配置
 			$route[2] = C('default_a_name','app');
+
+		// 判断CA是否为空
 		}else if(count($route)==1){
 
 			$route[1] = C('default_c_name','app');
 			$route[2] = C('default_a_name','app');
+		
+		// 判断是否MAC都为空
 		}else if(count($route)==0){
+			
+			// 判断是否存在Host绑定
+			if(empty(C($_SERVER['HTTP_HOST'],'host'))){
+			
+				// 加载默认的模块
+				$route[0] = C('default_m_name','app');
+			
+			}else{
+			
+				// 加载Host绑定的模块
+				$route[0] = C($_SERVER['HTTP_HOST'],'host');
+			
+			}
+			
 			// 加载部分配置
-			$route[0] = C('default_m_name','app');
 			$route[1] = C('default_c_name','app');
 			$route[2] = C('default_a_name','app');
 		}
@@ -42,6 +59,11 @@ class Route{
 
 		// 获取全局视图路径
 		global $view_path;
+		
+		// 判断模块是否存在
+		if(!file_exists(ROOT_PATH.'app/'.$route[0])){
+			echo $route[0].'模块找不到';
+		}
 
 		// 定义视图模板路径
 		$view_path = [ROOT_PATH.'app/'.$route[0].'/View',ROOT_PATH.'template/'];
@@ -49,10 +71,10 @@ class Route{
 		// 判断控制器文件是否存在
 		if(file_exists(ROOT_PATH.'app/'.$route[0].'/Controller/'.$route[1].'.php')){
 			// 获取控制器名称
-			$name = 'App\\'.$route[0].'\Controller\\'.$route[1];
+			$className = 'App\\'.$route[0].'\Controller\\'.$route[1];
 
 			// 实例化控制器
-			$controller = new $name;
+			$controller = new $className;
 
 			// 判断控制器内操作是否存在
 			if(method_exists($controller,$route[2])){
@@ -62,10 +84,12 @@ class Route{
 
 			}else{
 
-				echo '控制器内的操作找不到';
+				// 指定操作名找不到
+				throw new \Exception($route[2].'操作 找不到');
 			}
 		}else{
-			echo '控制器找不到';
+			// 指定控制器找不到
+			throw new \Exception($route[1].'控制器找不到');
 		}
 	}
 }
