@@ -102,7 +102,12 @@ function env($param,$default){
     global $env;
     // 判断配置文件是否加载过
     if(!isset($env)){
-        $env = require(ROOT_PATH.'env.php');
+        // 判断指定文件是否存在
+        if(file_exists(ROOT_PATH.'env.php')){
+            $env = require(ROOT_PATH.'env.php');
+        }else{
+            return false;
+        }
     }
     // 是否读取全部配置
     if($param=='all'){
