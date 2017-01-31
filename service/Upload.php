@@ -47,7 +47,7 @@ class Upload{
         // 判断是是否存在错误信息
         if ($err === null) {
             // 如果不存在错误信息则直接返回上传成功文件名及地址
-            return 'http://oi9n5eegf.bkt.clouddn.com/'.$ret['key'];
+            return C('Bucket_Host','sys').$ret['key'];
         }else{
             // 如果上传失败则直接返回假
             return false;
