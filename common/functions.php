@@ -139,8 +139,14 @@ function C($key,$type='app',$value='defaultValue'){
     global $config;
     // 判断配置文件是否加载过
     if(!isset($config[$type])){
-        $config[$type] = require(ROOT_PATH.'config/'.$type.'.php');
+        // 判断配置文件是否存在
+        if(file_exists(ROOT_PATH.'config/'.$type.'.php')){
+            $config[$type] = require(ROOT_PATH.'config/'.$type.'.php');
+        }else{
+            return false;
+        }
     }
+    
     // 是否读取全部配置
     if($key=='all'){
         // 判断操作是读还是写
