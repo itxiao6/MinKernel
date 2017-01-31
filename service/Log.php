@@ -1,7 +1,5 @@
 <?php
 namespace Service;
-use Illuminate\Container\Container;
-use Illuminate\Database\Capsule\Manager as DB;
 /**
  * 日志处理类
  */
@@ -28,7 +26,7 @@ class Log {
             $database -> bootEloquent();
         }
         // 查询系统表
-        $result = (Array) DB::table('information_schema.TABLES')
+        $result = (Array) DB('information_schema.TABLES')
             ->where(['table_name'=>self::TABLE,'TABLE_SCHEMA'=>C('read','database')['database']])
             ->first();
         // 判断session表是否已经创建
@@ -56,7 +54,7 @@ class Log {
         // 初始化log类
         self::init();
         // 写入数据
-        return DB::table(self::TABLE) -> insert([
+        return DB(self::TABLE) -> insert([
                 'type'=>$type,
                 'message'=>$message,
                 'sql'=>$sql,

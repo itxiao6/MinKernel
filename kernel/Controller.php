@@ -22,8 +22,7 @@ class Controller{
   protected $mail;
 
   public function __construct(){
-    // 获取视图实例
-    $this -> viewObject = View::getView();
+    
   }
 
   /** 渲染模板
@@ -32,6 +31,8 @@ class Controller{
    * @return [渲染好的模板]
    */
   protected function display($view='default',Array $data = []){
+    // 获取视图实例
+    $this -> viewObject = View::getView();
     // 判断是否传入的模板名称
     if($view=='default'){$view = CONTROLLER_NAME.'.'.ACTION_NAME;}
     // 判断是否传了要分配的值

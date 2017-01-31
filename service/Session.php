@@ -14,27 +14,10 @@ class Session{
 	* 构造函数
 	*/
 	public function __construct(){
-		// 获取全局的数据库连接
-		global $database;
-		// 判断数据库是否已经连接
-		if ( $database === false ) {
-			// 连接数据库
-            $database = new DB;
-            // 载入数据库配置
-            $database->addConnection(C('all','database'));
-            // 设置全局静态可访问
-            $database->setAsGlobal();
-            // 启动Eloquent
-            $database -> bootEloquent();
-            // 判断是否开启LOG日志
-			if(C('database_log','sys')){
-				DB::connection()->enableQueryLog();
-			}
-		}
 		// 获取session 有效时间
 		$this -> lifetime = C('session_lifetime','sys');
 		// 查询系统表
-		$result = (Array) DB::table('information_schema.TABLES')
+		$result = (Array) DB('information_schema.TABLES')
 			->where(['table_name'=>$this -> table,'TABLE_SCHEMA'=>C('read','database')['database']])
 			->first();
 		// 判断session表是否已经创建
@@ -82,7 +65,7 @@ class Session{
 	* @return string 读取session_id
 	*/
 	public function read($sessionId) {
-		$result = (Array) DB::table($this -> table) -> find($sessionId);
+		$result = (Array) DB($this -> table) -> find($sessionId);
 		if(count($result) == 4){
 			return $result['data'];
 		}else{
@@ -103,12 +86,12 @@ class Session{
 			'ip' => (String) $_SERVER["REMOTE_ADDR"],
 			'last_visit' => (Int) time(),
 		);
-		$res = (Array) DB::table($this -> table) -> find($sessionId);
+		$res = (Array) DB($this -> table) -> find($sessionId);
 		if(count($res) == 4){
 			unset($sessionData['id']);
-			return (Bool) DB::table($this -> table) -> where(['id'=>$sessionId]) ->update($sessionData);
+			return (Bool) DB($this -> table) -> where(['id'=>$sessionId]) ->update($sessionData);
 		}else{
-			return (Bool) DB::table($this -> table)->insert($sessionData);
+			return (Bool) DB($this -> table)->insert($sessionData);
 		}
 	}
 	/**
@@ -118,7 +101,7 @@ class Session{
 	* @return bool
 	*/
 	public function destroy($sessionId){
-		return (Bool) DB::table($this -> table)->where('last_visit', '<',time() - $this -> lifetime)->where('id', '=',$session_id)->delete();
+		return (Bool) DB($this -> table)->where('last_visit', '<',time() - $this -> lifetime)->where('id', '=',$session_id)->delete();
 
 	}
 	/**
@@ -127,6 +110,6 @@ class Session{
 	* @return bool
 	*/
 	public function gc($lifetime='1') {
-		return (Bool) DB::table($this -> table)->where('last_visit', '<',time() - $this -> lifetime)->delete();
+		return (Bool) DB($this -> table)->where('last_visit', '<',time() - $this -> lifetime)->delete();
 	}
 }
