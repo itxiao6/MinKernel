@@ -46,5 +46,5 @@ MiniKernel使用简介</h1>
 &nbsp;&nbsp;&nbsp;&nbsp;数据库操作采用的是 Eloquent 表现力极强 Laravel自带的也是Eloquent<br></p>
 
 <p>使用说明:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;1.安装Composer<br>
+&nbsp;&nbsp;&nbsp;&nbsp;1.安装Composer<p><a href="http://docs.phpcomposer.com/">Composer官网</a>></p><br>
 &nbsp;&nbsp;&nbsp;&nbsp;2.在当前目录执行composer install<br></p>
