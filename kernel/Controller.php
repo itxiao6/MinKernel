@@ -40,6 +40,10 @@ class Controller{
       // 分配模板的数组合并
       $this -> assign($data);
     }
+    // 判断模板是否存在
+    if(!$this -> viewObject -> exists($view)){
+      throw new \Exception('找不到 '.$view.' 模板');
+    }
     // 渲染模板并输出
     exit( $this -> viewObject -> make($view,$this -> viewData));
   }
