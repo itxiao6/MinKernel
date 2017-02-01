@@ -12,7 +12,7 @@ MiniKernel使用简介</h1>
 <p>功能介绍<br>
 &nbsp;&nbsp;&nbsp;&nbsp;blade模板<br>
 &nbsp;&nbsp;&nbsp;&nbsp;Eloquent 数据库模型操作<br>
-&nbsp;&nbsp;&nbsp;&nbsp;主从数据库支持<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/itxiao6/MinKernel/wiki/%E4%B8%BB%E4%BB%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E6%94%AF%E6%8C%81">主从数据库支持</a><br>
 &nbsp;&nbsp;&nbsp;&nbsp;Session 数据库存储<br>
 &nbsp;&nbsp;&nbsp;&nbsp;phpmailer 邮件发送<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/itxiao6/MinKernel/wiki/%E9%AA%8C%E8%AF%81%E7%A0%81">验证码</a><br></p>
@@ -24,6 +24,6 @@ MiniKernel使用简介</h1>
 &nbsp;&nbsp;&nbsp;&nbsp;实现了M(表名)方法 可以直接调用实现虚拟一个模型出来直接使用<br>
 &nbsp;&nbsp;&nbsp;&nbsp;数据库操作采用的是 Eloquent 表现力极强 Laravel自带的也是Eloquent<br></p>
 
-<p>使用说明:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;1.安装Composer <a href="http://docs.phpcomposer.com/">Composer官网</a><br>
-&nbsp;&nbsp;&nbsp;&nbsp;2.在项目 目录执行composer install<br></p>
+<a href="https://github.com/itxiao6/MinKernel/wiki/%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE"><p>使用说明:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;1.安装Composer</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;2.在项目 目录执行composer install<br></p></a>
