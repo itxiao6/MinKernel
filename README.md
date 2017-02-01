@@ -1,6 +1,6 @@
 MiniKernel使用简介</h1>
 
-<p><br>更新介绍:<br>
+<p style="color:red;"><br>更新介绍:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;DB_LOG()获取当前请求所有的Sql<br>
 &nbsp;&nbsp;&nbsp;&nbsp;类似TP的隐式路由<br>
 &nbsp;&nbsp;&nbsp;&nbsp;DB()方法可以全局调用 等效DB::table()<br>
