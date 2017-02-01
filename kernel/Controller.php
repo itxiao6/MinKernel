@@ -22,7 +22,10 @@ class Controller{
   protected $mail;
 
   public function __construct(){
-    
+    // 判断初始化函数属否定义
+    if(method_exists($this,'init')){
+      $this -> init();
+    }
   }
 
   /** 渲染模板
