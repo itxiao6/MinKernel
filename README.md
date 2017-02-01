@@ -13,8 +13,8 @@ MiniKernel使用简介</h1>
 &nbsp;&nbsp;&nbsp;&nbsp;blade模板<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="https://laravel.com/api/4.2/Illuminate/Database/Eloquent/Model.html">Eloquent 数据库模型操作</a><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/itxiao6/MinKernel/wiki/%E4%B8%BB%E4%BB%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E6%94%AF%E6%8C%81">主从数据库支持</a><br>
-&nbsp;&nbsp;&nbsp;&nbsp;Session 数据库存储<br>
-&nbsp;&nbsp;&nbsp;&nbsp;phpmailer 邮件发送<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/itxiao6/MinKernel/wiki/Session-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%98%E5%82%A8">Session 数据库存储</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/itxiao6/MinKernel/wiki/%E9%82%AE%E4%BB%B6%E5%8F%91%E9%80%81">phpmailer 邮件发送</a><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/itxiao6/MinKernel/wiki/%E9%AA%8C%E8%AF%81%E7%A0%81">验证码</a><br></p>
 
 <p>设计思路<br>
