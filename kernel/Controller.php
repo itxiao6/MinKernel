@@ -1,6 +1,5 @@
 <?php
 namespace Kernel;
-use Nette\Mail\SmtpMailer;
 use Service\View;
 /**
 
