@@ -72,6 +72,7 @@ class Kernel{
 
             // 启动数据库储存方式的session
             new Session;
+            
         }else{
 
             // 修改session文件的储存位置

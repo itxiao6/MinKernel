@@ -112,6 +112,16 @@ class Controller{
   protected function info($title,$message,$content,$url=''){
     $this -> display('info',['title'=>$title,'message'=>$message,'url'=>$url]);
   }
+  /**
+     * Action跳转(URL重定向） 支持指定模块和延时跳转
+     * @access protected
+     * @param string $url 跳转的URL表达式
+     * @param String $params 其它URL参数
+     * @return void
+     */
+    protected function redirect($url,$params='') {
+        redirect(U($url,$params));
+    }
   // 析构方法
   public function __destruct(){
     $view = $this->view;

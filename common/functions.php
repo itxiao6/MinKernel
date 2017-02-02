@@ -1,7 +1,4 @@
 <?php
-use Illuminate\Container\Container;
-// 公用函数库
-
 
 
 /**
@@ -37,6 +34,40 @@ function ObjectToArray($array) {
      }
      return $array;
 }
+
+/**
+ * 生成URL
+ * @param 要生成的URL模块 $Model
+ * @param URL的参数 $params
+ * @return String 生成后的URL
+ */
+function U($Model='',$params='') {
+    // 判断参数是否数组
+    if(is_array($params)){
+        $url_params = '?';
+        foreach ($params as $key => $value) {
+            $url_params .= $key.'='.$value.'&'; 
+        }
+        rtrim($url_params,'&');
+    }else{
+        $url_params = $params;
+    }
+    // 判断是否要跳转到首页
+    if($Model==''){
+        return '/'.$url_params;
+    }
+    // 拆分参数
+    $data = explode('/',$Model);
+    // 判断是否完整
+    if(count($data)==2){
+        return '/'.APP_NAME.'/'.$data[0].'/'.$data[1].'.html'.$url_params;
+    }else if(count($data)==1){
+        return '/'.APP_NAME.'/'.CONTROLLER_NAME.'/'.$data[0].'.html'.$url_params;
+    }else if(count($data)==3){
+        return '/'.$data[0].'/'.$data[1].'/'.$data[2].'.html'.$url_params;
+    }
+}
+
 
 /**
  * 模拟提交参数，支持https提交 可用于各类api请求
