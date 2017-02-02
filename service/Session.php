@@ -65,10 +65,16 @@ class Session{
 	* @return string 读取session_id
 	*/
 	public function read($sessionId) {
+		// 查询数据
 		$result = (Array) DB($this -> table) -> find($sessionId);
+		// 判断是否存在数据
 		if(count($result) == 4){
+			// 更新最后更新时间
+			DB($this -> table) -> where(['id'=>$sessionId]) ->update(['last_visit'=>time()]);
+			// 返回数据
 			return $result['data'];
 		}else{
+			// 返回空
 			return null;
 		}
 	}
@@ -101,7 +107,7 @@ class Session{
 	* @return bool
 	*/
 	public function destroy($sessionId){
-		return (Bool) DB($this -> table)->where('last_visit', '<',time() - $this -> lifetime)->where('id', '=',$session_id)->delete();
+		return (Bool) DB($this -> table)->where('last_visit', '<',time() - $this -> lifetime)->where('id', '=',$sessionId)->delete();
 
 	}
 	/**
