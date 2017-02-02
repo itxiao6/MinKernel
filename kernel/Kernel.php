@@ -67,9 +67,6 @@ class Kernel{
         // 设置SessionCookie名称
         session_name('MiniKernelSession');
 
-        // 设置session有效期
-        session_set_cookie_params( C('session_lifetime','sys') );
-
         // 启动session
         if( C('session','sys') == 'database' ){
 
@@ -81,6 +78,9 @@ class Kernel{
             // 修改session文件的储存位置
             session_save_path(ROOT_PATH.'runtime/session/');
         }
+
+        // 设置session有效期
+        session_set_cookie_params( C('session_lifetime','sys') );
 
         // 启动session
         session_start();
