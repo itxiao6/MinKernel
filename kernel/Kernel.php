@@ -86,8 +86,9 @@ class Kernel{
         session_start();
 
         // 判断是否为API模式
-        if($argv){
-            $_SERVER['REDIRECT_URL'] = $argv[1];
+        $param_arr = getopt('U:');
+        if($param_arr['U']){
+            $_SERVER['REDIRECT_URL'] = $param_arr['U'];
         }
         // 加载路由
         Route::init();

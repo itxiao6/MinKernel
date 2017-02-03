@@ -5,7 +5,6 @@ use Service\Log;
 class Route{
 	// 解析路由
 	public static function init(){
-
 		// 过滤url
 		$_SERVER['REDIRECT_URL'] = preg_replace('!\.php$|\.html$|\.jsp$|\.aspx$|\.asp$!','',$_SERVER['REDIRECT_URL']);
 		// 替换开头的/
