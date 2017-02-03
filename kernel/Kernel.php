@@ -84,7 +84,11 @@ class Kernel{
 
         // 启动session
         session_start();
-        
+
+        // 判断是否为API模式
+        if($argv){
+            $_SERVER['REDIRECT_URL'] = $argv[1];
+        }
         // 加载路由
         Route::init();
 	}
