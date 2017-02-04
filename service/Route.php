@@ -87,11 +87,19 @@ class Route{
 				$controller -> $route[2]();
 
 			}else{
+				// 判断是否 存在此模板
+				if(file_exists(ROOT_PATH.'app/'.$route[0].'/View/'.$route[1].'/'.$route[2].'.html')){
+					$controller -> display();
+				}
 
 				// 指定操作名找不到
 				throw new \Exception('找不到 '.$route[2].' 操作');
 			}
 		}else{
+			// 判断是否 存在此模板
+			if(file_exists(ROOT_PATH.'app/'.$route[0].'/View/'.$route[1].'/'.$route[2].'.html')){
+				$controller -> display();
+			}
 			// 指定控制器找不到
 			throw new \Exception('找不到 '.$route[1].' 控制器');
 		}
