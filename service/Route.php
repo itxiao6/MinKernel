@@ -19,15 +19,19 @@ class Route{
 			// 定义路由信息为空
 			$route = [];
 		}
-
+		// 判断参数是否非法
+		if($route > 3){
+			throw new \Exception('URL参数非法:'.$_SERVER['REDIRECT_URL']);
+		}
 		// 判断A是否为空
+		if($route==3 && $route[2]==''){$route[2] = C('default_a_name','app');}
 		if(count($route)==2){
 
 			// 加载部分配置
 			$route[2] = C('default_a_name','app');
 
 		// 判断CA是否为空
-		}else if(count($route)==1){
+		}else if(count($route)==1 or $route[1]==''){
 
 			$route[1] = C('default_c_name','app');
 			$route[2] = C('default_a_name','app');
