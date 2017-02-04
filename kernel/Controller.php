@@ -32,7 +32,7 @@ class Controller{
    * @param  [Array] 要分配到模板引擎的变量
    * @return [渲染好的模板]
    */
-  protected function display($view='default',Array $data = []){
+  public function display($view='default',Array $data = []){
     // 获取视图实例
     $this -> viewObject = View::getView();
     // 判断是否传入的模板名称
