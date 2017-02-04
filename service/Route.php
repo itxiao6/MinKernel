@@ -20,7 +20,7 @@ class Route{
 			$route = [];
 		}
 		// 判断参数是否非法
-		if($route > 3){
+		if(count($route) > 3){
 			throw new \Exception('URL参数非法:'.$_SERVER['REDIRECT_URL']);
 		}
 		// 判断A是否为空
