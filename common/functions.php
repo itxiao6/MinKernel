@@ -18,6 +18,15 @@ function arrayToXml($arr){
     $xml.="</xml>";
     return $xml;
 }
+// 判断是否为微信访问
+function isweixin() {
+    $user_agent = $_SERVER['HTTP_USER_AGENT'];
+    if (strpos($user_agent, 'MicroMessenger') === false) {
+        return false;
+    } else {
+        return true;
+    }
+}
 
 /**
  * 对象类型数据转换成数组

@@ -57,6 +57,7 @@ class Kernel{
         define('IS_POST',       REQUEST_METHOD =='POST' ? true : false);
         define('IS_PUT',        REQUEST_METHOD =='PUT' ? true : false);
         define('IS_DELETE',     REQUEST_METHOD =='DELETE' ? true : false);
+        define('IS_WECHAT',     isweixin()     ==true ? true : false);
 
         // 定义全局数据库连接
         global $database;
