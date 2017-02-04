@@ -1,6 +1,7 @@
 <?php
 namespace Service;
 use Service\Log;
+use Kernel\Controller;
 // 路由类
 class Route{
 	// 解析路由
@@ -79,9 +80,10 @@ class Route{
 
 			// 实例化控制器
 			$controller = new $className;
-
+			// 定义display和魔术方法列表(不能作为操作名)
+			$magic = ['__construct','display','__destruct','__call','__callStatic','__get','__set','__isset','__unset','__sleep','__wakeup','__toString','__invoke','__set_state','__clone','__debugInfo'];
 			// 判断控制器内操作是否存在
-			if(method_exists($controller,$route[2])){
+			if(method_exists($controller,$route[2]) && (!in_array($route[2],$magic))){
 
 				// 实例化控制器
 				$controller -> $route[2]();
@@ -89,6 +91,7 @@ class Route{
 			}else{
 				// 判断是否 存在此模板
 				if(file_exists(ROOT_PATH.'app/'.$route[0].'/View/'.$route[1].'/'.$route[2].'.html')){
+					// 渲染模板
 					$controller -> display();
 				}
 
@@ -98,6 +101,9 @@ class Route{
 		}else{
 			// 判断是否 存在此模板
 			if(file_exists(ROOT_PATH.'app/'.$route[0].'/View/'.$route[1].'/'.$route[2].'.html')){
+				// 实例化控制器父类
+				$controller = new Controller;
+				// 渲染模板
 				$controller -> display();
 			}
 			// 指定控制器找不到
