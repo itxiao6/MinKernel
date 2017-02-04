@@ -15,13 +15,13 @@ class Kernel{
 
         //将时区设置为中国
         date_default_timezone_set("PRC");
-        
+
         // 设置协议头
         header("Content-Type:text/html;charset=utf-8");
-        
+
         // 判断是否下载了composer包
         if (file_exists(ROOT_PATH.'vendor/autoload.php')) {
-        
+
             // 引用Composer自动加载规则
             require(ROOT_PATH.'vendor/autoload.php');
         }else{
@@ -50,7 +50,7 @@ class Kernel{
         }
         // 加载公用函数库
         require(ROOT_PATH.'common/functions.php');
-        
+
         // 定义请求常量
         define('REQUEST_METHOD',$_SERVER['REQUEST_METHOD']);
         define('IS_GET',        REQUEST_METHOD =='GET' ? true : false);
@@ -72,7 +72,7 @@ class Kernel{
 
             // 启动数据库储存方式的session
             new Session;
-            
+
         }else{
 
             // 修改session文件的储存位置

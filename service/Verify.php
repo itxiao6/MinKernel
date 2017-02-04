@@ -78,7 +78,7 @@ class Verify {
         if(strtoupper($_SESSION['verify_code'][$id]) ==  strtoupper($code)){
             return true;
         }else{
-            return false;            
+            return false;
         }
     }
 

@@ -9,7 +9,7 @@ class Route{
 		$_SERVER['REDIRECT_URL'] = preg_replace('!\.php$|\.html$|\.jsp$|\.aspx$|\.asp$!','',$_SERVER['REDIRECT_URL']);
 		// 替换开头的/
 		$route_url = preg_replace('!^/!','',$_SERVER['REDIRECT_URL']);
-		
+
 		// 判断访问的是否为首页
 		if($route_url != ''){
 			// 获取控制器名称
@@ -21,7 +21,7 @@ class Route{
 
 		// 判断A是否为空
 		if(count($route)==2){
-			
+
 			// 加载部分配置
 			$route[2] = C('default_a_name','app');
 
@@ -30,23 +30,23 @@ class Route{
 
 			$route[1] = C('default_c_name','app');
 			$route[2] = C('default_a_name','app');
-		
+
 		// 判断是否MAC都为空
 		}else if(count($route)==0){
-			
+
 			// 判断是否存在Host绑定
 			if(empty(C($_SERVER['HTTP_HOST'],'host'))){
-			
+
 				// 加载默认的模块
 				$route[0] = C('default_m_name','app');
-			
+
 			}else{
-			
+
 				// 加载Host绑定的模块
 				$route[0] = C($_SERVER['HTTP_HOST'],'host');
-			
+
 			}
-			
+
 			// 加载部分配置
 			$route[1] = C('default_c_name','app');
 			$route[2] = C('default_a_name','app');

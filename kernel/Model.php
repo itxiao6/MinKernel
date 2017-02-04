@@ -96,7 +96,7 @@ class Model extends Eloquent{
         DB::connection()->enableQueryLog();
       }
     }
-    
+
     // 判断实例化的时候已经制定了表名
     $this -> table = $tableName;
     // 判断是否定义了自定义初始化方法

@@ -46,7 +46,7 @@ function U($Model='',$params='') {
     if(is_array($params)){
         $url_params = '?';
         foreach ($params as $key => $value) {
-            $url_params .= $key.'='.$value.'&'; 
+            $url_params .= $key.'='.$value.'&';
         }
         rtrim($url_params,'&');
     }else{
@@ -155,7 +155,7 @@ function C($key,$type='app',$value='defaultValue'){
             return false;
         }
     }
-    
+
     // 是否读取全部配置
     if($key=='all'){
         // 判断操作是读还是写
@@ -247,7 +247,12 @@ function DB($table) {
 }
 // 获取数据库操作sql日志
 function DB_LOG(){
-    return \Illuminate\Database\Capsule\Manager::getQueryLog();
+    // 判断是否开启了DB_log
+    if(C('database_log','sys')){
+        return \Illuminate\Database\Capsule\Manager::getQueryLog();
+    }else{
+        throw new \Exception('未开启DB_log');
+    }
 }
 /**
  * [M 创建一个虚拟的Model]
