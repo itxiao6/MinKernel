@@ -58,6 +58,14 @@ class Kernel{
         define('IS_PUT',        REQUEST_METHOD =='PUT' ? true : false);
         define('IS_DELETE',     REQUEST_METHOD =='DELETE' ? true : false);
         define('IS_WECHAT',     isweixin()     ==true ? true : false);
+        // 数据缓存目录
+        define('CACHE_DATA',    ROOT_PATH.'runtime/data/');
+        // 会话session目录
+        define('CACHE_SESSION',    ROOT_PATH.'runtime/session/');
+        // 模板编译目录
+        define('CACHE_VIEW',    ROOT_PATH.'runtime/view/');
+        // LOG目录
+        define('CACHE_LOG',    ROOT_PATH.'runtime/log/');
 
         // 定义全局数据库连接
         global $database;

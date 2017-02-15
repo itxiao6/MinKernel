@@ -1,5 +1,7 @@
 <?php
 namespace App\Home\Controller;
+use Thenbsp\Wechat\Wechat\AccessToken;
+use Doctrine\Common\Cache\FilesystemCache;
 /**
 * 初始欢迎页
 */

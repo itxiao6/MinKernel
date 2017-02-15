@@ -1,7 +1,7 @@
 MiniKernel使用简介</h1>
 
 <p style="color:red;"><br>更新介绍:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;常亮:IS_POST IS_GET IS_AJAX IS_WECHAT IS_PUT IS_DELETE<br>
+&nbsp;&nbsp;&nbsp;&nbsp;常量: CACHE_DATA CACHE_SESSION CACHE_VIEW CACHE_LOG IS_POST IS_GET IS_AJAX IS_WECHAT IS_PUT IS_DELETE<br>
 &nbsp;&nbsp;&nbsp;&nbsp;API 模式 可使用 系统命令:php ./public/index.php -U /Home/Index/index.html<br>
 &nbsp;&nbsp;&nbsp;&nbsp;U('App/Controller/Action') 可简写 用于生成URL<br>
 &nbsp;&nbsp;&nbsp;&nbsp;DB_LOG()获取当前请求所有的Sql<br>
