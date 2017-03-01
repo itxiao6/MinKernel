@@ -4,7 +4,7 @@ return [
 	// 数据库主机
 	'dbhost'=>'localhost',
 	// 数据库名称
-	'database'=>'demo',
+	'database'=>'test',
 	// 数据库用户名
 	'username'=>'root',
 	// 数据库密码
@@ -15,9 +15,9 @@ return [
 	'log'=>'file',// file\database
 	// 七牛云存储参数
     'Bucket_Name'=>'',// 空间名称
+    'Bucket_Host'=>'',// 空间名称
     'accessKey'=>'',// 空间名称
     'secretKey'=>'',// 空间名称
-    'Bucket_Host'=>'',// 空间域名
 
 
 ];

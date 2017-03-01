@@ -1,17 +1,54 @@
 <?php
 
+
+// 获取excel表文件
+function get_excel($data,$filename='数据表'){
+    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    header('Content-Disposition: attachment;filename='.$filename.'.xlsx');
+    header('Cache-Control: max-age=0');
+    // 默认跳过第一行表头
+    // 更多使用请查看 src\Excel 注释
+    \YExcel\Excel::put('php://output', $data);
+    exit();
+}
+
+// 请求获取url
+function get_url(){
+    if(isset($_SERVER['REQUEST_URI'])){
+        $uri=$_SERVER['REQUEST_URI'];
+    }else{
+        if(isset($_SERVER['argv'])){
+            $uri=$_SERVER['PHP_SELF'].'?'.$_SERVER['argv'][0];
+        }else{
+            $uri=$_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING'];
+        }
+    }
+    return$uri;
+}
+
 /**
 * [get_page 获取分页]
 * @param [Int] $num [一页条数]
 * @param [String] $type [返回类型]
 * @return [Object] $this [本对象]
 */
-function get_page($num,$object,$type='Array'){
+function get_page($num,$object,$type='Array',$where=[]){
+    // 获取get url
+    if(count($where)<=0){$where = $_GET;}
+    // 定义where_url
+    $where_url = '';
+    // 循环链接 条件连续字符串
+    foreach ($where as $key => $value) {
+        if($key!='page'){
+            $where_url .= $key.'='.$value.'&';
+        }
+    }
     // 判断当前页数不能为空
     if($_GET['page'] < 1){$_GET['page'] = 1;}else{$_GET['page']+=0;}
 
     // 数据集合(对象)
     $data['data'] = $object -> skip($num * ($_GET['page']-1))->take($num * ($_GET['page'])) -> get();
+    // dump($object);
 
     // 数据总条数
     $data['total'] = $object -> count();
@@ -29,7 +66,7 @@ function get_page($num,$object,$type='Array'){
     if($_GET['page'] < $data['last_page']){
 
         // 下一页链接地址
-        $data['next_page_url'] = '?page='.($_GET['page'] + 1);
+        $data['next_page_url'] = '?'.$where_url.'page='.($_GET['page'] + 1);
 
     }else{
 
@@ -41,7 +78,7 @@ function get_page($num,$object,$type='Array'){
     if($_GET['page'] > 1){
 
         // 上一页链接地址
-        $data['prev_page_url'] = '?page='.($_GET['page'] - 1);
+        $data['prev_page_url'] = '?'.$where_url.'page='.($_GET['page'] - 1);
 
     }else{
 
@@ -67,7 +104,6 @@ function get_page($num,$object,$type='Array'){
 
     }
 }
-
 
 /**
  * 数组转换成XML
@@ -324,6 +360,11 @@ function DB($table) {
 }
 // 获取数据库操作sql日志
 function DB_LOG(){
+    // 获取全局的数据库连接
+    global $database;
+    if($database===false){
+        return false;
+    }
     // 判断是否开启了DB_log
     if(C('database_log','sys')){
         return \Illuminate\Database\Capsule\Manager::getQueryLog();
@@ -375,31 +416,31 @@ function M($tableName='',$key='id'){
  * @param boolean $strict 是否严谨 默认为true
  * @return void|string
  */
-function dump($var, $echo=true, $label=null, $strict=true) {
-    $label = ($label === null) ? '' : rtrim($label) . ' ';
-    if (!$strict) {
-        if (ini_get('html_errors')) {
-            $output = print_r($var, true);
-            $output = '<pre>' . $label . htmlspecialchars($output, ENT_QUOTES) . '</pre>';
-        } else {
-            $output = $label . print_r($var, true);
-        }
-    } else {
-        ob_start();
-        var_dump($var);
-        $output = ob_get_clean();
-        if (!extension_loaded('xdebug')) {
-            $output = preg_replace('/\]\=\>\n(\s+)/m', '] => ', $output);
-            $output = '<pre>' . $label . htmlspecialchars($output, ENT_QUOTES) . '</pre>';
-        }
-    }
-    if ($echo) {
-        echo($output);
-        return null;
-    }else{
-        return $output;
-    }
-}
+// function dump($var, $echo=true, $label=null, $strict=true) {
+//     $label = ($label === null) ? '' : rtrim($label) . ' ';
+//     if (!$strict) {
+//         if (ini_get('html_errors')) {
+//             $output = print_r($var, true);
+//             $output = '<pre>' . $label . htmlspecialchars($output, ENT_QUOTES) . '</pre>';
+//         } else {
+//             $output = $label . print_r($var, true);
+//         }
+//     } else {
+//         ob_start();
+//         var_dump($var);
+//         $output = ob_get_clean();
+//         if (!extension_loaded('xdebug')) {
+//             $output = preg_replace('/\]\=\>\n(\s+)/m', '] => ', $output);
+//             $output = '<pre>' . $label . htmlspecialchars($output, ENT_QUOTES) . '</pre>';
+//         }
+//     }
+//     if ($echo) {
+//         echo($output);
+//         return null;
+//     }else{
+//         return $output;
+//     }
+// }
 
 /**
  * 判断是否SSL协议

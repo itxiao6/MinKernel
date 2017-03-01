@@ -1,5 +1,7 @@
 <?php
 namespace Service;
+use Illuminate\Container\Container;
+use Illuminate\Database\Capsule\Manager as DB;
 /**
  * 日志处理类
  */

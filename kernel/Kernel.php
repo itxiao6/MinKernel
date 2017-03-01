@@ -4,6 +4,7 @@ use Whoops\Run;
 use Whoops\Handler\PrettyPageHandler;
 use Service\Session;
 use Service\Route;
+use DebugBar\StandardDebugBar;
 /**
 * 框架核心类
 */
@@ -50,6 +51,14 @@ class Kernel{
         }
         // 加载公用函数库
         require(ROOT_PATH.'common/functions.php');
+        // 定义全局变量
+        global $debugbar;
+        global $debugbarRenderer;
+        global $database;
+
+        // 启动DEBUGBAR
+        $debugbar = new StandardDebugBar();
+        $debugbarRenderer = $debugbar->getJavascriptRenderer();
 
         // 定义请求常量
         define('REQUEST_METHOD',$_SERVER['REQUEST_METHOD']);
@@ -58,17 +67,6 @@ class Kernel{
         define('IS_PUT',        REQUEST_METHOD =='PUT' ? true : false);
         define('IS_DELETE',     REQUEST_METHOD =='DELETE' ? true : false);
         define('IS_WECHAT',     isweixin()     ==true ? true : false);
-        // 数据缓存目录
-        define('CACHE_DATA',    ROOT_PATH.'runtime/data/');
-        // 会话session目录
-        define('CACHE_SESSION',    ROOT_PATH.'runtime/session/');
-        // 模板编译目录
-        define('CACHE_VIEW',    ROOT_PATH.'runtime/view/');
-        // LOG目录
-        define('CACHE_LOG',    ROOT_PATH.'runtime/log/');
-
-        // 定义全局数据库连接
-        global $database;
 
         // 定义全局数据库链接为未连接
         $database = false;

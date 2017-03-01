@@ -105,17 +105,4 @@ class Model extends Eloquent{
       $this -> init();
     }
   }
-
-  /**
-   * [setKey 定义主键]
-   * @param [type] $key [表的主键]
-   * @return [Object] $this [本对象]
-   */
-  public function setKey($key){
-    $this -> primaryKey = $key;
-    return $this;
-  }
-
-
-
 }

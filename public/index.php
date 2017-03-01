@@ -1,6 +1,7 @@
 <?php
 // php版本检测
 if( PHP_VERSION <= 5.5 ){ exit('PHP version <= 5.6'); }
+// var_dump($_SERVER);die();
 // 定义项目根目录
 define('ROOT_PATH',__DIR__.'/../');
 // 开启调试模式

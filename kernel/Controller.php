@@ -1,6 +1,7 @@
 <?php
 namespace Kernel;
 use Service\View;
+use Service\Log;
 /**
 
 * 控制器父类
@@ -16,6 +17,12 @@ class Controller{
 
   // 视图数据
   protected $viewData = [];
+
+  // 邮件对象
+  protected $mail;
+
+  // 本请求是否渲染了模板
+  protected $is_display = false;
 
   public function __construct(){
     // 判断初始化函数属否定义
@@ -43,8 +50,10 @@ class Controller{
     if(!$this -> viewObject -> exists($view)){
       throw new \Exception('找不到 '.$view.' 模板');
     }
+    // 设置本请求渲染了模板
+    $this -> is_display = true;
     // 渲染模板并输出
-    exit( $this -> viewObject -> make($view,$this -> viewData));
+    echo $this -> viewObject -> make($view,$this -> viewData);
   }
 
   /** 分配变量值
@@ -120,6 +129,25 @@ class Controller{
     }
   // 析构方法
   public function __destruct(){
+  	// 获取全局变量
+  	global $debugbar;
+    global $debugbarRenderer;
+    // 遍历sql
+    foreach (DB_LOG() as $key => $value) {
+    	// if(APP_NAME=='Admin'){
+    		$debugbar["messages"]->addMessage('语句:'.$value['query'].' 耗时:'.$value['time'].' 参数:'.json_encode($value['bindings']));
+    	// }
+    }
+    // 判断是否开启了 debugbar
+    if(C('debugbar','sys') && $this -> is_display){
+      echo preg_replace('!\/vendor\/maximebf\/debugbar\/src\/DebugBar\/!','/',$debugbarRenderer->renderHead());
+    }
+    // 判断是否开启了 debugbar
+    if(C('debugbar','sys') && $this -> is_display){
+      echo $debugbarRenderer->render();
+    }
+    // 写入Log
+    Log::write(APP_NAME.'访问Log','访问log',json_encode(DB_LOG()));
     $view = $this->view;
     if ( $view instanceof View ) {
       extract($view->data);

@@ -13,5 +13,5 @@ return [
 		'accessKey'=>env('accessKey'),// 空间名称
 		'secretKey'=>env('secretKey'),// 空间名称
 		'Bucket_Host'=>env('Bucket_Host'),// 空间域名
-
+		'debugbar'=>true,// 是否开启调试面板
 	];

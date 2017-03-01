@@ -36,6 +36,7 @@ class Upload{
 
     }
     public function upload_one($upFile){
+        if($upFile['size']<1){return false;}
         // 设置要上传的文件名
         $this -> upLoadFileName = $upFile['tmp_name'];
         // 设置上传后的文件名

@@ -10,8 +10,10 @@
     "phpmailer/phpmailer": "~5.2",
     "XiaoLer/blade":"*",
     "qiniu/php-sdk":"*",
-    "thenbsp/wechat":"*",
-    "predis/predis":"*"
+    "predis/predis":"*",
+    "maximebf/debugbar":"*",
+    "thenbsp/wechat":"2.0.5",
+    "purocean/php-excel":"0.0.1"
   },
   "authors": [
     {

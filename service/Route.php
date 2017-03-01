@@ -6,10 +6,24 @@ use Kernel\Controller;
 class Route{
 	// 解析路由
 	public static function init(){
+		// 获取url
+		$uri = get_url();
+		// 定义请求URL
+		define('REQUEST_URI',$uri);
+		// 判断是否带get参数
+		if(strpos($uri,'?')!==false){
+			// 过滤get参数
+			$uri = substr($uri,0,strpos($uri,'?'));
+		}
+		// 判断是否传入的有点
+		if(strpos($uri,'.')!==false){
+			// 过滤脚本后缀名
+			$uri = substr($uri,0,strpos($uri,'.'));
+		}
 		// 过滤url
-		$_SERVER['REDIRECT_URL'] = preg_replace('!\.php$|\.html$|\.jsp$|\.aspx$|\.asp$!','',$_SERVER['REDIRECT_URL']);
+		$uri = preg_replace('!\.php$|\.html$|\.jsp$|\.aspx$|\.asp$!i','',$uri);
 		// 替换开头的/
-		$route_url = preg_replace('!^/!','',$_SERVER['REDIRECT_URL']);
+		$route_url = preg_replace('!^/!','',$uri);
 
 		// 判断访问的是否为首页
 		if($route_url != ''){
@@ -19,13 +33,34 @@ class Route{
 			// 定义路由信息为空
 			$route = [];
 		}
-		// 判断参数是否非法
-		if(count($route) > 3){
-			throw new \Exception('URL参数非法:'.$_SERVER['REDIRECT_URL']);
-		}
+		// 删除GET 的url
+		unset($_GET[preg_replace('!\.!','_',REQUEST_URI)]);
 
+		// 判断参数是否大于等于4
+		if(count($route) >= 4){
+			// 解析多余参数(伪静态)
+			for($i=3;$i <= count($route);$i++){
+				// 判断值是否存在
+				if(isset($route[$i+1])){
+					// 解析到GET里面
+					$_GET[$route[$i]] = $route[$i+1];
+					// 跳过已经取过的值
+					$i++;
+				}
+			}
+		}
+		// 过滤空参数
+		foreach ($route as $key => $value){
+			// 判断路由结果是否为空
+			if($value==''){
+				// 删除此路由
+				unset($route[$key]);
+			}
+		}
 		// 判断A是否为空
-		if(count($route)==3 && $route[2]==''){$route[2] = C('default_a_name','app');}
+		if(count($route)==3 && $route[2]==''){
+			$route[2] = C('default_a_name','app');
+		}
 
 		// 判断传了几个URL
 		if(count($route)==2){
