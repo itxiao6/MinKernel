@@ -11,7 +11,7 @@ class Index extends Base{
 	$data = [
 		['name'=>'进入商城','event'=>'view','val'=>'http://www.baidu.com'],
 		['pname'=>'个人中心',
-			['name'=>'我的订单','event'=>'view','val'=>'http://www.taobao.com']
+			['name'=>'我的订单','event'=>'view','val'=>'http://www.taobao.com'],
 			['name'=>'我的钱包','event'=>'view','val'=>'http://www.tianmao.com']
 		],
 		['name'=>'积分商城','event'=>'view','val'=>'http://www.jd.com']
