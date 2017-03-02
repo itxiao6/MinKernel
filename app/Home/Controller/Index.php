@@ -1,6 +1,7 @@
 <?php
 namespace App\Home\Controller;
 use Illuminate\Database\Capsule\Manager as DB;
+use Server\Wechat;
 /**
 * 初始欢迎页
 */
@@ -26,7 +27,8 @@ class Index extends Base{
 	// location_select
 	// media_id
 	// view_limited
-    $this -> success('Hwllo World','恭喜您框架搭建成功');
+	dump(Wechat::menu_create($data));
+    // $this -> success('Hwllo World','恭喜您框架搭建成功');
   }
 
 }
