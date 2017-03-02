@@ -8,7 +8,6 @@ use Thenbsp\Wechat\Wechat\ServerIp;
 use Thenbsp\Wechat\Wechat\ShortUrl;
 use Thenbsp\Wechat\OAuth\Client;
 use Thenbsp\Wechat\Bridge\Util;
-use Thenbsp\Wechat\OAuth\Qrcode;
 use Thenbsp\Wechat\Payment\Unifiedorder;
 use Thenbsp\Wechat\Payment\Notify;
 use Thenbsp\Wechat\Payment\Coupon\Cash;
@@ -66,7 +65,7 @@ class Wechat{
 		return self::$accessToken->getTokenString();
 	}
 	// 获取JSapi
-	protected static function get_jsapi($api,$debug==false){
+	protected static function get_jsapi($api,$debug=false){
 		// 判断是否已经获取过accessToken
 		if(self::$accessToken==false){
 			// 获取accessToken
@@ -168,7 +167,7 @@ class Wechat{
 			self::$user_accessToken->refresh();
 		}
 		// 获取用户信息
-		self::$userinfo = self::$user_accessToken->getUser();.
+		self::$userinfo = self::$user_accessToken->getUser();
 		// 过滤微信特殊表情符号(不过滤html)
 		self::$userinfo['nickname'] = Util::filterNickname(self::$userinfo['nickname']);
 		// 返回用户信息(可以toArray)
@@ -202,7 +201,7 @@ class Wechat{
 			self::$qr_accessToken->refresh();
 		}
 		// 获取用户信息
-		self::$userinfo = self::$qr_accessToken->getUser();.
+		self::$userinfo = self::$qr_accessToken->getUser();
 		// 过滤微信特殊表情符号(不过滤html)
 		self::$userinfo['nickname'] = Util::filterNickname(self::$userinfo['nickname']);
 		// 返回用户信息(可以toArray)
@@ -285,7 +284,7 @@ class Wechat{
 		}
 		</script>*/
 	}
-	public static function notitfy($callBack = function(){return false;}){
+	public static function notitfy($callBack){
 		// 初始化回调通知类
 		$notify = new Notify();
 		// 验证通知
@@ -298,7 +297,7 @@ class Wechat{
 		// $notify['out_trade_no'] 为订单号
 
 		// 调用回调方法
-		$callBack($notify);.
+		$callBack($notify);
 
 		// 返回成功标识
 		$notify->success('OK');
