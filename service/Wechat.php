@@ -18,9 +18,9 @@ use Thenbsp\Wechat\Message\Template\Sender;
 */
 class Wechat{
 	// appid
-	public static $appid = '';
+	public static $appid = 'wx47043402cb6041d6';
 	// appsecret
-	public static $appsecret = '';
+	public static $appsecret = '1ac54b4fb2bac578b8cc8f827fdc56e5';
 	// mch_id
 	public static $mch_id = '';
 	// key
@@ -360,6 +360,39 @@ class Wechat{
 		}
 		// 返回发送结果
 		return $msgid;
+	}
+	// 发布菜单
+	public static function create_menu($data){
+		// 判断是否已经获取过accessToken
+		if(self::$accessToken==false){
+			// 获取accessToken
+			self::get_access_token();
+		}
+		$buttons = [];
+		foreach ($data as $key => $value) {
+			if(isset($value['pname'])){
+				$button = new ButtonCollection($value['pname']);
+				foreach ($value as $k => $v) {
+					$button->addChild(new Button($v['name'],$v['event'],$v['val']));
+				}
+			}else{
+				$button->addChild(new Button($value['name'],$value['event'],$value['val']));
+			}
+			$buttons[] = $button;
+		}
+		// 发布菜单
+		$create = new Create(self::$accessToken);
+		foreach ($buttons as $key => $value) {
+			$create->add($value);
+		}
+		// 执行创建
+		try {
+		    $create->doCreate();
+		} catch (\Exception $e) {
+		    exit($e->getMessage());
+		}
+		// 返回结果
+		return $create;
 	}
 
 }
