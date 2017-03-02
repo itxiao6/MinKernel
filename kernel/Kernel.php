@@ -67,6 +67,10 @@ class Kernel{
         define('IS_PUT',        REQUEST_METHOD =='PUT' ? true : false);
         define('IS_DELETE',     REQUEST_METHOD =='DELETE' ? true : false);
         define('IS_WECHAT',     isweixin()     ==true ? true : false);
+        define('CACHE_DATA',    ROOT_PATH.'runtime/data/');
+        define('CACHE_LOG',    ROOT_PATH.'runtime/log/');
+        define('CACHE_SESSION', ROOT_PATH.'runtime/session/');
+        define('CACHE_VIEW',    ROOT_PATH.'runtime/view/');
 
         // 定义全局数据库链接为未连接
         $database = false;
