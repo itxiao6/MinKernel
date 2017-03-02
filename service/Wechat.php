@@ -13,6 +13,9 @@ use Thenbsp\Wechat\Payment\Notify;
 use Thenbsp\Wechat\Payment\Coupon\Cash;
 use Thenbsp\Wechat\Message\Template\Template;
 use Thenbsp\Wechat\Message\Template\Sender;
+use Thenbsp\Wechat\Menu\Button;
+use Thenbsp\Wechat\Menu\ButtonCollection;
+use Thenbsp\Wechat\Menu\Create;
 /**
 *
 */
@@ -362,26 +365,41 @@ class Wechat{
 		return $msgid;
 	}
 	// 发布菜单
-	public static function create_menu($data){
+	public static function menu_create($data){
+		// $data = [
+		// 	['name'=>'个人中心','two'=>
+		// 		[['name'=>'我的订单','event'=>'view','val'=>'http://www.taobao.com'],
+		// 		['name'=>'我的钱包','event'=>'view','val'=>'http://www.tianmao.com']]
+		// 	],
+		// 	['name'=>'进入商城','event'=>'view','val'=>'kjskldhskashklhkl'],
+		// 	['name'=>'进入商城','event'=>'view','val'=>'kjskldhskashklhkl']
+		// ];
 		// 判断是否已经获取过accessToken
 		if(self::$accessToken==false){
 			// 获取accessToken
 			self::get_access_token();
 		}
+		// 定义所有按钮
 		$buttons = [];
+		// 循环所有数据
 		foreach ($data as $key => $value) {
-			if(isset($value['pname'])){
-				$button = new ButtonCollection($value['pname']);
-				foreach ($value as $k => $v) {
+			if(isset($value['two'])){
+				$button = new ButtonCollection($value['name']);
+				// 循环二级菜单
+				foreach ($value['two'] as $k => $v) {
+					// 添加二级按钮
 					$button->addChild(new Button($v['name'],$v['event'],$v['val']));
 				}
 			}else{
-				$button->addChild(new Button($value['name'],$value['event'],$value['val']));
+				// 创建一级按钮
+				$button= new Button($value['name'],$value['event'],$value['val']);
 			}
+			// 累加按钮
 			$buttons[] = $button;
 		}
 		// 发布菜单
 		$create = new Create(self::$accessToken);
+		// 循环添加按钮
 		foreach ($buttons as $key => $value) {
 			$create->add($value);
 		}
