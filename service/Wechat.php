@@ -217,6 +217,26 @@ class Wechat{
 			// 设置订单内容
 			self::$unifiedorder->set($key,$value);
 		}
+		/* 参考
+		// 必填
+		$unifiedorder->set('body',          '微信支付测试商品');
+		$unifiedorder->set('total_fee',     1);
+		$unifiedorder->set('openid',        'OPENID');
+		$unifiedorder->set('trade_type',    'JSAPI');
+		$unifiedorder->set('out_trade_no',  date('YmdHis').mt_rand(10000, 99999));
+		$unifiedorder->set('notify_url',    'http://example.com/your-notify.php');
+
+		// 选填
+		$unifiedorder->set('device_info',   'WEB');
+		$unifiedorder->set('detail',        '商品详情');
+		$unifiedorder->set('attach',        '自定义附加数据');
+		$unifiedorder->set('fee_type',      'CNY');
+		$unifiedorder->set('time_start',    '20091225091010');
+		$unifiedorder->set('time_expire',   '20091227091010');
+		$unifiedorder->set('goods_tag',     'WXG');
+		$unifiedorder->set('limit_pay',     'no_credit');
+
+		 */
 		try {
 		    $response = self::$unifiedorder->getResponse();
 		} catch (\Exception $e) {
