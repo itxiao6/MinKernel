@@ -105,18 +105,6 @@ class Controller{
               Hook::listen('ajax_return',$data);
       }
   }
-  // 成功跳转
-  protected function success($title,$message,$url=''){
-    $this -> display('success',['title'=>$title,'message'=>$message,'url'=>$url]);
-  }
-  // 失败跳转
-  protected function error($title,$message,$content,$url=''){
-    $this -> display('error',['title'=>$title,'message'=>$message,'url'=>$url]);
-  }
-  // 输出信息
-  protected function info($title,$message,$content,$url=''){
-    $this -> display('info',['title'=>$title,'message'=>$message,'url'=>$url]);
-  }
   /**
      * Action跳转(URL重定向） 支持指定模块和延时跳转
      * @access protected
@@ -132,11 +120,11 @@ class Controller{
   	// 获取全局变量
   	global $debugbar;
     global $debugbarRenderer;
-    // 遍历sql
-    foreach (DB_LOG() as $key => $value) {
-    	// if(APP_NAME=='Admin'){
-    		$debugbar["messages"]->addMessage('语句:'.$value['query'].' 耗时:'.$value['time'].' 参数:'.json_encode($value['bindings']));
-    	// }
+    if(is_array(DB_LOG())){
+    	// 遍历sql
+	    foreach (DB_LOG() as $key => $value) {
+	    		$debugbar["messages"]->addMessage('语句:'.$value['query'].' 耗时:'.$value['time'].' 参数:'.json_encode($value['bindings']));
+	    }
     }
     // 判断是否开启了 debugbar
     if(C('debugbar','sys') && $this -> is_display){
@@ -147,7 +135,7 @@ class Controller{
       echo $debugbarRenderer->render();
     }
     // 写入Log
-    Log::write(APP_NAME.'访问Log','访问log',json_encode(DB_LOG()));
+    // Log::write(APP_NAME.'访问Log','访问log',json_encode(DB_LOG()));
     $view = $this->view;
     if ( $view instanceof View ) {
       extract($view->data);

@@ -34,9 +34,9 @@ use Event\Text;
 */
 class Wechat{
 	// appid
-	public static $appid = 'wx47043402cb6041d6';
+	public static $appid = '';
 	// appsecret
-	public static $appsecret = 'b88d5c55e22efefd91fa79c0996602c8';
+	public static $appsecret = '';
 	// mch_id
 	public static $mch_id = '';
 	// key
