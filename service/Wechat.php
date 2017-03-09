@@ -16,6 +16,19 @@ use Thenbsp\Wechat\Message\Template\Sender;
 use Thenbsp\Wechat\Menu\Button;
 use Thenbsp\Wechat\Menu\ButtonCollection;
 use Thenbsp\Wechat\Menu\Create;
+use Thenbsp\Wechat\Event\Event;
+use Thenbsp\Wechat\Event\EventHandler;
+use Thenbsp\Wechat\Event\EventListener;
+use Thenbsp\Wechat\Event\Event\Subscribe;
+// use Thenbsp\Wechat\Message\Entity\Text;
+use Thenbsp\Wechat\Message\Entity\Image;
+use Thenbsp\Wechat\Message\Entity\Voice;
+use Thenbsp\Wechat\Message\Entity\Video;
+use Thenbsp\Wechat\Message\Entity\Music;
+use Thenbsp\Wechat\Message\Entity\Article;
+use Thenbsp\Wechat\Message\Entity\ArticleItem;
+use Thenbsp\Wechat\User\User;
+use Event\Text;
 /**
 *
 */
@@ -23,7 +36,7 @@ class Wechat{
 	// appid
 	public static $appid = 'wx47043402cb6041d6';
 	// appsecret
-	public static $appsecret = '1ac54b4fb2bac578b8cc8f827fdc56e5';
+	public static $appsecret = 'b88d5c55e22efefd91fa79c0996602c8';
 	// mch_id
 	public static $mch_id = '';
 	// key
@@ -102,11 +115,17 @@ class Wechat{
 			// 获取accessToken
 			self::get_access_token();
 		}
+		// 初始化二维码类
+		self::$qrcode = new Qrcode(self::$accessToken);
 		// 缓存二维码票据
 		self::$qrcode->setCache(self::$cacheDriver);
 		// 判断是否使用了有效期(没有有效期则是永久二维码)
 		if($out_time==0){
-			self::$qrcode->getForever($param);
+			// 永久二维码
+			return self::$qrcode->getForever($param);
+		}else{
+			// 有时间限制的二维码
+			return self::$qrcode->getForever($param,$out_time);
 		}
 	}
 	// 获取微信服务器IP
@@ -131,16 +150,16 @@ class Wechat{
 			self::get_access_token();
 		}
 		// 初始化短连接接口
-		self::$shortUrl = new ShortUrl(self::$accessToken);
+		$shortUrl = new ShortUrl(self::$accessToken);
 		// 缓存短连接
-		self::$shortUrl->setCache(self::$cacheDriver);
+		$shortUrl->setCache(self::$cacheDriver);
 		// 返回短连接
-		return self::$shortUrl->toShort($url);
+		return $shortUrl->toShort($url);
 	}
 	// 获取用户授权信息
 	public static function get_Web_user_Access_Token($callBack){
 		// 判断是否已经生成过了
-		if($user_accessToken != false){
+		if(self::$user_accessToken != false){
 			// 直接返回
 			return self::$user_accessToken;
 		}
@@ -148,20 +167,23 @@ class Wechat{
 		self::$client = new Client(self::$appid, self::$appsecret);
 
 		// 指定授权成功跳转页面
-		$client->setRedirectUri($callBack);
+		self::$client->setRedirectUri($callBack);
+
+		// 设置scope作用域
+		self::$client->setScope('snsapi_userinfo');
 
 		// 判断是否为微信的回调
-		if( !isset($_GET['code']) ){
-		    header('Location: '.self::$client->getAuthorizeUrl());
+		if(empty($_GET['code'])){
+		    redirect(self::$client->getAuthorizeUrl());
 		}
 		// 获取用户AccessToken
-		self::$user_accessToken = $client->getAccessToken($_GET['code']);
+		self::$user_accessToken = self::$client->getAccessToken($_GET['code']);
 		// 返回用户授权(可toArray())
 		return self::$user_accessToken;
 	}
 	// 获取用户信息
 	public static function get_user_info($callBack){
-		if($user_accessToken==false){
+		if(self::$user_accessToken==false || (empty($_GET['code']) && empty($_GET['state'])) ){
 			self::get_Web_user_Access_Token($callBack);
 		}
 		// 判断accessToken是否有效
@@ -169,42 +191,9 @@ class Wechat{
 			// 刷新accessToken
 			self::$user_accessToken->refresh();
 		}
-		// 获取用户信息
-		self::$userinfo = self::$user_accessToken->getUser();
-		// 过滤微信特殊表情符号(不过滤html)
-		self::$userinfo['nickname'] = Util::filterNickname(self::$userinfo['nickname']);
-		// 返回用户信息(可以toArray)
-		return self::$userinfo;
-	}
-	// 二维码登录
-	public static function qrcode_login(){
-		// 判断是否已经生成过了
-		if($qr_accessToken != false){
-			// 直接返回
-			return self::$qr_accessToken;
-		}
-		self::$qr_loginclient = new Qrcode(self::$appid,self::$appsecret);
 
-		if( !isset($_GET['code']) ) {
-		    header('Location: '.self::$qr_loginclient->getAuthorizeUrl());
-		}
-		// 获取二维码登录的AccessToken
-		self::$qr_accessToken = self::$qr_loginclient->getAccessToken($_GET['code']);
-		// 返回二维码登录的AccessToken(可toArray())
-		return self::$qr_accessToken;
-	}
-	// 获取二维码登录用户信息
-	public static function get_qr_login_info($callBack=''){
-		if($qr_accessToken==false){
-			self::get_Web_user_Access_Token($callBack);
-		}
-		// 判断accessToken是否有效
-		if(!self::$qr_accessToken->isValid()){
-			// 刷新accessToken
-			self::$qr_accessToken->refresh();
-		}
 		// 获取用户信息
-		self::$userinfo = self::$qr_accessToken->getUser();
+		self::$userinfo = self::$user_accessToken->getUser()->toArray();
 		// 过滤微信特殊表情符号(不过滤html)
 		self::$userinfo['nickname'] = Util::filterNickname(self::$userinfo['nickname']);
 		// 返回用户信息(可以toArray)
@@ -411,6 +400,44 @@ class Wechat{
 		}
 		// 返回结果
 		return $create;
+	}
+	// 通过openid获取userInfo
+	public static function get_openid_user_info($openid){
+		// 判断是否已经获取过accessToken
+		if(self::$accessToken==false){
+			// 获取accessToken
+			self::get_access_token();
+		}
+		// 实例化用户类
+		$user = new User(self::$accessToken);
+
+		try{
+			$response = $user->get($openid);
+		}catch(\Exception $e){
+			exit($e->getMessage());
+		}
+		self::$userinfo = $response->toArray();
+		// 过滤微信特殊表情符号(不过滤html)
+		self::$userinfo['nickname'] = Util::filterNickname(self::$userinfo['nickname']);
+		return self::$userinfo;
+	}
+	// 监听事件
+	public static function event(){
+		// $callable = function(Event $event) {
+
+		    $entity = new Text();
+		    $entity->setContent('你好！（接口测试回复消息）');
+
+		    $event->setResponse($entity);
+		// };
+
+		// 注册事件
+		// $listener = new EventListener();
+		// $listener->addListener(Event\Text::class, $callable);
+
+		// // 处理事件
+		// $handler = new EventHandler();
+		// $handler->handle($listener);
 	}
 
 }

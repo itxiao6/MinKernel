@@ -291,40 +291,6 @@ function C($key,$type='app',$value='defaultValue'){
     }
 }
 /**
- * [L 读取 / 获取 语言]
- * @param [String] $key   [字段](如果为all则会返回本类型节点所有相)
- * @param [String] $type  [语言类型]
- * @param [String] $value [要动态修改的值]
- * @return  [<语言项的值>]
- */
-function L($key,$type='zh_en',$value='defaultValue'){
-	global $language;
-	// 判断配置文件是否加载过
-	if(!isset($language[$type])){
-		$language[$type] = require(ROOT_PATH.'common/language/'.$type.'.php');
-	}
-	// 是否读取全部配置
-	if($key=='all'){
-		// 判断操作是读还是写
-		if($value != 'defaultValue'){
-			// 修改值并返回
-			return $language[$type] = $value;
-		}else{
-			// 返回要取得的值
-			return $language[$type];
-		}
-	}else{
-		// 判断操作是读还是写
-		if($value != 'defaultValue'){
-			// 修改值并返回
-			return $language[$type][$key] = $value;
-		}else{
-			// 返回要取得的值
-			return $language[$type][$key];
-		}
-	}
-}
-/**
  * URL重定向
  * @param string $url 重定向的URL地址
  * @return void
@@ -408,39 +374,6 @@ function M($tableName='',$key='id'){
     // 返回实例化后的Model
     return $model;
 }
-/**
- * 浏览器友好的变量输出
- * @param mixed $var 变量
- * @param boolean $echo 是否输出 默认为True 如果为false 则返回输出字符串
- * @param string $label 标签 默认为空
- * @param boolean $strict 是否严谨 默认为true
- * @return void|string
- */
-// function dump($var, $echo=true, $label=null, $strict=true) {
-//     $label = ($label === null) ? '' : rtrim($label) . ' ';
-//     if (!$strict) {
-//         if (ini_get('html_errors')) {
-//             $output = print_r($var, true);
-//             $output = '<pre>' . $label . htmlspecialchars($output, ENT_QUOTES) . '</pre>';
-//         } else {
-//             $output = $label . print_r($var, true);
-//         }
-//     } else {
-//         ob_start();
-//         var_dump($var);
-//         $output = ob_get_clean();
-//         if (!extension_loaded('xdebug')) {
-//             $output = preg_replace('/\]\=\>\n(\s+)/m', '] => ', $output);
-//             $output = '<pre>' . $label . htmlspecialchars($output, ENT_QUOTES) . '</pre>';
-//         }
-//     }
-//     if ($echo) {
-//         echo($output);
-//         return null;
-//     }else{
-//         return $output;
-//     }
-// }
 
 /**
  * 判断是否SSL协议

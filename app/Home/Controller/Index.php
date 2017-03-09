@@ -7,8 +7,17 @@ use Service\Wechat;
 */
 
 class Index extends Base{
+  
+  public function test(){
+    echo 111;
+  }
   public function index(){
-    $this -> success('Hwllo World','恭喜您框架搭建成功');
+    
+  }
+
+  public function infos(){
+    // dump(1110);die;
+    $this -> display('Index.info');
   }
 
 }
