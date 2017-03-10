@@ -393,7 +393,7 @@ class Wechat{
 		return $create;
 	}
 	// 添加监听事件
-	public function addEvent($event,$callBack){
+	public static function addEvent($event,$callBack){
 		self::$callBack[$event] = $callBack;
 	}
 	// 监听事件
