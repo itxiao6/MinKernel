@@ -16,29 +16,18 @@ use Thenbsp\Wechat\Message\Template\Sender;
 use Thenbsp\Wechat\Menu\Button;
 use Thenbsp\Wechat\Menu\ButtonCollection;
 use Thenbsp\Wechat\Menu\Create;
-use Thenbsp\Wechat\Event\Event;
-use Thenbsp\Wechat\Event\EventHandler;
-use Thenbsp\Wechat\Event\EventListener;
-use Thenbsp\Wechat\Event\Event\Subscribe;
-// use Thenbsp\Wechat\Message\Entity\Text;
-use Thenbsp\Wechat\Message\Entity\Image;
-use Thenbsp\Wechat\Message\Entity\Voice;
-use Thenbsp\Wechat\Message\Entity\Video;
-use Thenbsp\Wechat\Message\Entity\Music;
-use Thenbsp\Wechat\Message\Entity\Article;
-use Thenbsp\Wechat\Message\Entity\ArticleItem;
-use Thenbsp\Wechat\User\User;
-use Event\Text;
 /**
 *
 */
 class Wechat{
 	// appid
-	public static $appid = '';
+	public static $appid = 'wx3940b7ca46b70f04';
 	// appsecret
-	public static $appsecret = '';
+	public static $appsecret = 'ce8fb9c4739fbfcd82a2a39a8a03a4ed';
 	// mch_id
 	public static $mch_id = '';
+	// Token
+	public static $token;
 	// key
 	public static $key = '';
 	// 缓存Dricer
@@ -65,6 +54,8 @@ class Wechat{
 	protected static $unifiedorder = false;
 	// 微信公众号支付配置
 	protected static $chooseWXPayConfig = false;
+	// 事件监听回调函数
+	protected static $callBack = [];
 
 
 
@@ -401,6 +392,97 @@ class Wechat{
 		// 返回结果
 		return $create;
 	}
+	// 添加监听事件
+	public function addEvent($event,$callBack){
+		self::$callBack[$event] = $callBack;
+	}
+	// 监听事件
+	public static function event(){
+		$result = self::xmlToArray($GLOBALS['HTTP_RAW_POST_DATA']);
+		// 关注
+		switch(strtolower($result['Event'])){
+			// 关注事件
+			case 'subscribe':
+				if(self::$callBack['subscribe']()){
+					self::$callBack['subscribe']();
+				}
+				break;
+			// 扫描二维码时已关注
+			case 'scansubscribe':
+				if(self::$callBack['scansubscribe']()){
+					self::$callBack['scansubscribe']();
+				}
+				break;
+			// 扫描二维码时已关注，直接进入会话事件
+			case 'scansubscribed':
+				if(self::$callBack['scansubscribed']()){
+					self::$callBack['scansubscribed']();
+				}
+				break;
+			// 取消关注事件
+			case 'unsubscribe':
+				if(self::$callBack['unsubscribe']()){
+					self::$callBack['unsubscribe']();
+				}
+				break;
+			// 文本消息
+			case 'text':
+				if(self::$callBack['text']()){
+					self::$callBack['text']();
+				}
+				break;
+			// 图片消息
+			case 'image':
+				if(self::$callBack['image']()){
+					self::$callBack['image']();
+				}
+				break;
+			// 语音消息
+			case 'voice':
+				if(self::$callBack['voice']()){
+					self::$callBack['voice']();
+				}
+				break;
+			// 语音消息
+			case 'shortvideo':
+				if(self::$callBack['shortvideo']()){
+					self::$callBack['shortvideo']();
+				}
+				break;
+			// 地理位置消息事件
+			case 'location':
+				if(self::$callBack['location']()){
+					self::$callBack['location']();
+				}
+				break;
+			// 链接消息事件
+			case 'link':
+				if(self::$callBack['link']()){
+					self::$callBack['link']();
+				}
+				break;
+			// 上报地理位置事件
+			case 'userlocation':
+				if(self::$callBack['userlocation']()){
+					self::$callBack['userlocation']();
+				}
+				break;
+			// 自定义菜单点击拉取消息事件
+			case 'menuclick':
+				if(self::$callBack['menuclick']()){
+					self::$callBack['menuclick']();
+				}
+				break;
+			// 自定义菜单跳转链接事件
+			case 'menuview':
+				if(self::$callBack['menuview']()){
+					self::$callBack['menuview']();
+				}
+				break;
+			default:
+				break;
+		}
+	}
 	// 通过openid获取userInfo
 	public static function get_openid_user_info($openid){
 		// 判断是否已经获取过accessToken
@@ -421,23 +503,48 @@ class Wechat{
 		self::$userinfo['nickname'] = Util::filterNickname(self::$userinfo['nickname']);
 		return self::$userinfo;
 	}
-	// 监听事件
-	public static function event(){
-		// $callable = function(Event $event) {
+	// Xml转Array
+	public static function xmlToArray($xml){
+		//禁止引用外部xml实体
+        libxml_disable_entity_loader(true);
+        // Xml -> Object -> Json -> Array
+        $values = json_decode(json_encode(simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA)), true);
+        // 返回结果
+        return $values;
+	}
+	// Array转Xml
+	public static function arrayToXml($arr){
+		// XML头
+		$xml = "<xml>";
+        foreach ($arr as $key=>$val){
+            if (is_numeric($val)){
+                $xml.="<".$key.">".$val."</".$key.">";
+            }else{
+                 $xml.="<".$key."><![CDATA[".$val."]]></".$key.">";
+            }
+        }
+        // XML尾
+        $xml.="</xml>";
+        return $xml;
+	}
+	// Token 验证
+	public function checkToken($token=''){
+		if($token==''){
+			$token = self::$token;
+		}
+        $signature = $_GET["signature"];
+        $timestamp = $_GET["timestamp"];
+        $nonce = $_GET["nonce"];
 
-		    $entity = new Text();
-		    $entity->setContent('你好！（接口测试回复消息）');
+	    $tmpArr = array($token, $timestamp, $nonce);
+	    // use SORT_STRING rule
+	    sort($tmpArr, SORT_STRING);
+	    $tmpStr = implode( $tmpArr );
+	    $tmpStr = sha1( $tmpStr );
 
-		    $event->setResponse($entity);
-		// };
-
-		// 注册事件
-		// $listener = new EventListener();
-		// $listener->addListener(Event\Text::class, $callable);
-
-		// // 处理事件
-		// $handler = new EventHandler();
-		// $handler->handle($listener);
+	    if( $tmpStr == $signature ){
+	      exit($_GET["echostr"]);
+	    }
 	}
 
 }
