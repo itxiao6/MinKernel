@@ -403,80 +403,80 @@ class Wechat{
 		switch(strtolower($result['Event'])){
 			// 关注事件
 			case 'subscribe':
-				if(self::$callBack['subscribe']()){
-					self::$callBack['subscribe']();
+				if(isset(self::$callBack['subscribe'])){
+					self::$callBack['subscribe']($result);
 				}
 				break;
 			// 扫描二维码时已关注
 			case 'scansubscribe':
-				if(self::$callBack['scansubscribe']()){
-					self::$callBack['scansubscribe']();
+				if(isset(self::$callBack['scansubscribe'])){
+					self::$callBack['scansubscribe']($result);
 				}
 				break;
 			// 扫描二维码时已关注，直接进入会话事件
 			case 'scansubscribed':
-				if(self::$callBack['scansubscribed']()){
-					self::$callBack['scansubscribed']();
+				if(isset(self::$callBack['scansubscribed'])){
+					self::$callBack['scansubscribed']($result);
 				}
 				break;
 			// 取消关注事件
 			case 'unsubscribe':
-				if(self::$callBack['unsubscribe']()){
-					self::$callBack['unsubscribe']();
+				if(isset(self::$callBack['unsubscribe'])){
+					self::$callBack['unsubscribe']($result);
 				}
 				break;
 			// 文本消息
 			case 'text':
-				if(self::$callBack['text']()){
-					self::$callBack['text']();
+				if(isset(self::$callBack['text'])){
+					self::$callBack['text']($result);
 				}
 				break;
 			// 图片消息
 			case 'image':
-				if(self::$callBack['image']()){
-					self::$callBack['image']();
+				if(isset(self::$callBack['image'])){
+					self::$callBack['image']($result);
 				}
 				break;
 			// 语音消息
 			case 'voice':
-				if(self::$callBack['voice']()){
-					self::$callBack['voice']();
+				if(isset(self::$callBack['voice'])){
+					self::$callBack['voice']($result);
 				}
 				break;
 			// 语音消息
 			case 'shortvideo':
-				if(self::$callBack['shortvideo']()){
-					self::$callBack['shortvideo']();
+				if(isset(self::$callBack['shortvideo'])){
+					self::$callBack['shortvideo']($result);
 				}
 				break;
 			// 地理位置消息事件
 			case 'location':
-				if(self::$callBack['location']()){
-					self::$callBack['location']();
+				if(isset(self::$callBack['location'])){
+					self::$callBack['location']($result);
 				}
 				break;
 			// 链接消息事件
 			case 'link':
-				if(self::$callBack['link']()){
-					self::$callBack['link']();
+				if(isset(self::$callBack['link'])){
+					self::$callBack['link']($result);
 				}
 				break;
 			// 上报地理位置事件
 			case 'userlocation':
-				if(self::$callBack['userlocation']()){
-					self::$callBack['userlocation']();
+				if(isset(self::$callBack['userlocation'])){
+					self::$callBack['userlocation']($result);
 				}
 				break;
 			// 自定义菜单点击拉取消息事件
 			case 'menuclick':
-				if(self::$callBack['menuclick']()){
-					self::$callBack['menuclick']();
+				if(isset(self::$callBack['menuclick'])){
+					self::$callBack['menuclick']($result);
 				}
 				break;
 			// 自定义菜单跳转链接事件
 			case 'menuview':
-				if(self::$callBack['menuview']()){
-					self::$callBack['menuview']();
+				if(isset(self::$callBack['menuview'])){
+					self::$callBack['menuview']($result);
 				}
 				break;
 			default:
