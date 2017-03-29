@@ -23,7 +23,7 @@
   	"psr-4": {
       "Kernel\\":"kernel/",
       "Service\\":"service/",
-  		  "App\\":"app/"
+  		"App\\":"app/"
   	}
   }
 }
