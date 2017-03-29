@@ -18,7 +18,7 @@ class Kernel{
         date_default_timezone_set("PRC");
 
         # 设置协议头
-        // header("Content-Type:text/html;charset=utf-8");
+        header("Content-Type:text/html;charset=utf-8");
         # 判断是否下载了composer包
         if (file_exists(ROOT_PATH.'vendor/autoload.php')) {
 
