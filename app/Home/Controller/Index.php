@@ -1,23 +1,13 @@
 <?php
 namespace App\Home\Controller;
-use Illuminate\Database\Capsule\Manager as DB;
-use Service\Wechat;
 /**
-* 初始欢迎页
+* 首页控制器
 */
 
 class Index extends Base{
-  
-  public function test(){
-    echo 111;
-  }
+  # 首页操作
   public function index(){
-    
+  	# 渲染模板
+    $this -> display();
   }
-
-  public function infos(){
-    // dump(1110);die;
-    $this -> display('Index.info');
-  }
-
 }

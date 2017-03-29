@@ -74,34 +74,73 @@ class Model extends Eloquent{
   protected $dateFormat;
 
   /**
+   * 获取当前时间
+   *
+   * @return int
+   */
+  public function freshTimestamp() {
+    return time();
+  }
+
+  /**
+   * 避免转换时间戳为时间字符串
+   *
+   * @param DateTime|int $value
+   * @return DateTime|int
+   */
+  public function fromDateTime($value) {
+    return $value;
+  }
+
+  /**
+   * select的时候避免转换时间为Carbon
+   *
+   * @param mixed $value
+   * @return mixed
+   */
+#  protected function asDateTime($value) {
+#	  return $value;
+#  }
+
+
+  /**
+   * 从数据库获取的为获取时间戳格式
+   *
+   * @return string
+   */
+  public function getDateFormat() {
+    return 'U';
+  }
+
+  /**
    * @param String 表名(可为空)
    */
   public function __construct($tableName=''){
-    // 调用父类构造方法
+    # 调用父类构造方法
     parent::__construct();
-    // 获取全局的数据库连接
+    # 获取全局的数据库连接
     global $database;
-    // 判断数据库是否已经连接
+    # 判断数据库是否已经连接
     if ( $database === false ) {
-      // 连接数据库
+      # 连接数据库
       $database = new DB;
-      // 载入数据库配置
+      # 载入数据库配置
       $database->addConnection(C('all','database'));
-      // 设置全局静态可访问
+      # 设置全局静态可访问
       $database->setAsGlobal();
-      // 启动Eloquent
+      # 启动Eloquent
       $database -> bootEloquent();
-      // 判断是否开启LOG日志
+      # 判断是否开启LOG日志
       if(C('database_log','sys')){
         DB::connection()->enableQueryLog();
       }
     }
 
-    // 判断实例化的时候已经制定了表名
+    # 判断实例化的时候已经制定了表名
     $this -> table = $tableName;
-    // 判断是否定义了自定义初始化方法
+    # 判断是否定义了自定义初始化方法
     if(method_exists($this,'init')){
-      // 调用自定义的初始化
+      # 调用自定义的初始化
       $this -> init();
     }
   }

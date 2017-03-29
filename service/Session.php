@@ -6,23 +6,23 @@ use Illuminate\Database\Capsule\Manager as DB;
 * session管理类
 */
 class Session{
-	// session 有效期
+	# session 有效期
 	public $lifetime;
-	// 数据库存储表名
+	# 数据库存储表名
 	public $table = 'session';
 	/**
 	* 构造函数
 	*/
 	public function __construct(){
-		// 获取session 有效时间
+		# 获取session 有效时间
 		$this -> lifetime = C('session_lifetime','sys');
-		// 查询系统表
+		# 查询系统表
 		$result = (Array) DB('information_schema.TABLES')
 			->where(['table_name'=>$this -> table,'TABLE_SCHEMA'=>C('read','database')['database']])
 			->first();
-		// 判断session表是否已经创建
+		# 判断session表是否已经创建
 		if( count($result) < 1 ){
-			// 如果不存在 则进行创建
+			# 如果不存在 则进行创建
 			DB::schema()->create($this -> table, function($table){
 			    $table->char('id',30)->primary('id');
 			    $table->text('data');
@@ -30,14 +30,14 @@ class Session{
 			    $table->string('last_visit',50);
 			});
 		}
-		// 接管session
+		# 接管session
 		session_set_save_handler(
-			[&$this, 'open'],  // 在运行session_start()时执行
-			[&$this, 'close'],  // 在脚本执行完成 或 调用session_write_close() 或 session_destroy()时被执行，即在所有session操作完后被执行
-			[&$this, 'read'],  // 在运行session_start()时执行，因为在session_start时，会去read当前session数据
-			[&$this, 'write'],  // 此方法在脚本结束和使用session_write_close()强制提交SESSION数据时执行
-			[&$this, 'destroy'], // 在运行session_destroy()时执行
-			[&$this, 'gc']   // 执行概率由session.gc_probability 和 session.gc_divisor的值决定，时机是在open，read之后，session_start会相继执行open，read和gc
+			[&$this, 'open'],  # 在运行session_start()时执行
+			[&$this, 'close'],  # 在脚本执行完成 或 调用session_write_close() 或 session_destroy()时被执行，即在所有session操作完后被执行
+			[&$this, 'read'],  # 在运行session_start()时执行，因为在session_start时，会去read当前session数据
+			[&$this, 'write'],  # 此方法在脚本结束和使用session_write_close()强制提交SESSION数据时执行
+			[&$this, 'destroy'], # 在运行session_destroy()时执行
+			[&$this, 'gc']   # 执行概率由session.gc_probability 和 session.gc_divisor的值决定，时机是在open，read之后，session_start会相继执行open，read和gc
 		);
 	}
 	/**
@@ -65,16 +65,16 @@ class Session{
 	* @return string 读取session_id
 	*/
 	public function read($sessionId) {
-		// 查询数据
+		# 查询数据
 		$result = (Array) DB($this -> table) -> find($sessionId);
-		// 判断是否存在数据
+		# 判断是否存在数据
 		if(count($result) == 4){
-			// 更新最后更新时间
+			# 更新最后更新时间
 			DB($this -> table) -> where(['id'=>$sessionId]) ->update(['last_visit'=>time()]);
-			// 返回数据
+			# 返回数据
 			return $result['data'];
 		}else{
-			// 返回空
+			# 返回空
 			return null;
 		}
 	}

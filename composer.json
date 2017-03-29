@@ -5,7 +5,6 @@
   "license": "MIT",
   "require": {
     "illuminate/database": "*",
-    "illuminate/pagination": "*",
     "filp/whoops": "*",
     "phpmailer/phpmailer": "~5.2",
     "XiaoLer/blade":"*",
@@ -21,8 +20,6 @@
     }
   ],
   "autoload": {
-  	"classmap": [
-    ],
   	"psr-4": {
       "Kernel\\":"kernel/",
       "Service\\":"service/",

@@ -1,13 +1,12 @@
 <?php
 namespace App\Admin\Controller;
-use Service\Log;
-
 /**
-* 后台测试控制器
+* 后台首页控制器
 */
 
 class Index extends Base{
   public function index(){
-     $this -> redirect("Welcome/index");
+  	# 渲染模板
+     $this -> display();
   }
 }

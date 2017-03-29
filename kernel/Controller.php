@@ -9,23 +9,23 @@ use Service\Log;
 */
 class Controller{
 
-  // 视图对象
+  # 视图对象
   protected $view;
 
-  // 视图实例
+  # 视图实例
   protected $viewObject;
 
-  // 视图数据
+  # 视图数据
   protected $viewData = [];
 
-  // 邮件对象
+  # 邮件对象
   protected $mail;
 
-  // 本请求是否渲染了模板
+  # 本请求是否渲染了模板
   protected $is_display = false;
 
   public function __construct(){
-    // 判断初始化函数属否定义
+    # 判断初始化函数属否定义
     if(method_exists($this,'init')){
       $this -> init();
     }
@@ -37,22 +37,22 @@ class Controller{
    * @return [渲染好的模板]
    */
   public function display($view='default',Array $data = []){
-    // 获取视图实例
+    # 获取视图实例
     $this -> viewObject = View::getView();
-    // 判断是否传入的模板名称
+    # 判断是否传入的模板名称
     if($view=='default'){$view = CONTROLLER_NAME.'.'.ACTION_NAME;}
-    // 判断是否传了要分配的值
+    # 判断是否传了要分配的值
     if(count($data) > 0){
-      // 分配模板的数组合并
+      # 分配模板的数组合并
       $this -> assign($data);
     }
-    // 判断模板是否存在
+    # 判断模板是否存在
     if(!$this -> viewObject -> exists($view)){
       throw new \Exception('找不到 '.$view.' 模板');
     }
-    // 设置本请求渲染了模板
+    # 设置本请求渲染了模板
     $this -> is_display = true;
-    // 渲染模板并输出
+    # 渲染模板并输出
     echo $this -> viewObject -> make($view,$this -> viewData);
   }
 
@@ -62,13 +62,13 @@ class Controller{
    * @return [Object] 本对象(用于连贯操作)
    */
   protected function assign($key,$data = []){
-    // 判断传的是否为数组
+    # 判断传的是否为数组
     if( is_array($key) ){
       $this -> viewData = array_merge($this -> viewData, $key);
     }else{
       $this -> viewData = array_merge($this -> viewData,[$key => $data]);
     }
-    // 返回本对象
+    # 返回本对象
     return $this;
   }
 
@@ -84,24 +84,24 @@ class Controller{
       if(empty($type)) $type  =   C('default_ajax_return','sys');
       switch (strtoupper($type)){
           case 'JSON' :
-              // 返回JSON数据格式到客户端 包含状态信息
+              # 返回JSON数据格式到客户端 包含状态信息
               header('Content-Type:application/json; charset=utf-8');
               exit(json_encode($data,$json_option));
           case 'XML'  :
-              // 返回xml格式数据
+              # 返回xml格式数据
               header('Content-Type:text/xml; charset=utf-8');
               exit(xml_encode($data));
           case 'JSONP':
-              // 返回JSON数据格式到客户端 包含状态信息
+              # 返回JSON数据格式到客户端 包含状态信息
               header('Content-Type:application/json; charset=utf-8');
               $handler  =   isset($_GET[C('VAR_JSONP_HANDLER')]) ? $_GET[C('VAR_JSONP_HANDLER')] : C('DEFAULT_JSONP_HANDLER');
               exit($handler.'('.json_encode($data,$json_option).');');
           case 'EVAL' :
-              // 返回可执行的js脚本
+              # 返回可执行的js脚本
               header('Content-Type:text/html; charset=utf-8');
               exit($data);
           default     :
-              // 用于扩展其他返回格式数据
+              # 用于扩展其他返回格式数据
               Hook::listen('ajax_return',$data);
       }
   }
@@ -115,27 +115,27 @@ class Controller{
     protected function redirect($url,$params='') {
         redirect(U($url,$params));
     }
-  // 析构方法
+  # 析构方法
   public function __destruct(){
-  	// 获取全局变量
+  	# 获取全局变量
   	global $debugbar;
     global $debugbarRenderer;
     if(is_array(DB_LOG())){
-    	// 遍历sql
+    	# 遍历sql
 	    foreach (DB_LOG() as $key => $value) {
 	    		$debugbar["messages"]->addMessage('语句:'.$value['query'].' 耗时:'.$value['time'].' 参数:'.json_encode($value['bindings']));
 	    }
     }
-    // 判断是否开启了 debugbar
+    # 判断是否开启了 debugbar
     if(C('debugbar','sys') && $this -> is_display){
       echo preg_replace('!\/vendor\/maximebf\/debugbar\/src\/DebugBar\/!','/',$debugbarRenderer->renderHead());
     }
-    // 判断是否开启了 debugbar
+    # 判断是否开启了 debugbar
     if(C('debugbar','sys') && $this -> is_display){
       echo $debugbarRenderer->render();
     }
-    // 写入Log
-    // Log::write(APP_NAME.'访问Log','访问log',json_encode(DB_LOG()));
+    # 写入Log
+    # Log::write(APP_NAME.'访问Log','访问log',json_encode(DB_LOG()));
     $view = $this->view;
     if ( $view instanceof View ) {
       extract($view->data);
