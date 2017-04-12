@@ -43,8 +43,6 @@ class Kernel{
             header('Pragma: no-cache');
         }else{
             # 屏蔽所有错误
-            set_error_handler(function(){send_http_status(500);});
-            set_exception_handler(function(){send_http_status(500);});
             error_reporting(0);
         }
         # 加载公用函数库
