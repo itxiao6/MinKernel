@@ -10,7 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class Transfers extends ArrayCollection
 {
     /**
-     * 企业转账接口地址
+     * 微信企业转账接口地址
      */
     const TRANSFERS = 'https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers';
 
