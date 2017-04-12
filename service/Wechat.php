@@ -23,9 +23,9 @@ use Thenbsp\Wechat\Payment\Jsapi\PayChoose;
 */
 class Wechat{
 	# appid
-	public static $appid = 'wx8cde9b2d4b249f28';
+	public static $appid = '';
 	# appsecret
-	public static $appsecret = '9a13a78f42155312cb44cabbd0402051';
+	public static $appsecret = '';
 	# mch_id
 	public static $mch_id = '';
 	# Token
