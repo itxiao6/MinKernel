@@ -56,8 +56,40 @@ class Wechat{
 	protected static $unifiedorder = false;
 	# 微信公众号支付配置
 	protected static $chooseWXPayConfig = false;
-	# 事件监听回调函数
-	public static $callBack = [];
+	# 红包实例
+	protected static $cash = false;
+
+	// 调用例子 Wechat::transfersqiye('ojmuBwdCKPD5xrYG41bIuy_iDzlw',1.18,ROOT_PATH.'pem/apiclient_cert.pem',ROOT_PATH.'pem/apiclient_key.pem',$desc='企业转账',$check_name='NO_CHECK',$re_user_name='李先生');
+	# 微信企业到账
+	public static function transfersqiye($openid,$money,$cert,$sslKey,$desc='企业转账',$check_name='NO_CHECK',$re_user_name=''){
+		# 判断要发送的红包金额是否小于1元
+		if($money < 1){
+			# 发送的红包金额不能小于1元
+			return false;
+		}
+		# 初始化企业转账类
+		$transfers = new Transfers(self::$appid, self::$mch_id, self::$key);
+
+		# 企业转账必需设置证书
+		$transfers->setSSLCert($cert,$sslKey);
+
+		# 设置企业转账信息
+		$transfers->set('partner_trade_no',rand(0,20).date('YmdHisyysssi').rand(0,20));# 转账者
+		$transfers->set('openid',$openid);# 转账者
+		$transfers->set('check_name',$check_name);# 转账者
+		$transfers->set('re_user_name',$re_user_name);# 转账者
+		$transfers->set('amount',$money*100);# 转账者
+		$transfers->set('desc',$desc);# 转账者
+		$transfers->set('spbill_create_ip',$_SERVER['SERVER_ADDR']);# 转账者
+
+		try {
+		    $response = $transfers->getResponse();
+		} catch (\Exception $e) {
+		    exit($e->getMessage());
+		}
+		# 返回发放结果
+		return $response->toArray();
+	}
 
 
 
