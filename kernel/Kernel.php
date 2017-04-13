@@ -20,10 +20,10 @@ class Kernel{
         # 设置协议头
         header("Content-Type:text/html;charset=utf-8");
         # 判断是否下载了composer包
-        if (file_exists(ROOT_PATH.'vendor/autoload.php')) {
+        if (file_exists(ROOT_PATH.'vendor'.DIRECTORY_SEPARATOR.'autoload.php')) {
 
             # 引用Composer自动加载规则
-            require(ROOT_PATH.'vendor/autoload.php');
+            require(ROOT_PATH.'vendor'.DIRECTORY_SEPARATOR.'autoload.php');
         }else{
 
             # 退出程序并提示
@@ -46,7 +46,7 @@ class Kernel{
             error_reporting(0);
         }
         # 加载公用函数库
-        require(ROOT_PATH.'common/functions.php');
+        require(ROOT_PATH.'common'.DIRECTORY_SEPARATOR.'functions.php');
         # 定义全局变量
         global $debugbar;
         global $debugbarRenderer;
@@ -62,11 +62,11 @@ class Kernel{
         define('IS_POST',       REQUEST_METHOD =='POST' ? true : false);
         define('IS_PUT',        REQUEST_METHOD =='PUT' ? true : false);
         define('IS_DELETE',     REQUEST_METHOD =='DELETE' ? true : false);
-        define('IS_WECHAT',     isweixin()     ==true ? true : false);
-        define('CACHE_DATA',    ROOT_PATH.'runtime/data/');
-        define('CACHE_LOG',    ROOT_PATH.'runtime/log/');
-        define('CACHE_SESSION', ROOT_PATH.'runtime/session/');
-        define('CACHE_VIEW',    ROOT_PATH.'runtime/view/');
+        define('IS_WECHAT',     isWechat()     ==true ? true : false);
+        define('CACHE_DATA',    ROOT_PATH.'runtime'.DIRECTORY_SEPARATOR.'data'.DIRECTORY_SEPARATOR);
+        define('CACHE_LOG',     ROOT_PATH.'runtime'.DIRECTORY_SEPARATOR.'log'.DIRECTORY_SEPARATOR);
+        define('CACHE_SESSION', ROOT_PATH.'runtime'.DIRECTORY_SEPARATOR.'session'.DIRECTORY_SEPARATOR);
+        define('CACHE_VIEW',    ROOT_PATH.'runtime'.DIRECTORY_SEPARATOR.'view'.DIRECTORY_SEPARATOR);
 
         # 定义全局数据库链接为未连接
         $database = false;

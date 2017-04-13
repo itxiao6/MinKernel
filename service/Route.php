@@ -118,13 +118,13 @@ class Route{
 		global $view_path;
 
 		# 判断模块是否存在
-		if(!file_exists(ROOT_PATH.'app/'.APP_NAME)){
+		if(!file_exists(ROOT_PATH.'app'.DIRECTORY_SEPARATOR.APP_NAME)){
 			# 指定模块找不到
 			throw new Exception('找不到 '.APP_NAME.' 模块');
 		}
 
 		# 定义视图模板路径
-		$view_path = [ROOT_PATH.'app/'.$route[0].'/View',ROOT_PATH.'message'];
+		$view_path = [ROOT_PATH.'app'.DIRECTORY_SEPARATOR.$route[0].DIRECTORY_SEPARATOR.'View',ROOT_PATH.'message'];
 
 
 		# 获取类名
@@ -134,7 +134,7 @@ class Route{
 		$actionNane = $route[2];
 
 		# 判断控制器文件是否存在
-		if(file_exists(ROOT_PATH.'app/'.APP_NAME.'/Controller/'.CONTROLLER_NAME.'.php') && class_exists($className)){
+		if(file_exists(ROOT_PATH.'app'.DIRECTORY_SEPARATOR.APP_NAME.DIRECTORY_SEPARATOR.'Controller'.DIRECTORY_SEPARATOR.CONTROLLER_NAME.'.php') && class_exists($className)){
 			# 实例化控制器
 			$controller = new $className;
 
@@ -149,7 +149,7 @@ class Route{
 
 			}else{
 				# 判断是否 存在此模板
-				if(file_exists(ROOT_PATH.'app/'.APP_NAME.'/View/'.CONTROLLER_NAME.'/'.$actionNane.'.html')){
+				if(file_exists(ROOT_PATH.'app'.DIRECTORY_SEPARATOR.APP_NAME.DIRECTORY_SEPARATOR.'View'.DIRECTORY_SEPARATOR.CONTROLLER_NAME.DIRECTORY_SEPARATOR.$actionNane.'.html')){
 					# 渲染模板
 					$controller -> display();
 					exit();
@@ -160,7 +160,7 @@ class Route{
 			}
 		}else{
 			# 判断是否 存在此模板
-			if(file_exists(ROOT_PATH.'app/'.APP_NAME.'/View/'.CONTROLLER_NAME.'/'.$actionNane.'.html')){
+			if(file_exists(ROOT_PATH.'app'.DIRECTORY_SEPARATOR.APP_NAME.DIRECTORY_SEPARATOR.'View'.DIRECTORY_SEPARATOR.CONTROLLER_NAME.DIRECTORY_SEPARATOR.$actionNane.'.html')){
 				# 实例化控制器父类
 				$controller = new Controller;
 				# 渲染模板

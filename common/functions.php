@@ -139,7 +139,7 @@ function arrayToXml($arr){
  * [ isWechat 数组转换成XML ]
  * @return Bool 是否为微信打开
  */
-public static function isWechat()
+function isWechat()
 {
     return (false === strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger'));
 }
@@ -148,7 +148,7 @@ public static function isWechat()
  * [ getTimestamp 获取时间戳 ]
  * @return String 时间戳
  */
-public static function getTimestamp()
+function getTimestamp()
 {
     return (string) time();
 }
@@ -156,7 +156,7 @@ public static function getTimestamp()
  * [ getCurrentUrl 获取当前URL ]
  * @return String 当前的URL
  */
-public static function getCurrentUrl()
+function getCurrentUrl()
 {
     $protocol = (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443))
         ? 'https://' : 'http://';
@@ -169,7 +169,7 @@ public static function getCurrentUrl()
  * [ getClientIp 获取客户端ip ]
  * @return String 访问者的ip
  */
-public static function getClientIp()
+function getClientIp()
 {
     $headers = function_exists('apache_request_headers')
         ? apache_request_headers()
@@ -183,7 +183,7 @@ public static function getClientIp()
  * @param $length  Int 字符串的长度
  * @return String 随机字符
  */
-public static function getRandomString($length = 10)
+function getRandomString($length = 10)
 {
     $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
@@ -195,7 +195,7 @@ public static function getRandomString($length = 10)
  * @param $nickname  String 昵称
  * @return String 过滤后的昵称
  */
-public static function filterNickname($nickname)
+function filterNickname($nickname)
 {
     $pattern = array(
         '/\xEE[\x80-\xBF][\x80-\xBF]/',

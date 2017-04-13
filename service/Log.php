@@ -9,7 +9,7 @@ class Log {
     # log储存表
     CONST TABLE = 'log';
     # log写入目录
-    CONST LOG_PATH = ROOT_PATH.'runtime/log';
+    CONST LOG_PATH = ROOT_PATH.'runtime'.DIRECTORY_SEPARATOR.'log';
     /**
     * 数据库存储初始化
     */

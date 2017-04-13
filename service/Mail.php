@@ -11,7 +11,7 @@ use Exception;
 class Mail {
   # 发送邮件
   public static function senEmailTo($to,$toName='',$content,$title,$debug,$isHtml=true,$files=[]){
-    require_once(ROOT_PATH.'/vendor/phpmailer/phpmailer/PHPMailerAutoload.php');
+    require_once(ROOT_PATH.DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_SEPARATOR.'phpmailer'.DIRECTORY_SEPARATOR.'phpmailer'.DIRECTORY_SEPARATOR.'PHPMailerAutoload.php');
     if($debug){
       $mail -> SMTPDebug = 3;                               # 是否开启调试模式
     }

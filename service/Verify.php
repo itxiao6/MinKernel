@@ -102,7 +102,7 @@ class Verify {
         # 验证码字体随机颜色
         $this->_color = imagecolorallocate($this->_image, mt_rand(1,150), mt_rand(1,150), mt_rand(1,150));
         # 验证码使用随机字体
-        $ttfPath = ROOT_PATH . 'public/verify/' . ($this->useZh ? 'zhttfs' : 'ttfs') . '/';
+        $ttfPath = ROOT_PATH . 'public'.DIRECTORY_SEPARATOR.'verify'.DIRECTORY_SEPARATOR. ($this->useZh ? 'zhttfs' : 'ttfs') .DIRECTORY_SEPARATOR;
 
         if(empty($this->fontttf)){
             $dir = dir($ttfPath);
@@ -239,7 +239,7 @@ class Verify {
      * 注：如果验证码输出图片比较大，将占用比较多的系统资源
      */
     private function _background() {
-        $path = ROOT_PATH.'/common/verify/bgs/';
+        $path = ROOT_PATH.DIRECTORY_SEPARATOR.'common'.DIRECTORY_SEPARATOR.'verify'.DIRECTORY_SEPARATOR.'bgs'.DIRECTORY_SEPARATOR;
         $dir = dir($path);
 
         $bgs = array();
