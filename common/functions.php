@@ -1,7 +1,11 @@
 <?php
 
-
-# 获取excel表文件
+/**
+* [get_excel 获取excel表文件]
+* @param [Array] $data [是否分页]
+* @param [String] $data [数据表名]
+* @return [Object] $this [文件]
+*/
 function get_excel($data,$filename='数据表'){
     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     header('Content-Disposition: attachment;filename='.$filename.'.xlsx');
@@ -11,8 +15,11 @@ function get_excel($data,$filename='数据表'){
     \YExcel\Excel::put('php://output', $data);
     exit();
 }
-
-# 请求获取url
+/**
+* [get_url 请求获取url]
+* @param [Bool] $is_page_get [是否分页]
+* @return [Object] $this [本对象]
+*/
 function get_url($is_preg_get=true){
     if(isset($_SERVER['REQUEST_URI'])){
         $uri=$_SERVER['REQUEST_URI'];
@@ -30,7 +37,6 @@ function get_url($is_preg_get=true){
     }
     return$uri;
 }
-
 /**
 * [get_page 获取分页]
 * @param [Int] $num [一页条数]
@@ -113,7 +119,7 @@ function get_page($num,$object,$type='Array',$where=[]){
 }
 
 /**
- * 数组转换成XML
+ * [ arrayToXml 数组转换成XML ]
  * @param $arr  Array 要转换的数组
  * @return String 转换后的数组
  */
@@ -129,19 +135,87 @@ function arrayToXml($arr){
     $xml.="</xml>";
     return $xml;
 }
-# 判断是否为微信访问
-function isweixin() {
-    $user_agent = $_SERVER['HTTP_USER_AGENT'];
-    if (strpos($user_agent, 'MicroMessenger') === false) {
-        return false;
-    } else {
-        return true;
-    }
+/**
+ * [ isWechat 数组转换成XML ]
+ * @return Bool 是否为微信打开
+ */
+public static function isWechat()
+{
+    return (false === strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger'));
+}
+
+/**
+ * [ getTimestamp 获取时间戳 ]
+ * @return String 时间戳
+ */
+public static function getTimestamp()
+{
+    return (string) time();
+}
+/**
+ * [ getCurrentUrl 获取当前URL ]
+ * @return String 当前的URL
+ */
+public static function getCurrentUrl()
+{
+    $protocol = (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443))
+        ? 'https://' : 'http://';
+
+    return $protocol.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+}
+
+
+/**
+ * [ getClientIp 获取客户端ip ]
+ * @return String 访问者的ip
+ */
+public static function getClientIp()
+{
+    $headers = function_exists('apache_request_headers')
+        ? apache_request_headers()
+        : $_SERVER;
+
+    return isset($headers['REMOTE_ADDR']) ? $headers['REMOTE_ADDR'] : '0.0.0.0';
+}
+
+/**
+ * [ getRandomString 获取随机字符串 ]
+ * @param $length  Int 字符串的长度
+ * @return String 随机字符
+ */
+public static function getRandomString($length = 10)
+{
+    $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+    return substr(str_shuffle(str_repeat($pool, ceil($length / strlen($pool)))), 0, $length);
+}
+
+/**
+ * [ filterNickname 原昵称 ]
+ * @param $nickname  String 昵称
+ * @return String 过滤后的昵称
+ */
+public static function filterNickname($nickname)
+{
+    $pattern = array(
+        '/\xEE[\x80-\xBF][\x80-\xBF]/',
+        '/\xEF[\x81-\x83][\x80-\xBF]/',
+        '/[\x{1F600}-\x{1F64F}]/u',
+        '/[\x{1F300}-\x{1F5FF}]/u',
+        '/[\x{1F680}-\x{1F6FF}]/u',
+        '/[\x{2600}-\x{26FF}]/u',
+        '/[\x{2700}-\x{27BF}]/u',
+        '/[\x{20E3}]/u'
+    );
+
+    $nickname = preg_replace($pattern, '', $nickname);
+
+    return trim($nickname);
 }
 
 /**
  * 对象类型数据转换成数组
- * @param Object $array ： 要转换的对象
+ * @param Object $array 要转换的对象
  * @return Array 转换后的数据
  */
 function ObjectToArray($array) {
@@ -314,31 +388,6 @@ function redirect($url) {
     header('Location:'.$url);
     exit();
 }
-/**
- * 使用DB基类
- * @param string $table 表名
- * @return void
- */
-function DB($table) {
-    # 获取全局的数据库连接
-    global $database;
-    # 判断数据库是否已经连接
-    if ( $database === false ) {
-      # 连接数据库
-      $database = new Illuminate\Database\Capsule\Manager;
-      # 载入数据库配置
-      $database->addConnection(C('all','database'));
-      # 设置全局静态可访问
-      $database->setAsGlobal();
-      # 启动Eloquent
-      $database -> bootEloquent();
-      # 判断是否开启LOG日志
-      if(C('database_log','sys')){
-        Illuminate\Database\Capsule\Manager::connection()->enableQueryLog();
-      }
-    }
-    return Illuminate\Database\Capsule\Manager::table($table);
-}
 # 获取数据库操作sql日志
 function DB_LOG(){
     # 获取全局的数据库连接
@@ -401,35 +450,6 @@ function IS_SSL() {
         return true;
     }
     return false;
-}
-/**
- * 获取客户端IP地址
- * @param integer $type 返回类型 0 返回IP地址 1 返回IPV4地址数字
- * @param boolean $adv 是否进行高级模式获取（有可能被伪装）
- * @return mixed
- */
-function get_client_ip($type = 0,$adv=false) {
-    $type       =  $type ? 1 : 0;
-    static $ip  =   NULL;
-    if ($ip !== NULL) return $ip[$type];
-    if($adv){
-        if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            $arr    =   explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
-            $pos    =   array_search('unknown',$arr);
-            if(false !== $pos) unset($arr[$pos]);
-            $ip     =   trim($arr[0]);
-        }elseif (isset($_SERVER['HTTP_CLIENT_IP'])) {
-            $ip     =   $_SERVER['HTTP_CLIENT_IP'];
-        }elseif (isset($_SERVER['REMOTE_ADDR'])) {
-            $ip     =   $_SERVER['REMOTE_ADDR'];
-        }
-    }elseif (isset($_SERVER['REMOTE_ADDR'])) {
-        $ip     =   $_SERVER['REMOTE_ADDR'];
-    }
-    # IP地址合法验证
-    $long = sprintf("%u",ip2long($ip));
-    $ip   = $long ? array($ip, $long) : array('0.0.0.0', 0);
-    return $ip[$type];
 }
 /**
  * 发送HTTP状态

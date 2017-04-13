@@ -239,7 +239,7 @@ class Verify {
      * 注：如果验证码输出图片比较大，将占用比较多的系统资源
      */
     private function _background() {
-        $path = ROOT_PATH.'/public/verify/bgs/';
+        $path = ROOT_PATH.'/common/verify/bgs/';
         $dir = dir($path);
 
         $bgs = array();
