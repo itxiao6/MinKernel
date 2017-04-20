@@ -10,10 +10,8 @@ use Xiaoler\Blade\Factory;
 class View{
     # 获取视图实例
     public static function getView(){
-      # 获取模板目录
-      global $view_path;
       # 循环处理模板目录
-      foreach($view_path as $value){
+      foreach(C('view_path','sys') as $value){
         # 判断模板目录是否存在
         if( !file_exists($value) ){
             throw new \Exception("模板目录不存在或没有权限".$value);
@@ -25,7 +23,7 @@ class View{
       }
       $compiler = new BladeCompiler(CACHE_VIEW);
       $engine = new CompilerEngine($compiler);
-      $finder = new FileViewFinder($view_path,C('extensions','sys'));
+      $finder = new FileViewFinder(C('view_path','sys'),C('extensions','sys'));
       $factory = new Factory($engine,$finder);
       return $factory;
     }

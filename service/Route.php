@@ -123,9 +123,8 @@ class Route{
 			throw new Exception('找不到 '.APP_NAME.' 模块');
 		}
 
-		# 定义视图模板路径
-		$view_path = [ROOT_PATH.'app'.DIRECTORY_SEPARATOR.$route[0].DIRECTORY_SEPARATOR.'View',ROOT_PATH.'message'];
-
+		# 定义应用视图模板路径
+		C('view_path','sys',['app' => ROOT_PATH.'app'.DIRECTORY_SEPARATOR.$route[0].DIRECTORY_SEPARATOR.'View','message'=>C('view_path','sys')['message']]);
 
 		# 获取类名
 		$className = 'App\\'.$route[0].'\Controller\\'.CONTROLLER_NAME;
@@ -169,7 +168,6 @@ class Route{
 				# 指定控制器找不到
 				throw new Exception('找不到 '.CONTROLLER_NAME.' 控制器');
 			}
-			
 		}
 	}
 }
