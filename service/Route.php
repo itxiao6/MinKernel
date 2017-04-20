@@ -114,9 +114,6 @@ class Route{
 		# 定义操作名称
 		define('ACTION_NAME',$route[2]);
 
-		# 获取全局视图路径
-		global $view_path;
-
 		# 判断模块是否存在
 		if(!file_exists(ROOT_PATH.'app'.DIRECTORY_SEPARATOR.APP_NAME)){
 			# 指定模块找不到
