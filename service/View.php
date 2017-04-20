@@ -8,10 +8,6 @@ use Xiaoler\Blade\Factory;
  * 视图类
  */
 class View{
-    # 定义编译缓存目录
-    CONST CACHE_PATH = ROOT_PATH.'runtime'.DIRECTORY_SEPARATOR.'view';
-    # 模板的后缀名
-    CONST EXTENSIONS = ['php','html','tpl'];
     # 获取视图实例
     public static function getView(){
       # 获取模板目录
@@ -24,12 +20,12 @@ class View{
         }
       }
       # 判断模板编译目录是否存在并且有写入的权限
-      if( (!file_exists(self::CACHE_PATH)) or (!is_writable(self::CACHE_PATH)) ){
+      if( (!file_exists(CACHE_VIEW)) or (!is_writable(CACHE_VIEW)) ){
           throw new \Exception("模板编译目录不存在或没有权限");
       }
-      $compiler = new BladeCompiler(self::CACHE_PATH);
+      $compiler = new BladeCompiler(CACHE_VIEW);
       $engine = new CompilerEngine($compiler);
-      $finder = new FileViewFinder($view_path,self::EXTENSIONS);
+      $finder = new FileViewFinder($view_path,C('extensions','sys'));
       $factory = new Factory($engine,$finder);
       return $factory;
     }
