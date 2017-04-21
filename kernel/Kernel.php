@@ -14,9 +14,6 @@ class Kernel{
      */
 	public static function start(){
 
-        #将时区设置为中国
-        date_default_timezone_set("PRC");
-
         # 设置协议头
         header("Content-Type:text/html;charset=utf-8");
         # 判断是否下载了composer包
@@ -47,6 +44,10 @@ class Kernel{
         }
         # 加载公用函数库
         require(ROOT_PATH.'common'.DIRECTORY_SEPARATOR.'functions.php');
+
+        #将时区设置为中国
+        date_default_timezone_set(C('default_timezone','sys'));
+
         # 定义全局变量
         global $debugbar;
         global $debugbarRenderer;
@@ -67,6 +68,9 @@ class Kernel{
         define('CACHE_LOG',     ROOT_PATH.'runtime'.DIRECTORY_SEPARATOR.'log'.DIRECTORY_SEPARATOR);
         define('CACHE_SESSION', ROOT_PATH.'runtime'.DIRECTORY_SEPARATOR.'session'.DIRECTORY_SEPARATOR);
         define('CACHE_VIEW',    ROOT_PATH.'runtime'.DIRECTORY_SEPARATOR.'view'.DIRECTORY_SEPARATOR);
+        define('IS_CGI',(0 === strpos(PHP_SAPI,'cgi') || false !== strpos(PHP_SAPI,'fcgi')) ? 1 : 0 );
+        define('IS_WIN',strstr(PHP_OS, 'WIN') ? 1 : 0 );
+        define('IS_CLI',PHP_SAPI=='cli'? 1   :   0);
 
         # 定义全局数据库链接为未连接
         $database = false;

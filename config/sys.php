@@ -16,4 +16,5 @@ return [
 		'debugbar'=>env('debugbar'),# 是否开启调试面板
 		'extensions'=>['php','html','tpl'], #模板文件的后缀名
 		'view_path'=>['message'=>ROOT_PATH.'message'] # 模板路径
+		'default_timezone'      =>  'PRC',	# 默认时区
 	];

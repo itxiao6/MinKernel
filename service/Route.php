@@ -5,14 +5,8 @@ use Kernel\Controller;
 use Exception;
 # 路由类
 class Route{
-	# 解析路由
-	public static function init(){
-		# 获取url
-		$uri = get_url(true);
-
-		# 定义请求URL
-		define('REQUEST_URI',get_url(false));
-
+	# 虚拟目录
+	public static function abstract_path($uri){
 		# 处理虚拟目录
 		foreach (C('all','abstract') as $key => $value) {
 			# 判断是否存在此文件
@@ -30,12 +24,23 @@ class Route{
 				exit(file_get_contents($value.$uri));
 			}
 		}
+	}
+	# 解析路由
+	public static function init(){
+		# 获取url
+		$uri = get_url(true);
+
+		# 定义请求URL
+		define('REQUEST_URI',get_url(false));
+
+		# 处理虚拟目录
+		self::abstract_path($uri);
 
 		# 过滤url
-		$uri = preg_replace('!\.php$|\.html$|\.jsp$|\.aspx$|\.asp$!i','',$uri);
+		$route_url = preg_replace('!\.php$|\.html$|\.jsp$|\.aspx$|\.asp$|\.htm$!i','',$uri);
 
 		# 替换开头的/
-		$route_url = preg_replace('!^/!','',$uri);
+		$route_url = preg_replace('!^/!','',$route_url);
 
 		# 判断访问的是否为首页
 		if($route_url != ''){
@@ -59,6 +64,8 @@ class Route{
 				}
 			}
 		}
+		# 保证 $_REQUEST能够取到值
+		$_REQUEST = array_merge($_POST,$_GET,$_COOKIE);
 		# 过滤空参数
 		foreach ($route as $key => $value){
 			# 判断路由结果是否为空
@@ -71,36 +78,27 @@ class Route{
 		if(count($route)==3 && $route[2]==''){
 			$route[2] = C('default_a_name','app');
 		}
-
 		# 判断传了几个URL
 		if(count($route)==2){
-
 			# 加载部分配置
 			$route[2] = C('default_a_name','app');
 
 		# 判断CA是否为空
 		}else if(count($route)==1){
-
 			$route[1] = C('default_c_name','app');
 			$route[2] = C('default_a_name','app');
-
 		# 判断是否 M A C都为空
 		}else if(count($route)==0){
-
-
 			# 判断是否存在Host绑定
 			if(empty(C($_SERVER['HTTP_HOST'],'host'))){
-
 				# 加载默认的模块
 				$route[0] = C('default_m_name','app');
 
 			}else{
-
 				# 加载Host绑定的模块
 				$route[0] = C($_SERVER['HTTP_HOST'],'host');
 
 			}
-
 			# 加载部分配置
 			$route[1] = C('default_c_name','app');
 			$route[2] = C('default_a_name','app');
