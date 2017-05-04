@@ -133,7 +133,7 @@ class Route{
 			$controller = new $className;
 
 			# 定义display和魔术方法列表(不能作为操作名)
-			$magic = ['__construct','display','__destruct','__call','__callStatic','__get','__set','__isset','__unset','__sleep','__wakeup','__toString','__invoke','__set_state','__clone','__debugInfo'];
+			$magic = ['__init','__construct','display','__destruct','__call','__callStatic','__get','__set','__isset','__unset','__sleep','__wakeup','__toString','__invoke','__set_state','__clone','__debugInfo'];
 
 			# 判断控制器内操作是否存在
 			if(method_exists($controller,$actionNane) && (!in_array($actionNane,$magic))){

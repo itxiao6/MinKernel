@@ -26,7 +26,7 @@ class Controller{
 
   public function __construct(){
     # 判断初始化函数属否定义
-    if(method_exists($this,'init')){
+    if(method_exists($this,'__init')){
       $this -> init();
     }
   }
