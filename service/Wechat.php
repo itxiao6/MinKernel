@@ -23,15 +23,15 @@ use Thenbsp\Wechat\Payment\Jsapi\PayChoose;
 */
 class Wechat{
 	# appid
-	public static $appid = '';
+	public static $appid = false;
 	# appsecret
-	public static $appsecret = '';
+	public static $appsecret = false;
 	# mch_id
-	public static $mch_id = '';
+	public static $mch_id = false;
 	# Token
-	public static $token;
+	public static $token = false;
 	# key
-	public static $key = '';
+	public static $key = false;
 	# 缓存Dricer
 	protected static $cacheDriver = false;
 	# AccessToken
@@ -58,6 +58,26 @@ class Wechat{
 	protected static $chooseWXPayConfig = false;
 	# 红包实例
 	protected static $cash = false;
+	# 参数初始化
+	public static function __callStatic($method,$arg){
+		# 判断公众号appid是否为空
+		if(self::$appid==false){
+			# 获取公众号id
+			self::$appid = C('appid','wechat');
+		# 判断公众号appsecret是否为空
+		}else if(self::$appsecret==false){
+			# 读取appsecret
+			self::$appsecret = C('appsecret','wechat');
+		# 判断微信公众商户id是否为空
+		}else if(self::$mch_id==false){
+			# 读取公众商户id
+			self::$mch_id = C('mch_id','wechat');
+		# 判断微信商户平台秘钥是否为空
+		}else if(self::$key==false){
+			# 读取微信商户平台秘钥
+			self::$key = C('key','wechat');
+		}
+	}
 
 	// 调用例子 Wechat::transfersqiye('ojmuBwdCKPD5xrYG41bIuy_iDzlw',1.18,ROOT_PATH.'pem/apiclient_cert.pem',ROOT_PATH.'pem/apiclient_key.pem',$desc='企业转账',$check_name='NO_CHECK',$re_user_name='李先生');
 	# 微信企业到账
@@ -91,32 +111,21 @@ class Wechat{
 		return $response->toArray();
 	}
 	# 微信app支付
-	public function app_pay(){
-		if($order = M('orders') -> where(['id'=>$_POST['oid']]) -> first()){
-			$order = $order -> toArray();
-		}else{
-			// 订单不存在
-			$this -> ajaxReturn(['status'=>2,'data'=>'','message'=>'订单不存在']);
-		}
-		// 判断订单是否已经支付过了
-		if($order['status'] != 1){
-			// 订单已经支付过了
-			$this -> ajaxReturn(['status'=>3,'data'=>'','message'=>'订单已经支付过了']);
-		}
+	public function app_pay($pay_order_num,$order_name,$order_price){
 		// 订单名称
 		$order['name']  = '测试商品名称';
 		// 初始化微信统一下单SDK(Appid,商户平台id,商户秘钥）参数来自于微信开放平台
 		$unifiedorder = new Unifiedorder('wx00d351c36bd1eee6','1439982002','d064f3519426dcd30114b900431fc044');
 		// 设置商品标题
-		$unifiedorder->set('body',          $order['name']);
+		$unifiedorder->set('body',          $order_name);
 		// 设置商品金额
-		$unifiedorder->set('total_fee',     $order['price']*100);
+		$unifiedorder->set('total_fee',     $order_price * 100);
 		// 设置用户ip
-		$unifiedorder->set('spbill_create_ip',get_client_ip());
+		$unifiedorder->set('spbill_create_ip',getClientIp());
 		// 设置购买类型
 		$unifiedorder->set('trade_type','APP');
 		// 设置下单单号
-		$unifiedorder->set('out_trade_no',  $order['pay_order_num']);
+		$unifiedorder->set('out_trade_no',  $pay_order_num);
 		// 设置 购买成功回调地址
 		$unifiedorder->set('notify_url',    C('notify_url','wechat'));
 		// 统一下单
