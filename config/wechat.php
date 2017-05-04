@@ -10,7 +10,7 @@ return [
 	'pay_key'=>'',
 	# 微信开放商户平台key
 	'open_pay_key'=>'',
-	# 商户id
+	# 微信公众商户平台商户id
 	'mchid' => '',
 	# 微信开放平台商户id
 	'open_mchid' => '',

@@ -22,16 +22,22 @@ use Thenbsp\Wechat\Payment\Jsapi\PayChoose;
 * 微信操作
 */
 class Wechat{
-	# appid
+	# 微信公众平台appid
 	public static $appid = false;
+	# 微信开放平台appid
+	public static $open_appid = false;
 	# appsecret
 	public static $appsecret = false;
-	# mch_id
+	# 微信公众商户平台商户id
 	public static $mch_id = false;
+	# 微信开放平台商户id
+	public static $open_mchid = false;
 	# Token
 	public static $token = false;
-	# key
+	# 微信公众号商户平台付key
 	public static $key = false;
+	# 微信开放商户平台key
+	public static $open_pay_key = false;
 	# 缓存Dricer
 	protected static $cacheDriver = false;
 	# AccessToken
