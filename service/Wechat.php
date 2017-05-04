@@ -133,31 +133,31 @@ class Wechat{
 		return $response->toArray();
 	}
 	# 微信app支付
-	public function app_pay($pay_order_num,$order_name,$order_price){
-		// 初始化微信统一下单SDK(Appid,商户平台id,商户秘钥）参数来自于微信开放平台
+	public static function app_pay($pay_order_num,$order_name,$order_price){
+		# 初始化微信统一下单SDK(Appid,商户平台id,商户秘钥）参数来自于微信开放平台
 		$unifiedorder = new Unifiedorder(self::$open_appid,self::$open_mchid,self::$open_pay_key);
-		// 设置商品标题
+		# 设置商品标题
 		$unifiedorder->set('body',          $order_name);
-		// 设置商品金额
+		# 设置商品金额
 		$unifiedorder->set('total_fee',     $order_price * 100);
-		// 设置用户ip
+		# 设置用户ip
 		$unifiedorder->set('spbill_create_ip',getClientIp());
-		// 设置购买类型
+		# 设置购买类型
 		$unifiedorder->set('trade_type','APP');
-		// 设置下单单号
+		# 设置下单单号
 		$unifiedorder->set('out_trade_no',  $pay_order_num);
-		// 设置 购买成功回调地址
+		# 设置 购买成功回调地址
 		$unifiedorder->set('notify_url',    C('notify_url','wechat'));
-		// 统一下单
+		# 统一下单
 		try {
 			$response = $unifiedorder->getResponse();
 		} catch (\Exception $e) {
 			exit($e->getMessage());
 		}
-		// 获取下单结果
+		# 获取下单结果
 		$result_unifiedorder = $response -> toArray();
 		$config = new PayChoose($unifiedorder);
-		// 添加时间
+		# 添加时间
 		$now_time = time();
 		# 定义要签名的数组
 		$resignData = array(
@@ -169,10 +169,10 @@ class Wechat{
 	        'package'    =>    'Sign=WXPay'
         );
         # 获取二次签名
-        $two_sign = $this -> getSign($resignData);
+        $two_sign = self::getSign($resignData);
         # 拼接二次签名的数据集合(用来返回到APP）
 		$result_data = '{"appid":"'.$result_unifiedorder['appid'].'","partnerid":"'.$result_unifiedorder['mch_id'].'","package":"Sign=WXPay","noncestr":"'.$result_unifiedorder['nonce_str'].'","timestamp":"'.$now_time.'","prepayid":"'.$result_unifiedorder['prepay_id'].'","sign":"'.$two_sign.'"}';
-		// 分配下单结果给模板引擎
+		# 分配下单结果给模板引擎
 		$this -> ajaxReturn(['status'=>1,'data'=>$result_data,'message'=>'请求成功']);
 	}
 	/**
@@ -180,22 +180,30 @@ class Wechat{
      * @param  Array  要传递的参数数组
      * @return String 通过计算得到的签名；
      */
-    protected function getSign($params) {
-        ksort($params);        //将参数数组按照参数名ASCII码从小到大排序
+    protected static function getSign($params) {
+        #将参数数组按照参数名ASCII码从小到大排序
+        ksort($params);
+        # 循环处理要签名的数组
         foreach ($params as $key => $item) {
-            if (!empty($item)) {         //剔除参数值为空的参数
-                $newArr[] = $key.'='.$item;     // 整合新的参数数组
+            # ß剔除参数值为空的参数
+            if (!empty($item)) {         
+                # 整合新的参数数组
+                $newArr[] = $key.'='.$item;     
             }
         }
-        $stringA = implode("&", $newArr);         //使用 & 符号连接参数
-        $stringSignTemp = $stringA."&key=".self::$open_pay_key;        //拼接key
-                                             // key是在商户平台API安全里自己设置的
-        $stringSignTemp = MD5($stringSignTemp);       //将字符串进行MD5加密
-        $sign = strtoupper($stringSignTemp);      //将所有字符转换为大写
+        # 使用 & 符号连接参数
+        $stringA = implode("&", $newArr);         
+        # 拼接key
+        # key是在商户平台API安全里自己设置的
+        $stringSignTemp = $stringA."&key=".self::$open_pay_key;        
+
+        # 将字符串进行MD5加密
+        $stringSignTemp = MD5($stringSignTemp);       
+        # 将所有字符转换为大写
+        $sign = strtoupper($stringSignTemp);
+        # 返回签名结果     
         return $sign;
     }
-
-
 
 	# 获取accessToken
 	public static function get_access_token(){
