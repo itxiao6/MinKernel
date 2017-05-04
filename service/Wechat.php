@@ -90,6 +90,81 @@ class Wechat{
 		# 返回发放结果
 		return $response->toArray();
 	}
+	# 微信app支付
+	public function app_pay(){
+		if($order = M('orders') -> where(['id'=>$_POST['oid']]) -> first()){
+			$order = $order -> toArray();
+		}else{
+			// 订单不存在
+			$this -> ajaxReturn(['status'=>2,'data'=>'','message'=>'订单不存在']);
+		}
+		// 判断订单是否已经支付过了
+		if($order['status'] != 1){
+			// 订单已经支付过了
+			$this -> ajaxReturn(['status'=>3,'data'=>'','message'=>'订单已经支付过了']);
+		}
+		// 订单名称
+		$order['name']  = '测试商品名称';
+		// 初始化微信统一下单SDK(Appid,商户平台id,商户秘钥）参数来自于微信开放平台
+		$unifiedorder = new Unifiedorder('wx00d351c36bd1eee6','1439982002','d064f3519426dcd30114b900431fc044');
+		// 设置商品标题
+		$unifiedorder->set('body',          $order['name']);
+		// 设置商品金额
+		$unifiedorder->set('total_fee',     $order['price']*100);
+		// 设置用户ip
+		$unifiedorder->set('spbill_create_ip',get_client_ip());
+		// 设置购买类型
+		$unifiedorder->set('trade_type','APP');
+		// 设置下单单号
+		$unifiedorder->set('out_trade_no',  $order['pay_order_num']);
+		// 设置 购买成功回调地址
+		$unifiedorder->set('notify_url',    C('notify_url','wechat'));
+		// 统一下单
+		try {
+			$response = $unifiedorder->getResponse();
+		} catch (\Exception $e) {
+			exit($e->getMessage());
+		}
+		// 获取下单结果
+		$result_data = $response -> toArray();
+		$config = new PayChoose($unifiedorder);
+		// 添加时间
+		$now_time = time();
+		# 定义要签名的数组
+		$resignData = array(
+        'appid'    =>    $result_data['appid'],
+        'partnerid'    =>    $result_data['mch_id'],
+        'prepayid'    =>    $result_data['prepay_id'],
+        'noncestr'    =>    $result_data['nonce_str'],
+        'timestamp'    =>    $now_time,
+        'package'    =>    'Sign=WXPay'
+        );
+        # 获取二次签名
+        $sign = $this -> getSign($resignData);
+        # 拼接二次签名的数据集合(用来返回到APP）
+		$result_data = '{"appid":"'.$result_data['appid'].'","partnerid":"'.$result_data['mch_id'].'","package":"Sign=WXPay","noncestr":"'.$result_data['nonce_str'].'","timestamp":"'.$now_time.'","prepayid":"'.$result_data['prepay_id'].'","sign":"'.$sign.'"}';
+		// 分配下单结果给模板引擎
+		$this -> ajaxReturn(['status'=>1,'data'=>$result_data,'message'=>'请求成功']);
+	}
+	/**
+     * 获取参数签名；
+     * @param  Array  要传递的参数数组
+     * @return String 通过计算得到的签名；
+     */
+    protected function getSign($params) {
+        ksort($params);        //将参数数组按照参数名ASCII码从小到大排序
+        foreach ($params as $key => $item) {
+            if (!empty($item)) {         //剔除参数值为空的参数
+                $newArr[] = $key.'='.$item;     // 整合新的参数数组
+            }
+        }
+        $stringA = implode("&", $newArr);         //使用 & 符号连接参数
+        $stringSignTemp = $stringA."&key=".'d064f3519426dcd30114b900431fc044';        //拼接key
+                                             // key是在商户平台API安全里自己设置的
+        $stringSignTemp = MD5($stringSignTemp);       //将字符串进行MD5加密
+        $sign = strtoupper($stringSignTemp);      //将所有字符转换为大写
+        return $sign;
+    }
 
 
 
