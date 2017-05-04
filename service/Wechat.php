@@ -35,7 +35,7 @@ class Wechat{
 	# Token
 	public static $token = false;
 	# 微信公众号商户平台付key
-	public static $key = false;
+	public static $pay_key = false;
 	# 微信开放商户平台key
 	public static $open_pay_key = false;
 	# 缓存Dricer
@@ -78,10 +78,26 @@ class Wechat{
 		}else if(self::$mch_id==false){
 			# 读取公众商户id
 			self::$mch_id = C('mch_id','wechat');
-		# 判断微信商户平台秘钥是否为空
-		}else if(self::$key==false){
-			# 读取微信商户平台秘钥
-			self::$key = C('key','wechat');
+		# 判断微信公众商户平台秘钥是否为空
+		}else if(self::$pay_key==false){
+			# 读取微信公众商户平台秘钥
+			self::$pay_key = C('key','wechat');
+		# 判断开放平台的appid
+		}else if(self::$open_appid==false){
+			# 获取开放平台的openid
+			self::$open_appid = C('open_appid','wechat');
+		# 判断微信开放商户平台key是否为空
+		}else if(self::$open_pay_key==false){
+			# 获取微信开放平台的支付key
+			self::$open_pay_key = C('openid_pay_key','wechat');
+		# 判断微信开放商户平台的商户id是否为空
+		}else if(self::$open_mchid){
+			# 获取微信开放商户平台的商户id是否为空
+			self::$open_mchid = C('open_mchid','wechat');
+		# 判断服务器的ip是否为空
+		}else if(self::$serverIp){
+			# 获取本机服务器ip
+			self::$serverIp = (String) isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '');
 		}
 	}
 
@@ -94,7 +110,7 @@ class Wechat{
 			return false;
 		}
 		# 初始化企业转账类
-		$transfers = new Transfers(self::$appid, self::$mch_id, self::$key);
+		$transfers = new Transfers(self::$appid, self::$mch_id, self::$pay_key);
 
 		# 企业转账必需设置证书
 		$transfers->setSSLCert($cert,$sslKey);
@@ -118,10 +134,8 @@ class Wechat{
 	}
 	# 微信app支付
 	public function app_pay($pay_order_num,$order_name,$order_price){
-		// 订单名称
-		$order['name']  = '测试商品名称';
 		// 初始化微信统一下单SDK(Appid,商户平台id,商户秘钥）参数来自于微信开放平台
-		$unifiedorder = new Unifiedorder('wx00d351c36bd1eee6','1439982002','d064f3519426dcd30114b900431fc044');
+		$unifiedorder = new Unifiedorder(self::$open_appid,self::$open_mchid,self::$open_pay_key);
 		// 设置商品标题
 		$unifiedorder->set('body',          $order_name);
 		// 设置商品金额
@@ -141,23 +155,23 @@ class Wechat{
 			exit($e->getMessage());
 		}
 		// 获取下单结果
-		$result_data = $response -> toArray();
+		$result_unifiedorder = $response -> toArray();
 		$config = new PayChoose($unifiedorder);
 		// 添加时间
 		$now_time = time();
 		# 定义要签名的数组
 		$resignData = array(
-        'appid'    =>    $result_data['appid'],
-        'partnerid'    =>    $result_data['mch_id'],
-        'prepayid'    =>    $result_data['prepay_id'],
-        'noncestr'    =>    $result_data['nonce_str'],
-        'timestamp'    =>    $now_time,
-        'package'    =>    'Sign=WXPay'
+	        'appid'    =>    $result_unifiedorder['appid'],
+	        'partnerid'    =>    $result_unifiedorder['mch_id'],
+	        'prepayid'    =>    $result_unifiedorder['prepay_id'],
+	        'noncestr'    =>    $result_unifiedorder['nonce_str'],
+	        'timestamp'    =>    $now_time,
+	        'package'    =>    'Sign=WXPay'
         );
         # 获取二次签名
-        $sign = $this -> getSign($resignData);
+        $two_sign = $this -> getSign($resignData);
         # 拼接二次签名的数据集合(用来返回到APP）
-		$result_data = '{"appid":"'.$result_data['appid'].'","partnerid":"'.$result_data['mch_id'].'","package":"Sign=WXPay","noncestr":"'.$result_data['nonce_str'].'","timestamp":"'.$now_time.'","prepayid":"'.$result_data['prepay_id'].'","sign":"'.$sign.'"}';
+		$result_data = '{"appid":"'.$result_unifiedorder['appid'].'","partnerid":"'.$result_unifiedorder['mch_id'].'","package":"Sign=WXPay","noncestr":"'.$result_unifiedorder['nonce_str'].'","timestamp":"'.$now_time.'","prepayid":"'.$result_unifiedorder['prepay_id'].'","sign":"'.$two_sign.'"}';
 		// 分配下单结果给模板引擎
 		$this -> ajaxReturn(['status'=>1,'data'=>$result_data,'message'=>'请求成功']);
 	}
@@ -174,7 +188,7 @@ class Wechat{
             }
         }
         $stringA = implode("&", $newArr);         //使用 & 符号连接参数
-        $stringSignTemp = $stringA."&key=".'d064f3519426dcd30114b900431fc044';        //拼接key
+        $stringSignTemp = $stringA."&key=".self::$open_pay_key;        //拼接key
                                              // key是在商户平台API安全里自己设置的
         $stringSignTemp = MD5($stringSignTemp);       //将字符串进行MD5加密
         $sign = strtoupper($stringSignTemp);      //将所有字符转换为大写
@@ -323,7 +337,7 @@ class Wechat{
 	# 统一下单
 	public static function Unifiedorder($data = []){
 		# 初始化下单接口
-		self::$unifiedorder = new Unifiedorder(self::$appid,self::$mch_id,self::$key);
+		self::$unifiedorder = new Unifiedorder(self::$appid,self::$mch_id,self::$pay_key);
 		# 循环设置订单信息
 		foreach ($data as $key => $value) {
 			# 设置订单内容
@@ -422,7 +436,7 @@ class Wechat{
 			return false;
 		}
 		# 初始化红包类
-		self::$cash = new Cash(self::$appid, self::$mch_id, self::$key);
+		self::$cash = new Cash(self::$appid, self::$mch_id, self::$pay_key);
 
 		# 现金红包必需设置证书
 		self::$cash->setSSLCert($cert,$sslKey);
@@ -556,7 +570,7 @@ class Wechat{
 			return false;
 		}
 		# 初始化红包类
-		self::$cash = new Cash(self::$appid, self::$mch_id, self::$key);
+		self::$cash = new Cash(self::$appid, self::$mch_id, self::$pay_key);
 
 		# 现金红包必需设置证书
 		self::$cash->setSSLCert($cert,$sslKey);
