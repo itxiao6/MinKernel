@@ -88,7 +88,7 @@ class File{
 	 * @param  Boolean $isRemotely [是否为远端文件]
 	 * @return [Result]              [文件内容]
 	 */
-	public static function _file_get_contents($fileName,$isRemotely=true){
+	public static function _file_get_contents($fileName,$isRemotely=false){
 		if($isRemotely){
 			$command = 'curl '.$fileName;
 		}else{
