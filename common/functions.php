@@ -79,6 +79,10 @@ function get_page($num,$object,$type='Array',$where=[]){
             $where_url .= $key.'='.$value.'&';
         }
     }
+    
+    # 条件url
+    $data['where_url'] = $where_url;
+
     # 判断当前页数不能为空
     if($_GET['page'] < 1){$_GET['page'] = 1;}else{$_GET['page']+=0;}
 
