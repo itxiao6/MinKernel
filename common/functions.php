@@ -86,7 +86,7 @@ function get_page($num,$object,$type='Array',$where=[]){
     $data['total'] = $object -> count();
 
     # 数据集合(对象)
-    $data['data'] = $object -> skip($num * ($_GET['page']-1))->take($num * ($_GET['page'])) -> get();
+    $data['data'] = $object -> skip($num * ($_GET['page']-1))->take($num) -> get();
 
     # 当前页数据
     $data['to'] = $data['data'] -> count();
