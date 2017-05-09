@@ -16,6 +16,28 @@ function get_excel($data,$filename='数据表'){
     exit();
 }
 /**
+* [function_dump 打印函数定义的文件名和位置]
+* @param [String] $funcname [函数名]
+* @return [String] 函数信息
+*/
+function function_dump($funcname) {
+      try {
+          if(is_array($funcname)) {
+              $func = new \ReflectionMethod($funcname[0], $funcname[1]);
+              $funcname = $funcname[1];
+          } else {
+              $func = new \ReflectionFunction($funcname);
+          }
+      } catch (\ReflectionException $e) {
+          echo $e->getMessage();
+          return;
+      }
+      $start = $func->getStartLine() - 1;
+      $end =  $func->getEndLine() - 1;
+      $filename = $func->getFileName();
+      return "function $funcname defined by $filename($start - $end)\n";
+}
+/**
 * [get_url 请求获取url]
 * @param [Bool] $is_page_get [是否分页]
 * @return [Object] $this [本对象]
