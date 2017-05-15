@@ -94,7 +94,7 @@ class Controller{
           case 'JSONP':
               # 返回JSON数据格式到客户端 包含状态信息
               header('Content-Type:application/json; charset=utf-8');
-              $handler  =   isset($_GET[C('VAR_JSONP_HANDLER')]) ? $_GET[C('VAR_JSONP_HANDLER')] : C('DEFAULT_JSONP_HANDLER');
+              $handler  =   $_GET['jsonpCallback'];
               exit($handler.'('.json_encode($data,$json_option).');');
           case 'EVAL' :
               # 返回可执行的js脚本
