@@ -4,9 +4,9 @@ return [
 	# 数据库主机
 	'dbhost'=>'localhost',
 	# 数据库名称
-	'database'=>'',
+	'database'=>'test',
 	# 数据库用户名
-	'username'=>'',
+	'username'=>'root',
 	# 数据库密码
 	'password'=>'',
 	# session储存方式
