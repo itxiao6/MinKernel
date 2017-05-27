@@ -102,7 +102,7 @@ class Verify {
         # 验证码字体随机颜色
         $this->_color = imagecolorallocate($this->_image, mt_rand(1,150), mt_rand(1,150), mt_rand(1,150));
         # 验证码使用随机字体
-        $ttfPath = ROOT_PATH . 'public'.DIRECTORY_SEPARATOR.'verify'.DIRECTORY_SEPARATOR. ($this->useZh ? 'zhttfs' : 'ttfs') .DIRECTORY_SEPARATOR;
+        $ttfPath = ROOT_PATH . 'common'.DIRECTORY_SEPARATOR.'verify'.DIRECTORY_SEPARATOR. ($this->useZh ? 'zhttfs' : 'ttfs') .DIRECTORY_SEPARATOR;
 
         if(empty($this->fontttf)){
             $dir = dir($ttfPath);
@@ -148,8 +148,12 @@ class Verify {
 
         # 保存验证码
         $key        =   $this->authcode($this->seKey);
-        $code       =   $this->authcode(strtoupper(implode('', $code)));
-        $_SESSION['verify_code'][$id] = $code;
+        // $code       =   $this->authcode(strtoupper(implode('', $code)));
+        foreach ($code as $key => $value) {
+            $str = '';
+        }
+        
+        $_SESSION['verify_code'][$id] = $str;
 
         header('Cache-Control: private, max-age=0, no-store, no-cache, must-revalidate');
         header('Cache-Control: post-check=0, pre-check=0', false);
