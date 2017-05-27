@@ -4,11 +4,11 @@ return [
 	# 数据库主机
 	'dbhost'=>'localhost',
 	# 数据库名称
-	'database'=>'hyzg',
+	'database'=>'',
 	# 数据库用户名
-	'username'=>'hyzg',
+	'username'=>'',
 	# 数据库密码
-	'password'=>'hyzg2017',
+	'password'=>'',
 	# session储存方式
 	'session'=>'file',# file\database
 	# log储存方式
