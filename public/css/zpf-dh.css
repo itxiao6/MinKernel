@@ -1,0 +1,213 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+a{
+	text-decoration: none;
+}
+.zpf-wrap{
+	width: 16rem;
+	height: auto;
+	overflow: hidden;
+}
+.zpf-head{
+	width: 16rem;
+	height: 2.2rem;
+	background-color: #3598dc;
+}
+.zpf-head img{
+	width: 0.5rem;
+	height: 0.9rem;
+	margin: 0.65rem 0 0 0.57rem;
+	float: left;
+}
+.zpf-head h5{
+	margin-left: 5.42rem;
+	font-size: 0.68rem;
+	color: white;
+	line-height: 2.2rem;
+	float: left;
+	font-weight: normal;
+}
+.zpf-ban{
+	width: 16rem;
+	height: 3.3rem;
+}
+.zpf-b-l{
+	width: 5.38rem;
+	height: 3.3rem;
+	float: left;
+}
+.zpf-b-l img{
+	display: block;
+	width: 1.18rem;
+	height: 1.18rem;
+	margin-top: 1.07rem;
+	float: right;
+}
+.zpf-b-r{
+	width: 10.62rem;
+	height: 3.3rem;
+	float: left;
+}
+.zpf-b-r p{
+	font-size: 0.7rem;
+	color: #3697dc;
+	margin-top: 1.07rem;
+	margin-left: 0.35rem;
+}
+.zpf-b-r p:nth-child(2){
+	font-size: 0.5rem;
+	color: #a1a1a1;
+	margin-top: 0rem;
+}
+.zpf-cont{
+	width: 16rem;
+	height: auto;
+	border-top: 0.25rem #f5f5f5 solid;
+	border-bottom: 0.25rem #f5f5f5 solid;
+	overflow: hidden;
+}
+.zpf-c-m{
+	width: 16rem;
+	height: auto;
+	overflow: hidden;
+}
+.zpf-c-o{
+	width: 16rem;
+	height: 4.38rem;
+	overflow: hidden;
+}
+.zpf-c-o p{
+	display: block;
+	font-size: 0.67rem;
+	color: #434343;
+	font-family: "微软雅黑";
+	margin-top: 0.4rem;
+	margin-left: 0.8rem;
+}
+.zpf-c-o p img{
+	display: block;
+	width: 0.6rem;
+	height: 0.7rem;
+	margin-right: 0.42rem;
+	float: left;
+}
+.zpf-c-o label{
+	margin-left: 1rem;
+}
+.zpf-c-o p:nth-child(1){
+	padding-left: 1rem;
+}
+.zpf-c-o p:nth-child(2){
+	font-size: 0.6rem;
+}
+.zpf-c-o span{
+	margin-left: 2.9rem;
+}
+.zpf-c-c{
+	width: 16rem;
+    height: auto;
+    }
+.zpf-c-c img{
+	display: block;
+	width: 16rem;
+	height: 0.2rem;
+}
+.zpf-main{
+	width: 16rem;
+	height: 9.07rem;
+	overflow: hidden;
+	border-bottom: 0.25rem #f5f5f5 solid;
+}
+.zpf-m-o{
+	width: 16rem;
+	height: 6.08rem;
+	border-bottom: 0.03rem #e5e5e5 solid;
+}
+.zpf-m-l{
+	width: 5.25rem;
+	height: auto;
+	overflow: hidden;
+	float: left;
+}
+.zpf-m-l img{
+	display: block;
+	width: 4.55rem;
+	height: 4.65rem;
+	border: 0.03rem #3598db solid;
+	margin: 0.72rem 0 0.82rem 0.62rem;
+}
+.zpf-m-r{
+	width: 10.75rem;
+	height: 6.22rem;
+	overflow: hidden;
+	float: left;
+}
+.zpf-m-r p{
+	font-size: 0.6rem;
+	color: #505962;
+	margin-top: 0.72rem;
+	margin-left: 0.57rem;
+}
+.zpf-m-r p:nth-child(2){
+	margin-top: 0rem;
+}
+.zpf-m-r p:nth-child(3){
+	margin-top: 0.8rem;
+}
+.zpf-m-r p:nth-child(4){
+	margin-top: 0rem;
+}
+.zpf-m-r p:nth-child(5){
+	margin-top: 0rem;
+}
+.zpf-m-f p{
+	font-size: 0.6rem;
+	color: #313131;
+	margin-right: 0.9rem;
+	text-align: right;
+	margin-top: 0.38rem;
+}
+.zpf-m-f p:nth-child(2){
+	color: #ff6257;
+}
+.zpf-fina{
+	width: 16rem;
+	height: 3.35rem;
+	border-bottom: 0.25rem #f5f5f5 solid;
+}
+.zpf-fina p{
+	font-size: 0.6rem;
+	color: #707070;
+	margin: 0.37rem 0 0 0.65rem;
+}
+.zpf-foot{
+	width: 16rem;
+	height: 3.92rem;
+	position: fixed;
+	bottom: 0;
+	background: white;
+}
+.zpf-foot input{
+	display: block;
+	width: 6.45rem;
+	height: 1.65rem;
+	border: 0;
+	background: none;
+	outline: none;
+	border: 0.03rem #acadaf solid;
+	border-radius: 0.17rem;
+	font-size: 0.6rem;
+	text-align: center;
+	line-height: 1.65rem;
+	margin: 1.20rem 0 0 1rem;
+	appearance: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	float: left;
+}
+.zpf-foot input:nth-child(2){
+	border-color: #3798dd;
+	color: #3798dd;
+}

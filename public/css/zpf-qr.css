@@ -1,0 +1,291 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+a{
+	text-decoration: none;
+}
+.zpf-wrap{
+	width: 16rem;
+	height: auto;
+	overflow: hidden;
+}
+.zpf-head{
+	width: 16rem;
+	height: 2.2rem;
+	background-color: #3598dc;
+}
+.zpf-head img{
+	width: 0.5rem;
+	height: 0.9rem;
+	margin: 0.65rem 0 0 0.57rem;
+	float: left;
+}
+.zpf-head h5{
+	margin-left: 5.42rem;
+	font-size: 0.68rem;
+	color: white;
+	line-height: 2.2rem;
+	float: left;
+	font-weight: normal;
+}
+.zpf-cont{
+	width: 16rem;
+	height: auto;
+	border-top: 0.25rem #f5f5f5 solid;
+	border-bottom: 0.25rem #f5f5f5 solid;
+	overflow: hidden;
+}
+.zpf-c-m{
+	width: 16rem;
+	height: auto;
+	overflow: hidden;
+}
+.zpf-c-o{
+	width: 16rem;
+	height: 4.38rem;
+	overflow: hidden;
+}
+.zpf-c-o p{
+	display: block;
+	font-size: 0.67rem;
+	color: #434343;
+	font-family: "微软雅黑";
+	margin-top: 0.4rem;
+	margin-left: 0.8rem;
+}
+.zpf-c-o p img{
+	display: block;
+	width: 0.6rem;
+	height: 0.7rem;
+	margin-right: 0.42rem;
+	float: left;
+}
+.zpf-c-o label{
+	margin-left: 1rem;
+}
+.zpf-c-o p:nth-child(1){
+	padding-left: 1rem;
+}
+.zpf-c-o p:nth-child(2){
+	font-size: 0.6rem;
+}
+.zpf-c-o span{
+	margin-left: 2.9rem;
+}
+.zpf-c-c{
+	width: 16rem;
+    height: auto;
+    }
+.zpf-c-c img{
+	display: block;
+	width: 16rem;
+	height: 0.2rem;
+}
+.zpf-main{
+	width: 16rem;
+	height: 6.22rem;
+	overflow: hidden;
+	border-bottom: 0.25rem #f5f5f5 solid;
+}
+.zpf-m-l{
+	width: 5.25rem;
+	height: auto;
+	overflow: hidden;
+	float: left;
+}
+.zpf-m-l img{
+	display: block;
+	width: 4.55rem;
+	height: 4.65rem;
+	border: 0.03rem #3598db solid;
+	margin: 0.72rem 0 0.82rem 0.62rem;
+}
+.zpf-m-r{
+	width: 10.75rem;
+	height: 6.22rem;
+	overflow: hidden;
+	float: left;
+}
+.zpf-m-r p{
+	font-size: 0.6rem;
+	color: #505962;
+	margin-top: 0.72rem;
+	margin-left: 0.57rem;
+}
+.zpf-m-r p:nth-child(2){
+	margin-top: 0rem;
+}
+.zpf-m-r p:nth-child(3){
+	margin-top: 0.8rem;
+}
+.zpf-r-z{
+	width: auto;
+	height: auto;
+	margin-top: 0.8rem;
+}
+.zpf-r-z p{
+	margin-top: 0;
+	float: left;
+}
+.zpf-r-z input{
+	display: block;
+	width: 0.93rem;
+	height: 0.7rem;
+	font-size: 0.35rem;
+	color: #8d9296;
+	line-height: 0.7rem ;
+	text-align: center;
+	border: 0;
+	outline: none;
+	background: none;
+	border: 0.03rem #dadada dashed;
+	float: left;
+	appearance: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+}
+.zpf-r-z input:nth-child(2){
+	margin-left: 4.3rem;
+}
+.zpf-r-z input:nth-child(3){
+	border-left: none;
+	border-right: none;
+	color: #ff6158;
+}
+.zpf-fina{
+	width: 16rem;
+	height: auto;
+}
+.zpf-fina p{
+	font-size: 0.6rem;
+	color: #515862;
+	margin-top: 0.75rem;
+	margin-left: 0.68rem;
+	float: left;
+}
+.zpf-fina input{
+	display: block;
+	width: 12.68rem;
+	height: 2.95rem;
+	margin-top: 0.75rem;
+	margin-left: 0.38rem;
+	border: 0;
+	background: none;
+	font-size: 0.6rem;
+	color: #515862;
+	border: 0.03rem #8c8f94 solid;
+	border-radius: 0.15rem;
+	float: left;
+	appearance: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+}
+.zpf-foot{
+	width: 16rem;
+	height: 2.45rem;
+	background: white;
+	overflow: hidden;
+	position: fixed;
+	bottom: 0;
+}
+.zpf-foot p{
+	font-size: 0.6rem;
+	color: #363f48;
+	line-height: 2.45rem;
+	margin-left: 0.63rem;
+	float: left;
+}
+.zpf-foot span{
+	font-size: 0.7rem;
+	color: #ff6056;
+}
+.zpf-foot label{
+	font-size: 0.5rem;
+	color: #8f9095;
+	margin-left: 0.1rem;
+}
+.zpf-foot input{
+	display: block;
+	width: 6.22rem;
+	height: 2.45rem;
+	border: 0;
+	outline: none;
+	background: #3598DC;
+	font-size: 0.7rem;
+	color: white;
+	text-align: center;
+	line-height: 2.45rem;
+	float: right;
+	appearance: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+}
+.zpf-dong{
+	width: 13.2rem;
+	height: 8.32rem;
+	background: white;
+	border: 0.03rem #cccccc solid;
+	border-radius: 0.23rem;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -42%;
+	margin-top: -25%;
+	z-index: 99;
+}
+.zpf-d-o{
+	width: 13.2rem;
+	height: 2.30rem;
+}
+.zpf-d-t{
+	width: 13.2rem;
+	height: 6.32rem;
+}
+.zpf-d-o h5{
+	font-size: 0.8rem;
+	color: black;
+	margin-top: 0.8rem;
+	margin-left: 5.83rem;
+	float: left;
+}
+.zpf-d-o img{
+	display: block;
+	width: 0.95rem;
+	height: 0.95rem;
+	margin-top: 0.5rem;
+	margin-right: 0.35rem;
+	float: right;
+}
+.zpf-d-t p{
+	display: block;
+	text-align: center;
+	font-size: 0.7rem;
+	margin-top: 0.65rem;
+	color: black;
+}
+.zpf-d-t span{
+	color: red;
+}
+.zpf-d-t p:nth-child(2){
+	font-size: 0.6rem;
+	text-align: center;
+}
+.zpf-d-t input{
+	display: block;
+	width: 13.2rem;
+	height: 1.95rem;
+	border: 0;
+	outline: none;
+	background: #3598dc;
+	font-size: 0.8rem;
+	color: white;
+	line-height: 1.95rem;
+	text-align: center;
+	margin-top: 1.07rem;
+	border-bottom-left-radius: 0.23rem;
+	border-bottom-right-radius: 0.23rem;
+	appearance: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+}

@@ -22,22 +22,8 @@ use Thenbsp\Wechat\Payment\Jsapi\PayChoose;
 * 微信操作
 */
 class Wechat{
-	# 微信公众平台appid
-	public static $appid = false;
-	# 微信开放平台appid
-	public static $open_appid = false;
-	# appsecret
-	public static $appsecret = false;
-	# 微信公众商户平台商户id
-	public static $mch_id = false;
-	# 微信开放平台商户id
-	public static $open_mchid = false;
 	# Token
 	public static $token = false;
-	# 微信公众号商户平台付key
-	public static $pay_key = false;
-	# 微信开放商户平台key
-	public static $open_pay_key = false;
 	# 缓存Dricer
 	protected static $cacheDriver = false;
 	# AccessToken
@@ -64,42 +50,6 @@ class Wechat{
 	protected static $chooseWXPayConfig = false;
 	# 红包实例
 	protected static $cash = false;
-	# 参数初始化
-	public static function __callStatic($method,$arg){
-		# 判断公众号appid是否为空
-		if(self::$appid==false){
-			# 获取公众号id
-			self::$appid = C('appid','wechat');
-		# 判断公众号appsecret是否为空
-		}else if(self::$appsecret==false){
-			# 读取appsecret
-			self::$appsecret = C('appsecret','wechat');
-		# 判断微信公众商户id是否为空
-		}else if(self::$mch_id==false){
-			# 读取公众商户id
-			self::$mch_id = C('mch_id','wechat');
-		# 判断微信公众商户平台秘钥是否为空
-		}else if(self::$pay_key==false){
-			# 读取微信公众商户平台秘钥
-			self::$pay_key = C('key','wechat');
-		# 判断开放平台的appid
-		}else if(self::$open_appid==false){
-			# 获取开放平台的openid
-			self::$open_appid = C('open_appid','wechat');
-		# 判断微信开放商户平台key是否为空
-		}else if(self::$open_pay_key==false){
-			# 获取微信开放平台的支付key
-			self::$open_pay_key = C('openid_pay_key','wechat');
-		# 判断微信开放商户平台的商户id是否为空
-		}else if(self::$open_mchid){
-			# 获取微信开放商户平台的商户id是否为空
-			self::$open_mchid = C('open_mchid','wechat');
-		# 判断服务器的ip是否为空
-		}else if(self::$serverIp){
-			# 获取本机服务器ip
-			self::$serverIp = (String) isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '');
-		}
-	}
 
 	// 调用例子 Wechat::transfersqiye('ojmuBwdCKPD5xrYG41bIuy_iDzlw',1.18,ROOT_PATH.'pem/apiclient_cert.pem',ROOT_PATH.'pem/apiclient_key.pem',$desc='企业转账',$check_name='NO_CHECK',$re_user_name='李先生');
 	# 微信企业到账
@@ -110,7 +60,7 @@ class Wechat{
 			return false;
 		}
 		# 初始化企业转账类
-		$transfers = new Transfers(self::$appid, self::$mch_id, self::$pay_key);
+		$transfers = new Transfers(C('appid','wechat'), C('mch_id','wechat'), C('key','wechat'));
 
 		# 企业转账必需设置证书
 		$transfers->setSSLCert($cert,$sslKey);
@@ -135,7 +85,7 @@ class Wechat{
 	# 微信app支付
 	public static function app_pay($pay_order_num,$order_name,$order_price){
 		# 初始化微信统一下单SDK(Appid,商户平台id,商户秘钥）参数来自于微信开放平台
-		$unifiedorder = new Unifiedorder(self::$open_appid,self::$open_mchid,self::$open_pay_key);
+		$unifiedorder = new Unifiedorder(C('open_appid','wechat'),C('open_mchid','wechat'),C('openid_pay_key','wechat'));
 		# 设置商品标题
 		$unifiedorder->set('body',          $order_name);
 		# 设置商品金额
@@ -195,7 +145,7 @@ class Wechat{
         $stringA = implode("&", $newArr);         
         # 拼接key
         # key是在商户平台API安全里自己设置的
-        $stringSignTemp = $stringA."&key=".self::$open_pay_key;        
+        $stringSignTemp = $stringA."&key=".C('openid_pay_key','wechat');        
 
         # 将字符串进行MD5加密
         $stringSignTemp = MD5($stringSignTemp);       
@@ -211,7 +161,7 @@ class Wechat{
 			self::$cacheDriver = new FilesystemCache(CACHE_DATA);
 		}
 		# 初始化AccessToken
-		self::$accessToken = new AccessToken(self::$appid, self::$appsecret);
+		self::$accessToken = new AccessToken(C('appid','wechat'), C('secret','wechat'));
 		# 设置缓存
 		self::$accessToken->setCache(self::$cacheDriver);
 		# 返回字符串类型的AccessToken
@@ -307,7 +257,7 @@ class Wechat{
 			return self::$user_accessToken;
 		}
 		# 实例化授权类
-		self::$client = new Client(self::$appid, self::$appsecret);
+		self::$client = new Client(C('appid','wechat'), C('secret','wechat'));
 
 		# 指定授权成功跳转页面
 		self::$client->setRedirectUri($callBack);
@@ -316,7 +266,7 @@ class Wechat{
 		self::$client->setScope('snsapi_userinfo');
 
 		# 判断是否为微信的回调
-		if(empty($_GET['code'])){
+		if(empty($_GET['code']) && empty($_GET['state'])){
 		    redirect(self::$client->getAuthorizeUrl());
 		}
 		# 获取用户AccessToken
@@ -345,7 +295,7 @@ class Wechat{
 	# 统一下单
 	public static function Unifiedorder($data = []){
 		# 初始化下单接口
-		self::$unifiedorder = new Unifiedorder(self::$appid,self::$mch_id,self::$pay_key);
+		self::$unifiedorder = new Unifiedorder(C('appid','wechat'),C('mch_id','wechat'),C('key','wechat'));
 		# 循环设置订单信息
 		foreach ($data as $key => $value) {
 			# 设置订单内容
@@ -444,7 +394,7 @@ class Wechat{
 			return false;
 		}
 		# 初始化红包类
-		self::$cash = new Cash(self::$appid, self::$mch_id, self::$pay_key);
+		self::$cash = new Cash(C('appid','wechat'), C('mch_id','wechat'), C('key','wechat'));
 
 		# 现金红包必需设置证书
 		self::$cash->setSSLCert($cert,$sslKey);
@@ -578,7 +528,7 @@ class Wechat{
 			return false;
 		}
 		# 初始化红包类
-		self::$cash = new Cash(self::$appid, self::$mch_id, self::$pay_key);
+		self::$cash = new Cash(C('appid','wechat'), C('mch_id','wechat'), C('key','wechat'));
 
 		# 现金红包必需设置证书
 		self::$cash->setSSLCert($cert,$sslKey);

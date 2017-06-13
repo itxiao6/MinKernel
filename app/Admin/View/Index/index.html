@@ -9,7 +9,118 @@
 @section('description', '..')
 
 @section('content')
-
- <h2>欢迎来到后台</h2>
-
+<style type="text/css">
+	.infobox{
+		width:300px;
+	}
+</style>
+ <h2>欢迎来到后台 --- 数据统计</h2>
+ <table>
+ <tr>
+ <td>
+<div class="infobox infobox-red" >
+	<div class="infobox-icon">
+		<i class="icon-beaker"></i>
+	</div>
+	<div class="infobox-data">
+		<span class="infobox-data-number">{{$data['time']}}</span>
+		<div class="infobox-content">日期</div>
+	</div>
+</div></td> <td>
+<div class="infobox infobox-green">
+	<div class="infobox-icon">
+		<i class="icon-beaker"></i>
+	</div>
+	<div class="infobox-data">
+		<span class="infobox-data-number">{{$data['all_num']}}</span>
+		<div class="infobox-content">总销售额</div>
+	</div>
+</div></td> <td>
+<div class="infobox infobox-blue">
+	<div class="infobox-icon">
+		<i class="icon-beaker"></i>
+	</div>
+	<div class="infobox-data">
+		<span class="infobox-data-number">{{$data['land_num']}}</span>
+		<div class="infobox-content">当日销售额</div>
+	</div></td>
+</div></tr>
+<tr><td>
+<div class="infobox infobox-purple">
+	<div class="infobox-icon">
+		<i class="icon-beaker"></i>
+	</div>
+	<div class="infobox-data">
+		<span class="infobox-data-number">{{$data['open_num']}}</span>
+		<div class="infobox-content">已成交订单总数</div>
+	</div>
+</div></td> <td>
+<div class="infobox infobox-orange">
+	<div class="infobox-icon">
+		<i class="icon-beaker"></i>
+	</div>
+	<div class="infobox-data">
+		<span class="infobox-data-number">{{$data['mush_num']}}</span>
+		<div class="infobox-content">当日成交数</div>
+	</div>
+</div>
+</td> <td>
+<div class="infobox infobox-pink">
+	<div class="infobox-icon">
+		<i class="icon-beaker"></i>
+	</div>
+	<div class="infobox-data">
+		<span class="infobox-data-number">{{$data['manure_num']}}</span>
+		<div class="infobox-content">总加盟人数</div>
+	</div>
+</div></td>
+</tr><tr><td>
+<div class="infobox infobox-blue2">
+	<div class="infobox-icon">
+		<i class="icon-beaker"></i>
+	</div>
+	<div class="infobox-data">
+		<span class="infobox-data-number">{{$data['today_num']}}</span>
+		<div class="infobox-content">当日加盟人数</div>
+	</div>
+</div></td> <td>
+<div class="infobox infobox-green2">
+	<div class="infobox-icon">
+		<i class="icon-beaker"></i>
+	</div>
+	<div class="infobox-data">
+		<span class="infobox-data-number">{{$data['split']}}</span>
+		<div class="infobox-content">提现总金额</div>
+	</div>
+</div></td> <td>
+<div class="infobox infobox-black ">
+	<div class="infobox-icon">
+		<i class="icon-beaker"></i>
+	</div>
+	<div class="infobox-data">
+		<span class="infobox-data-number">{{$data['user_num']}}</span>
+		<div class="infobox-content">当日提现申请金额</div>
+	</div>
+</div></td>
+</tr><tr><td>
+<div class="infobox infobox-black ">
+	<div class="infobox-icon">
+		<i class="icon-beaker"></i>
+	</div>
+	<div class="infobox-data">
+		<span class="infobox-data-number">{{$data['active_num']}}</span>
+		<div class="infobox-content">当日通过金额</div>
+	</div>
+</div></td> <td>
+<div class="infobox infobox-black ">
+	<div class="infobox-icon">
+		<i class="icon-beaker"></i>
+	</div>
+	<div class="infobox-data">
+		<span class="infobox-data-number">{{$data['today_active']}}</span>
+		<div class="infobox-content">总通过金额</div>
+	</div>
+</div></td> 
+</tr>
+</table>
 @endsection

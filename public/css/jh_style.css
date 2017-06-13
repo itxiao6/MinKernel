@@ -1,0 +1,113 @@
+body{background-color: #f5f5f5;}
+input{border: 0;outline: 0;}
+/*编辑收货地址页*/
+.jh-header{
+	position: relative;
+	text-align: center;
+	background-color: #3598dc;
+    color: #fff;    
+}
+.jh-header>i{
+    position: absolute;
+    left: 1rem;
+    font-size: 2.2rem;
+}
+.jh-form{
+	overflow: hidden;
+	padding: 0 1rem;
+}
+.jh-form>p{
+	position: relative;
+	padding-top: 5px;
+	line-height: 2.6rem;
+	font-size: 1.8rem;
+	color: #535353;
+}
+.jh-form>p input{
+	vertical-align: middle;
+	background-color: transparent;
+	line-height: 2.4rem;
+	width: 70%;
+	padding-left: 5px;
+	font-size: 1.8rem;
+	color: #535353;
+}
+.jh-form>p i{position: absolute;right: 5px;}
+.jh-rsave{
+	display: block;
+	position: absolute;
+	bottom: 17vw;
+	left: 50%;
+	margin-left: -43%;
+	width: 86%;
+	height: 12vw;
+	line-height: 12vw;
+	background-color: #3598dc;
+	color: #fff;
+	font-size: 2.2rem;
+}
+/*成为加盟商页*/
+.jh-banner{
+	position: relative;
+	height: 47vw;
+    background: url(../images/banner1.jpg) no-repeat;
+    background-size: cover;
+    border: 4px solid #ccc;
+    border-width: 4px 0px;
+    border-image: -webkit-linear-gradient( #fff 29%,#d7d7d7 44%) 10 10;
+    border-image: -moz-linear-gradient( #fff 29%,#d7d7d7 44%) 10 10;
+    border-image: linear-gradient( #fff 29%,#d7d7d7 44%) 10 10;
+}
+.jh-banner .jh-agreement{
+	position: absolute;
+	left: 50%;
+	width:25%;
+	margin-left: -12.5%;
+	bottom: -3vw;
+	z-index: 3;
+}
+.jh-banner .jh-agreement>img{width: 100%;}
+.jh-hot{
+	overflow: hidden;
+	padding: 0 1rem;
+	background-color: #fff;
+}
+.jh-hot .jh-title{
+	font-size: 1.8rem;
+	font-weight: normal;
+	color: #dd2726;
+	margin: 3vw 0 5vw;
+}
+.jh-hot .jh-title:before{
+	content: "";
+	display: inline-block;
+	width: 1.8rem;
+    height: 1.8rem;
+    background: url(../images/jh_hot.png) no-repeat;
+    background-size: contain;
+    vertical-align: bottom;
+}
+.jh-hot .jh-list{overflow: hidden;margin-bottom: 12vw;}
+.jh-hot .jh-list li{
+	float: left;
+	width: 50%;
+	box-sizing: border-box;
+	margin-bottom: 3vw;
+}
+.jh-list li:nth-child(2n-1){padding-right: 5px;}
+.jh-list li:nth-child(2n){padding-left: 5px;}
+.jh-list li a{display: block;}
+.jh-list a img{width: 100%;}
+.jh-list .jh-pname{
+	padding-right: 5px;
+	font-size: 1.6rem;
+	color: #252525;
+	white-space:nowrap; 
+	text-overflow:ellipsis; 
+	-o-text-overflow:ellipsis;
+	overflow:hidden;
+}
+.jh-list .jh-price{
+	font-size: 1.6rem;
+	color: #f23030;
+}

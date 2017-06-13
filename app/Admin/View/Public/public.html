@@ -128,7 +128,7 @@
 
                                 <li>
 
-                                    <a href="/Admin/Index/logout.html">
+                                    <a href="/Admin/Auth/logout.html">
 
                                         <i class="icon-off"></i>
 
@@ -277,10 +277,6 @@
 
                             <ul class="submenu">
 
-
-
-
-
                                 <li @if(CONTROLLER_NAME=='Users' && ACTION_NAME=='index') class="active" @endif>
 
                                     <a href="/Admin/Users/index.html">
@@ -293,168 +289,51 @@
 
                                 </li>
 
+                                <li @if(CONTROLLER_NAME=='Users' && ACTION_NAME=='add') class="active" @endif>
 
-
-                                <li @if(CONTROLLER_NAME=='Users' && ACTION_NAME=='') class="active" @endif>
-
-                                    <a href="/Admin/Users/review.html">
+                                    <a href="/Admin/Users/edit.html">
 
                                         <i class="icon-double-angle-right"></i>
 
-                                        待审核管理
+                                        管理用户
 
                                     </a>
-
-                                </li>
-
-
-                                <li @if(CONTROLLER_NAME=='Users' && ACTION_NAME=='blacker_bill') class="active" @endif>
-
-                                    <a href="/Admin/Users/blacker_bill.html">
-
-                                        <i class="icon-double-angle-right"></i>
-
-                                        黑名单管理
-
-                                    </a>
-
                                 </li>
                             </ul>
 
                         </li>
-
-                        <li @if(CONTROLLER_NAME=='Gotmoney') class="active" @endif>
+                        <li @if(CONTROLLER_NAME=='Article') class="active" @endif>
 
                             <a href="javascript:void(0)" class="dropdown-toggle">
 
                                 <i class="icon-list"></i>
 
-                                <span class="menu-text"> 佣金管理 </span>
-
-
+                                <span class="menu-text"> 通告管理 </span>
 
                                 <b class="arrow icon-angle-down"></b>
 
                             </a>
 
-
-
                             <ul class="submenu">
 
-                                <li @if(CONTROLLER_NAME=='Goods' && ACTION_NAME=='en_got') class="active" @endif>
-
-                                    <a href="/Admin/User_cms/index.html">
-
-                                        <i class="icon-double-angle-right"></i>
-
-                                        佣金发放
-                                    </a>
-
-                                </li>
-
-                                <li @if(CONTROLLER_NAME=='Gotmoney' && ACTION_NAME=='re_got') class="active" @endif>
-
-                                    <a href="/Admin/Gotmoney/re_got.html">
-
-                                        <i class="icon-double-angle-right"></i>
-
-                                        提现管理
-                                    </a>
-
-                                </li>
-
-
-
-
-                            </ul>
-
-                        </li>
-
-
-
-
-
-                         <li  @if(CONTROLLER_NAME=='Commission') class="active" @endif>
-
-                            <a href="javascript:void(0)" class="dropdown-toggle">
-
-                               <i class="icon-list"></i>
-                                <span class="menu-text"> 分销管理 </span>
-
-
-
-                                <b class="arrow icon-angle-down"></b>
-
-                            </a>
-
-
-
-                            <ul class="submenu">
-                                <li @if(CONTROLLER_NAME=='Commission' && ACTION_NAME=='add') class="active" @endif >
-
-                                    <a href="/Admin/Commission/add.html">
-
-                                        <i class="icon-double-angle-right"></i>
-
-                                        添加规则
-
-                                    </a>
-
-                                </li>
-                                <li @if(CONTROLLER_NAME=='Commission' && ACTION_NAME=='index') class="active" @endif >
-
-                                    <a href="/Admin/Commission/index.html">
-
-                                        <i class="icon-double-angle-right"></i>
-
-                                        分销浏览
-
-                                    </a>
-
-                                </li>
-                            </ul>
-
-                        </li>
-                         <li @if(CONTROLLER_NAME=='Article') class="active" @endif>
-
-                            <a href="javascript:void(0)" class="dropdown-toggle">
-
-                                <i class="icon-text-width"></i>
-
-                                <span class="menu-text"> 文章管理 </span>
-
-
-
-                                <b class="arrow icon-angle-down"></b>
-
-                            </a>
-
-
-
-                            <ul class="submenu">
-
-                                <!-- <li @if(CONTROLLER_NAME=='Article' && ACTION_NAME=='add_picture') class="active" @endif >
-
-                                    <a href="/Admin/Article/add.html">
-
-                                        <i class="icon-double-angle-right"></i>
-
-                                        添加文章
-
-                                    </a>
-
-                                </li> -->
-
-
-
-                                <li @if(CONTROLLER_NAME=='Article' && ACTION_NAME=='index') class="active" @endif >
+                                <li @if(CONTROLLER_NAME=='Article' && ACTION_NAME=='index') class="active" @endif>
 
                                     <a href="/Admin/Article/index.html">
 
                                         <i class="icon-double-angle-right"></i>
 
-                                        文章列表
+                                        公告列表
+                                    </a>
 
+                                </li>
+
+                                <li @if(CONTROLLER_NAME=='Article' && ACTION_NAME=='add') class="active" @endif>
+
+                                    <a href="/Admin/Article/add.html">
+
+                                        <i class="icon-double-angle-right"></i>
+
+                                        添加公告
                                     </a>
 
                                 </li>
@@ -462,6 +341,51 @@
 
 
 
+                            </ul>
+
+                        </li>
+
+
+
+
+
+                         <li  @if(CONTROLLER_NAME=='Luck') class="active" @endif>
+
+                            <a href="javascript:void(0)" class="dropdown-toggle">
+
+                               <i class="icon-list"></i>
+                                <span class="menu-text"> 一元夺宝 </span>
+
+
+
+                                <b class="arrow icon-angle-down"></b>
+
+                            </a>
+
+
+
+                            <ul class="submenu">
+                                <li @if(CONTROLLER_NAME=='Luck' && ACTION_NAME=='index') class="active" @endif >
+
+                                    <a href="/Admin/Luck/index.html">
+
+                                        <i class="icon-double-angle-right"></i>
+                                        活动列表
+
+                                    </a>
+
+                                </li>
+                                <li @if(CONTROLLER_NAME=='Luck' && ACTION_NAME=='add') class="active" @endif >
+
+                                    <a href="/Admin/Luck/add.html">
+
+                                        <i class="icon-double-angle-right"></i>
+
+                                        添加活动
+
+                                    </a>
+
+                                </li>
                             </ul>
 
                         </li>
@@ -508,16 +432,13 @@
                             </ul>
 
                         </li>
-
-                         <li @if(CONTROLLER_NAME=='Wage') class="active" @endif>
+                        <li @if(CONTROLLER_NAME=='Join') class="active" @endif>
 
                             <a href="javascript:void(0)" class="dropdown-toggle">
 
                                 <i class="icon-text-width"></i>
 
-                                <span class="menu-text"> 薪资管理 </span>
-
-
+                                <span class="menu-text"> 实体联盟 </span>
 
                                 <b class="arrow icon-angle-down"></b>
 
@@ -527,38 +448,31 @@
 
                             <ul class="submenu">
 
-                                <li @if(CONTROLLER_NAME=='Wage' && ACTION_NAME=='index') class="active" @endif >
+                                <li @if(CONTROLLER_NAME=='Join' && ACTION_NAME=='add') class="active" @endif >
 
-                                    <a href="/Admin/Wage/index.html">
-
+                                    <a href="/Admin/Join/add.html">
                                         <i class="icon-double-angle-right"></i>
 
-                                        薪资发放
+                                        添加图片
 
                                     </a>
 
                                 </li>
+                                <li @if(CONTROLLER_NAME=='join' && ACTION_NAME=='index') class="active" @endif >
 
-
-
-                                <li @if(CONTROLLER_NAME=='Wage' && ACTION_NAME=='en_got') class="active" @endif >
-
-                                    <a href="/Admin/Wage/en_got.html">
+                                    <a href="/Admin/Join/index.html">
 
                                         <i class="icon-double-angle-right"></i>
 
-                                        强领信息
+                                        联盟列表
 
                                     </a>
 
                                 </li>
-
-
-
-
                             </ul>
 
                         </li>
+
                         <li @if(CONTROLLER_NAME=='Config') class="active" @endif>
 
                             <a href="/Admin/Config/index.html">
@@ -570,40 +484,18 @@
                             </a>
 
                         </li>
-                        <li>
+                        <li @if(CONTROLLER_NAME=='Forum') class="active" @endif>
 
-                            <a href="/Admin/Integral/index.html">
+                            <a href="/Admin/Forum/index.html">
 
                                <i class="icon-file-alt"></i>
 
-                                <span class="menu-text"> 积分管理 </span>
+                                <span class="menu-text"> 留言板 </span>
 
                             </a>
 
                         </li>
-                        <li @if(CONTROLLER_NAME=='Wechat') class="active" @endif>
-                            <a href="javascript:void(0)" class="dropdown-toggle">
-                               <i class="icon-picture"></i>
-                                <span class="menu-text"> 微信管理 </span>
-                                <b class="arrow icon-angle-down"></b>
-                            </a>
-                            <ul class="submenu">
-                                <li @if(CONTROLLER_NAME=='Nav' && ACTION_NAME=='add_nav') class="active" @endif>
-                                    <a href="/Admin/Wechat/index.html">
-                                        <i class="icon-double-angle-right"></i>
-                                        自动回复
-                                    </a>
-                                </li>
-                                <li @if(CONTROLLER_NAME=='Nav' && ACTION_NAME=='index') class="active" @endif>
-                                    <a href="/Admin/Wechat/navigation.html">
-                                        <i class="icon-double-angle-right"></i>
-                                        导航管理
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li>
+                        <!-- <li>
 
                             <a href="#" class="dropdown-toggle">
 
@@ -699,9 +591,9 @@
 
                             </ul>
 
-                        </li>
+                        </li>-->
 
-                    </ul><!-- /.nav-list -->
+                    </ul> <!-- /.nav-list  -->
 
 
 

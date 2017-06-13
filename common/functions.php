@@ -167,7 +167,7 @@ function arrayToXml($arr){
  */
 function isWechat()
 {
-    return (false === strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger'));
+    return !(false === strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger'));
 }
 
 /**
@@ -411,6 +411,7 @@ function C($key,$type='app',$value='defaultValue'){
  * @return void
  */
 function redirect($url) {
+    // exit('<script>window.location="'.$url.'";</script>');
     header('Location:'.$url);
     exit();
 }

@@ -1,6 +1,6 @@
 <?php
 # php版本检测
-if( PHP_VERSION <= 5.5 ){ exit('PHP version <= 5.6'); }
+if( PHP_VERSION < 5.6 ){ exit('PHP version <= 5.6'); }
 # 定义项目根目录
 define('ROOT_PATH',__DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR);
 # 开启调试模式

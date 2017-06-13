@@ -6,7 +6,8 @@ namespace App\Admin\Controller;
 
 class Index extends Base{
   public function index(){
-  	# 渲染模板
+  	
+  	 #渲染模板 
      $this -> display();
   }
 }

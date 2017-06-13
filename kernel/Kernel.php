@@ -13,7 +13,6 @@ class Kernel{
      * 启动框架
      */
 	public static function start(){
-
         # 设置协议头
         header("Content-Type:text/html;charset=utf-8");
         # 判断是否下载了composer包
@@ -91,7 +90,7 @@ class Kernel{
         }
 
         # 设置session有效期
-        session_set_cookie_params( C('session_lifetime','sys') );
+        // session_set_cookie_params( C('session_lifetime','sys') );
 
         # 启动session
         session_start();

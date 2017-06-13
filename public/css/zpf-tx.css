@@ -1,0 +1,124 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+a{
+	text-decoration: none;
+}
+.zpf-wrap{
+	width: 16rem;
+	height: auto;
+	overflow: hidden;
+}
+.zpf-head{
+	width: 16rem;
+	height: 2.2rem;
+	background-color: #3598dc;
+}
+.zpf-head img{
+	width: 0.5rem;
+	height: 0.9rem;
+	margin: 0.65rem 0 0 0.57rem;
+	float: left;
+}
+.zpf-head h5{
+	margin-left: 5.42rem;
+	font-size: 0.78rem;
+	color: white;
+	line-height: 2.2rem;
+	float: left;
+	font-weight: normal;
+}
+.zpf-ban{
+	width: 16rem;
+	height: 9rem;
+	background-color: #3598dc;
+	overflow: hidden;
+}
+.zpf-ban h5{
+	display: block;
+	font-size: 1.2rem;
+	color: white;
+	text-align: center;
+	margin-top: 2.58rem;
+	font-weight: normal;
+}
+.zpf-ban span{
+	font-size: 0.8rem;
+}
+.zpf-ban p{
+	display: block;
+	font-size: 0.7rem;
+	color: white;
+	text-align: center;
+	margin-top: 0.5rem;
+}
+.zpf-cont{
+	width: 16rem;
+	height: 2.13rem;
+}
+.zpf-cont img{
+	display: block;
+	width: 0.75rem;
+	height: 0.7rem;
+	margin-left: 0.63rem;
+	margin-top: 0.75rem;
+	float: left;
+}
+.zpf-cont p{
+	font-size: 0.6rem;
+	color: #656565;
+	line-height: 2.13rem;
+	margin-left: 0.38rem;
+	float: left;
+}
+.zpf-cont p a{
+	color: #656565;
+}
+.zpf-cont img:nth-child(3){
+	width: 0.38rem;
+	height: 0.7rem;
+	float: right;
+	margin-right: 0.6rem;
+	margin-top: 0.63rem;
+}
+.zpf-main{
+	width: 16rem;
+	height: 1.75rem;
+	background: #f5f6fa;
+}
+.zpf-main p{
+	font-size: 0.6rem;
+	color: #3598db;
+	line-height: 1.75rem;
+	margin-left: 0.48rem;
+}
+.zpf-fina{
+	width: 14.80rem;
+	height: auto;
+	margin: 0 auto;
+	overflow: hidden;
+}
+.zpf-f-o{
+	width: 14.8rem;
+	height: 2.23rem;
+	border-bottom: 0.03rem #eeeeee solid;
+}
+.zpf-o-f{
+	width: 14.8rem;
+	height: 1.11rem;
+}
+.zpf-o-f p{
+	font-size: 0.55rem;
+	color: #aeaeae;
+	margin-top: 0.3rem;
+	margin-left: 0.2rem;
+	float: left;
+}
+.zpf-o-f p:nth-child(2){
+	float: right;
+}
+.zpf-o-f:nth-child(2) p{
+	margin-top: 0;
+	margin-left: 0.7rem;
+}

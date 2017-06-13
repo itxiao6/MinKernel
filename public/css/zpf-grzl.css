@@ -1,0 +1,108 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+a{
+	text-decoration: none;
+}
+.zpf-wrap{
+	width: 16rem;
+	height: auto;
+	overflow: hidden;
+}
+.zpf-head{
+	width: 16rem;
+	height: 2.2rem;
+	background-color: #3598dc;
+}
+.zpf-head img{
+	width: 0.5rem;
+	height: 0.9rem;
+	margin: 0.65rem 0 0 0.57rem;
+	float: left;
+}
+.zpf-head h5{
+	margin-left: 5.42rem;
+	font-size: 0.78rem;
+	color: white;
+	line-height: 2.2rem;
+	float: left;
+	font-weight: normal;
+}
+.zpf-box{
+	width: 16rem;
+	height: 0.38rem;
+	background: #f5f5f5;
+	border-bottom: 0.03rem #e6e6e6 solid;
+}
+.zpf-main{
+	width: 16rem;
+	height: 2.08rem;
+	border-bottom: 0.03rem #e6e6e6 solid;
+}
+.zpf-main p{
+	font-size: 0.65rem;
+	color: black;
+	line-height: 2.08rem;
+	margin-left: 0.6rem;
+	float: left;
+}
+.zpf-main input{
+	display: block;
+	width: 8.4rem;
+	height: 2.08rem;
+	border: 0;
+	background: none;
+	outline: none;
+	font-size: 0.65rem;
+	color: #989898;
+	margin-left: 0.38rem;
+	float: left;
+	appearance: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+}
+.zpf-main img{
+	width: 0.38rem;
+	height: 0.7rem;
+	float: right;
+	margin-right: 0.6rem;
+	margin-top: 0.73rem;
+}
+.zpf-cont{
+	width: 16rem;
+	height: 5.22rem;
+	border-bottom: 0.03rem #e6e6e6 solid;
+	overflow: hidden;
+}
+.zpf-cont p{
+	font-size: 0.7rem;
+	color: black;
+	line-height: 2.08rem;
+	margin-left: 0.6rem;
+	float: left;
+}
+.zpf-cont img{
+	display: block;
+	width: 4.25rem;
+	height: 4.25rem;
+	margin: 0.47rem 1rem 0 0.4rem;
+	float: left;
+}
+.zpf-cont input{
+	display: block;
+	width: 3rem;
+	height: 1.13rem;
+	border: 0;
+	background: #3598DC;
+	outline: none;
+	border-radius: 0.1rem;
+	font-size: 0.6rem;
+	color: white;
+	line-height: 1.13rem;
+	text-align: center;
+	margin-top: 2.08rem;
+	appearance: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+}
