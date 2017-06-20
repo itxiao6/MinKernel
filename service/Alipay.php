@@ -2,6 +2,7 @@
 namespace Service;
 use Payment\Common\PayException;
 use Payment\Client\Charge;
+use Payment\NotifyContext;
 /**
 * 支付宝
 */
@@ -50,5 +51,23 @@ class Alipay{
 		}
 		# 返回下单结果的支付url
 		return $payUrl;
+	}
+	public static function callback($fun){
+		#实例化
+		$result = new NotifyContext;
+		#填写需要参数
+		$data = ['app_id'=>C('app_id','alipay'),'notify_url'=>C('notify_url','alipay'),'return_url'=>C('return_url','alipay'),'sign_type'=>C('sign_type','alipay'),'ali_public_key'=>C('ali_public_key','alipay'),'rsa_private_key'=>C('rsa_private_key','alipay')];
+		// $data = C('all','alipay');
+		# 校验信息
+		$result -> initNotify('ali_charge',$data);
+	      
+		# 接受返回信息
+		$information = $result -> getNotifyData();
+		# 判断支付状态
+		if($information['trade_status']=='TRADE_SUCCESS'){
+			$fun($information);
+			
+		}
+		exit('success');
 	}
 }

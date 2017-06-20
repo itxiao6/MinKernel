@@ -295,7 +295,7 @@ class Wechat{
 	# 统一下单
 	public static function Unifiedorder($data = []){
 		# 初始化下单接口
-		self::$unifiedorder = new Unifiedorder(C('appid','wechat'),C('mch_id','wechat'),C('key','wechat'));
+		self::$unifiedorder = new Unifiedorder(C('appid','wechat'),C('mchid','wechat'),C('pay_key','wechat'));
 		# 循环设置订单信息
 		foreach ($data as $key => $value) {
 			# 设置订单内容
