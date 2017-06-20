@@ -10,7 +10,7 @@
     "XiaoLer/blade":"*",
     "qiniu/php-sdk":"*",
     "maximebf/debugbar":"*",
-    "thenbsp/wechat":"2.0.5",
+    "itxiao6/wechat":"*",
     "purocean/php-excel":"0.0.1",
     "riverslei/payment": "~3.0"
   },
