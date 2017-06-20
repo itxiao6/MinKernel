@@ -115,6 +115,20 @@ class Controller{
     protected function redirect($url,$params='') {
         redirect(U($url,$params));
     }
+    public function success($message,$url='history.go(-1);',$timeout=1000){
+      $this -> assign('message',$message);
+      $this -> assign('url',$url);
+      $this -> assign('timeout',$timeout);
+      $this -> display('success');
+      exit();
+    }
+    public function error($message,$url='history.go(-1);',$timeout=1000){
+      $this -> assign('message',$message);
+      $this -> assign('url',$url);
+      $this -> assign('timeout',$timeout);
+      $this -> display('error');
+      exit();
+    }
   # 析构方法
   public function __destruct(){
   	# 获取全局变量
