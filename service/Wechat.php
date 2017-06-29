@@ -1,24 +1,23 @@
 <?php
 namespace Service;
 use Doctrine\Common\Cache\FilesystemCache;
-use Itxiao6\Wechat\Wechat\AccessToken;
-use Itxiao6\Wechat\Wechat\Jsapi;
-use Itxiao6\Wechat\Wechat\Qrcode;
-use Itxiao6\Wechat\Wechat\ServerIp;
-use Itxiao6\Wechat\Wechat\ShortUrl;
-use Itxiao6\Wechat\OAuth\Client;
-use Itxiao6\Wechat\Bridge\Util;
-use Itxiao6\Wechat\Payment\Unifiedorder;
-use Itxiao6\Wechat\Payment\Notify;
-use Itxiao6\Wechat\Payment\Coupon\Cash;
-use Itxiao6\Wechat\Payment\Coupon\Transfers;
-use Itxiao6\Wechat\Message\Template\Template;
-use Itxiao6\Wechat\Message\Template\Sender;
-use Itxiao6\Wechat\Menu\Button;
-use Itxiao6\Wechat\Menu\ButtonCollection;
-use Itxiao6\Wechat\Menu\Create;
-use Itxiao6\Wechat\User\User;
-use Itxiao6\Wechat\Payment\Jsapi\PayChoose;
+use Thenbsp\Wechat\Wechat\AccessToken;
+use Thenbsp\Wechat\Wechat\Jsapi;
+use Thenbsp\Wechat\Wechat\Qrcode;
+use Thenbsp\Wechat\Wechat\ServerIp;
+use Thenbsp\Wechat\Wechat\ShortUrl;
+use Thenbsp\Wechat\OAuth\Client;
+use Thenbsp\Wechat\Bridge\Util;
+use Thenbsp\Wechat\Payment\Unifiedorder;
+use Thenbsp\Wechat\Payment\Notify;
+use Thenbsp\Wechat\Payment\Coupon\Cash;
+use Thenbsp\Wechat\Message\Template\Template;
+use Thenbsp\Wechat\Message\Template\Sender;
+use Thenbsp\Wechat\Menu\Button;
+use Thenbsp\Wechat\Menu\ButtonCollection;
+use Thenbsp\Wechat\Menu\Create;
+use Thenbsp\Wechat\User\User;
+use Thenbsp\Wechat\Payment\Jsapi\PayChoose;
 /**
 * 微信操作
 */
@@ -52,7 +51,37 @@ class Wechat{
 	# 红包实例
 	protected static $cash = false;
 
-	
+	// 调用例子 Wechat::transfersqiye('ojmuBwdCKPD5xrYG41bIuy_iDzlw',1.18,ROOT_PATH.'pem/apiclient_cert.pem',ROOT_PATH.'pem/apiclient_key.pem',$desc='企业转账',$check_name='NO_CHECK',$re_user_name='李先生');
+	# 微信企业到账
+	public static function transfersqiye($openid,$money,$cert,$sslKey,$desc='企业转账',$check_name='NO_CHECK',$re_user_name=''){
+		# 判断要发送的红包金额是否小于1元
+		if($money < 1){
+			# 发送的红包金额不能小于1元
+			return false;
+		}
+		# 初始化企业转账类
+		$transfers = new Transfers(C('appid','wechat'), C('mch_id','wechat'), C('key','wechat'));
+
+		# 企业转账必需设置证书
+		$transfers->setSSLCert($cert,$sslKey);
+
+		# 设置企业转账信息
+		$transfers->set('partner_trade_no',rand(0,20).date('YmdHisyysssi').rand(0,20));# 转账者
+		$transfers->set('openid',$openid);# 转账者
+		$transfers->set('check_name',$check_name);# 转账者
+		$transfers->set('re_user_name',$re_user_name);# 转账者
+		$transfers->set('amount',$money*100);# 转账者
+		$transfers->set('desc',$desc);# 转账者
+		$transfers->set('spbill_create_ip',$_SERVER['SERVER_ADDR']);# 转账者
+
+		try {
+		    $response = $transfers->getResponse();
+		} catch (\Exception $e) {
+		    exit($e->getMessage());
+		}
+		# 返回发放结果
+		return $response->toArray();
+	}
 	# 微信app支付
 	public static function app_pay($pay_order_num,$order_name,$order_price){
 		# 初始化微信统一下单SDK(Appid,商户平台id,商户秘钥）参数来自于微信开放平台
@@ -353,43 +382,14 @@ class Wechat{
 		# $notify['out_trade_no'] 为订单号
 
 		# 调用回调方法
-		$callBack($notify);
-
-		# 返回成功标识
-		$notify->success('OK');
-	}
-	// 调用例子 Wechat::transfersqiye('ojmuBwdCKPD5xrYG41bIuy_iDzlw',1.18,ROOT_PATH.'pem/apiclient_cert.pem',ROOT_PATH.'pem/apiclient_key.pem',$desc='企业转账',$check_name='NO_CHECK',$re_user_name='李先生');
-	# 微信企业到账
-	public static function transfersqiye($openid,$money,$cert,$sslKey,$desc='企业转账',$check_name='NO_CHECK',$re_user_name=''){
-		# 判断要发送的红包金额是否小于1元
-		if($money < 1){
-			# 发送的红包金额不能小于1元
-			return false;
+		if($callBack($notify)){
+			# 返回成功标识
+			$notify->success('OK');
+		}else{
+			# 返回失败标示
+			$notify -> fail('FAIL');
 		}
-		# 初始化企业转账类
-		$transfers = new Transfers(C('appid','wechat'), C('mch_id','wechat'), C('key','wechat'));
-
-		# 企业转账必需设置证书
-		$transfers->setSSLCert($cert,$sslKey);
-
-		# 设置企业转账信息
-		$transfers->set('partner_trade_no',rand(0,20).date('YmdHisyysssi').rand(0,20));# 转账者
-		$transfers->set('openid',$openid);# 转账者
-		$transfers->set('check_name',$check_name);# 转账者
-		$transfers->set('re_user_name',$re_user_name);# 转账者
-		$transfers->set('amount',$money*100);# 转账者
-		$transfers->set('desc',$desc);# 转账者
-		$transfers->set('spbill_create_ip',$_SERVER['SERVER_ADDR']);# 转账者
-
-		try {
-		    $response = $transfers->getResponse();
-		} catch (\Exception $e) {
-		    exit($e->getMessage());
-		}
-		# 返回发放结果
-		return $response->toArray();
 	}
-	# 现金红包
 	public static function Cash($openid,$money,$cert,$sslKey,$num=1,$send_name="",$action_name='恭喜发财',$description='红包可立即提现',$wishing='恭喜发财'){
 		# 判断要发送的红包金额是否小于1元
 		if($money < 1){
@@ -420,7 +420,6 @@ class Wechat{
 		# 返回发放结果
 		return $response->toArray();
 	}
-	# 模板消息
 	public static function Template($Template_id,$url,$openid,$data){
 		# 判断是否已经获取过accessToken
 		if(self::$accessToken==false){

@@ -3,6 +3,8 @@ namespace Service;
 use Payment\Common\PayException;
 use Payment\Client\Charge;
 use Payment\NotifyContext;
+use Payment\Client\Transfer;
+use Payment\Config;
 /**
 * 支付宝
 */
@@ -52,22 +54,56 @@ class Alipay{
 		# 返回下单结果的支付url
 		return $payUrl;
 	}
+	# 回调
 	public static function callback($fun){
 		#实例化
 		$result = new NotifyContext;
 		#填写需要参数
-		$data = ['app_id'=>C('app_id','alipay'),'notify_url'=>C('notify_url','alipay'),'return_url'=>C('return_url','alipay'),'sign_type'=>C('sign_type','alipay'),'ali_public_key'=>C('ali_public_key','alipay'),'rsa_private_key'=>C('rsa_private_key','alipay')];
-		// $data = C('all','alipay');
+		$data = C('all','alipay');
+		unset($data['merchant_private_key']);
+		unset($data['charset']);
+		unset($data['gatewayUrl']);
 		# 校验信息
 		$result -> initNotify('ali_charge',$data);
-	      
 		# 接受返回信息
 		$information = $result -> getNotifyData();
 		# 判断支付状态
 		if($information['trade_status']=='TRADE_SUCCESS'){
-			$fun($information);
-			
+			if($fun($information)){
+				exit('success');
+			}else{
+				exit('fail');
+			}
+		}else{
+			exit('fail');
 		}
-		exit('success');
+		
+	}
+	# 支付宝付款接口
+	public static function querys($data = []){
+		$aliConfig = C('all','alipay');
+		$default = [
+		    'trans_no' => time(),
+		    'payee_type' => 'ALIPAY_LOGONID',
+		    'payee_account' => '15538147923',
+		    'amount' => '0.1',
+		    'remark' => '支付宝单笔企业转账',
+		    'payer_show_name' => '曹操',
+		];
+		# 合并配置
+		$data = array_merge($default,$data);
+		# 验证最低金额
+		if($data['amount'] < 0.1){
+			return false;
+		}
+		try {
+		    $ret = Transfer::run(Config::ALI_TRANSFER, $aliConfig, $data);
+		} catch (PayException $e) {
+		    echo $e->errorMessage();
+		    exit;
+		}
+
+		 $res = json_encode($ret, JSON_UNESCAPED_UNICODE);
+		return json_decode($res);
 	}
 }

@@ -143,13 +143,13 @@
 
 											<span class="blue bigger-125">
 
-												<span class="badge badge-success">√</span>
+												<span class="badge badge-warning">X</span>
 
 											</span>
 											
 
 											{{$message}}
-											<span class="label label-success arrowed">Success</span>
+											<span class="label label label-warning arrowed">E r r o r</span>
 
 										</h1>
 									</center>

@@ -4,3 +4,4 @@ runtime
 .gitignore
 composer.lock
 env.php
+MinKernel.iml

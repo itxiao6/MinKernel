@@ -56,4 +56,43 @@ class Upload{
       return false;
     }
   }
+  # =============处理图片数组============
+  public static function uploads_array($file){
+    # 判断上传的目录是否存在
+    if(!file_exists(self::$folder)){
+      self::$error = 1;
+      self::$message = '上传目标文件夹不存在';
+      return false;
+    }
+    $picname=[];
+    foreach ($file['tmp_name'] as $key => $value) {
+      # 获取要上传的临时文件名称
+      self::$tmp_file = $value;
+      # 判断临时文件是否存在
+      if(!file_exists(self::$tmp_file)){
+        self::$error = 2;
+        self::$message = '上传的临时文件不存在';
+        return false;
+      }
+      foreach ($file['name'] as $k => $v) {
+             #找出对应的图片
+            if ($key==$k) {
+              # 获取文件后缀名
+              $suffix = substr($v,strrpos($v,'.'));
+              # 判断是否为合法文件
+              if(in_array($suffix,self::$suffix)){
+                self::$upload_file[0] = getRandomString(15);
+                # 上传文件
+                move_uploaded_file(self::$tmp_file,self::$folder.self::$upload_file[0].$suffix);
+                $picname[]= self::$web_folder.self::$upload_file[0].$suffix;
+              }else{
+                self::$error = 3;
+                self::$message = '文件类型错误';
+                return false;
+              }
+          }
+      }
+   }
+      return $picname;
+  }
 }
