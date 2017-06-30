@@ -5,3 +5,5 @@ runtime
 composer.lock
 env.php
 MinKernel.iml
+.idea/deployment.xml
+.idea/webServers.xml

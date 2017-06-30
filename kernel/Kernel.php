@@ -15,6 +15,9 @@ class Kernel{
 	public static function start(){
         # 设置协议头
         header("Content-Type:text/html;charset=utf-8");
+
+        # 加载公用函数库
+        require(ROOT_PATH.'common'.DIRECTORY_SEPARATOR.'functions.php');
         # 判断是否下载了composer包
         if (file_exists(ROOT_PATH.'vendor'.DIRECTORY_SEPARATOR.'autoload.php')) {
 
@@ -41,8 +44,6 @@ class Kernel{
             # 屏蔽所有错误
             error_reporting(0);
         }
-        # 加载公用函数库
-        require(ROOT_PATH.'common'.DIRECTORY_SEPARATOR.'functions.php');
 
         #将时区设置为中国
         date_default_timezone_set(C('default_timezone','sys'));
