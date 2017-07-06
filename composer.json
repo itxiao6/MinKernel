@@ -5,6 +5,7 @@
   "license": "MIT",
   "require": {
     "illuminate/database": "*",
+    "illuminate/http": "v5.4.27",
     "filp/whoops": "*",
     "phpmailer/phpmailer": "~5.2",
     "XiaoLer/blade":"*",
