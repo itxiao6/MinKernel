@@ -11,6 +11,7 @@ use Thenbsp\Wechat\Bridge\Util;
 use Thenbsp\Wechat\Payment\Unifiedorder;
 use Thenbsp\Wechat\Payment\Notify;
 use Thenbsp\Wechat\Payment\Coupon\Cash;
+use Thenbsp\Wechat\Payment\Coupon\Transfers;
 use Thenbsp\Wechat\Message\Template\Template;
 use Thenbsp\Wechat\Message\Template\Sender;
 use Thenbsp\Wechat\Menu\Button;
