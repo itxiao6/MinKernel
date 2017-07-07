@@ -4,6 +4,8 @@ use Service\Log;
 use Kernel\Controller;
 use Exception;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use \Symfony\Component\HttpFoundation\Session\Session;
 # 路由类
 class Route{
 	# 虚拟目录
@@ -139,7 +141,7 @@ class Route{
 			# 判断控制器内操作是否存在
 			if(method_exists($controller,$actionNane) && (!in_array($actionNane,$magic))){
 				# 实例化请求类
-				$require = new Request($_REQUEST,$_COOKIE,$_FILES,$_SERVER);
+				$require = new Request($_GET,$_POST,$_REQUEST,$_COOKIE,$_FILES,$_SERVER);
 				# 实例化控制器
 				$controller -> $actionNane($require);
 
