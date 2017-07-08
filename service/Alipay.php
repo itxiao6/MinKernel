@@ -64,7 +64,7 @@ class Alipay{
      * 支付宝异步回调
      * @param \Closure $fun 回调方法
      */
-	public static function callback($fun=function(){return false;})
+	public static function callback($fun)
     {
 		#实例化
 		$result = new NotifyContext;

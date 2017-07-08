@@ -4,9 +4,6 @@ use Service\Log;
 use Kernel\Controller;
 use Exception;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
-//use \Symfony\Component\HttpFoundation\Session\Session;
-use Illuminate\Support\Facades\Session
 # 路由类
 class Route{
 	# 虚拟目录
