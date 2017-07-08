@@ -6,11 +6,12 @@ use Exception;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 //use \Symfony\Component\HttpFoundation\Session\Session;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Session
 # 路由类
 class Route{
 	# 虚拟目录
-	public static function abstract_path($uri){
+	public static function abstract_path($uri)
+    {
 		# 处理虚拟目录
 		foreach (C('all','abstract') as $key => $value) {
 			# 判断是否存在此文件
@@ -30,7 +31,8 @@ class Route{
 		}
 	}
 	# 解析路由
-	public static function init(){
+	public static function init()
+    {
 		# 获取url
 		$uri = get_url(true);
 
@@ -144,6 +146,7 @@ class Route{
 
 				# 实例化请求类
                 $request = new Request($_GET,$_POST,$_REQUEST,$_COOKIE,$_FILES,$_SERVER);
+
 				# 实例化控制器
 				$controller -> $actionNane($request);
 
