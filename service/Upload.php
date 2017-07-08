@@ -27,7 +27,8 @@ class Upload{
 
 
   # 处理图片
-  public static function upload_one($file){
+  public static function upload_one($file)
+  {
     # 判断上传的目录是否存在
     if(!file_exists(self::$folder)){
       self::$error = 1;
@@ -57,7 +58,8 @@ class Upload{
     }
   }
   # =============处理图片数组============
-  public static function uploads_array($file){
+  public static function uploads_array($file)
+  {
     # 判断上传的目录是否存在
     if(!file_exists(self::$folder)){
       self::$error = 1;

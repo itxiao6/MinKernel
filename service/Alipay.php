@@ -9,8 +9,14 @@ use Payment\Config;
 * 支付宝
 */
 class Alipay{
-	# 创建订单
-	public static function create($data,$channel='ali_wap'){
+    /**
+     * 创建订单
+     * @param $data 下单数据
+     * @param string $channel 支付接口
+     * @return mixed 进行支付的url
+     */
+	public static function create($data,$channel='ali_wap')
+    {
 		# 默认配置
 		$default = [
 			'amount'=>0.01,
@@ -54,8 +60,12 @@ class Alipay{
 		# 返回下单结果的支付url
 		return $payUrl;
 	}
-	# 回调
-	public static function callback($fun){
+    /**
+     * 支付宝异步回调
+     * @param \Closure $fun 回调方法
+     */
+	public static function callback($fun=function(){return false;})
+    {
 		#实例化
 		$result = new NotifyContext;
 		#填写需要参数
@@ -79,8 +89,13 @@ class Alipay{
 		}
 		
 	}
-	# 支付宝付款接口
-	public static function querys($data = []){
+    /**
+     * 点对点转账
+     * @param array $data
+     * @return bool|mixed
+     */
+	public static function querys($data = [])
+    {
 		$aliConfig = C('all','alipay');
 		$default = [
 		    'trans_no' => time(),
@@ -102,8 +117,7 @@ class Alipay{
 		    echo $e->errorMessage();
 		    exit;
 		}
-
-		 $res = json_encode($ret, JSON_UNESCAPED_UNICODE);
+        $res = json_encode($ret, JSON_UNESCAPED_UNICODE);
 		return json_decode($res);
 	}
 }

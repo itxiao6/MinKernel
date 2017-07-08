@@ -24,7 +24,8 @@ class Qiniu{
     /**
      * [__construct 构造函数]
      */
-    public function __construct(){
+    public function __construct()
+    {
         # 初始化accessKey和aecreyKey和上传空间名称
         $this -> accessKey = C('accessKey','sys');
         $this -> secretKey = C('secretKey','sys');
@@ -35,7 +36,8 @@ class Qiniu{
         $this -> token = $auth->uploadToken($this -> Bucket_Name);
 
     }
-    public function upload_one($upFile){
+    public function upload_one($upFile)
+    {
         if($upFile['size']<1){return false;}
         # 设置要上传的文件名
         $this -> upLoadFileName = $upFile['tmp_name'];
@@ -55,7 +57,8 @@ class Qiniu{
         }
     }
     # 多文件上传
-    public function uploads($upFile){
+    public function uploads($upFile)
+    {
         # 统计上传文件的个数
         $count = count($upFile['name']);
         # 上传结果
@@ -81,7 +84,8 @@ class Qiniu{
      * @param  [type] $upFile [上传文件资源]
      * @return [type]         [上传文件的后缀名]
      */
-    protected function get_Suffix_Name($upFile){
+    protected function get_Suffix_Name($upFile)
+    {
         $suffix = substr($upFile['name'],strripos($upFile['name'],'.'));
         # 判断是否存在后缀
         if(empty($suffix)){
@@ -94,7 +98,8 @@ class Qiniu{
      * [get_rand_File_Name 随机临时文件名]
      * @return [type] [随机文件名]
      */
-    protected function get_rand_File_Name(){
+    protected function get_rand_File_Name()
+    {
         $str = "";
         for ($i=0; $i < 10; $i++) {
             $str .= rand(0,9);

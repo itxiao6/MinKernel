@@ -14,7 +14,8 @@ class File{
 	 * @param  Boolean $isBackground [是否开启在后台下载]
 	 * @return [Boolean]                [是否下载成功]
 	 */
-	public static function _download($url,$dirName,$fileName='',$isBackground=false){
+	public static function _download($url,$dirName,$fileName='',$isBackground=false)
+    {
 		# 判断是否为Linux
 		if(self::getOs()){
 			# 执行Linux命令
@@ -36,7 +37,8 @@ class File{
 	 * @param  string $Auth    [权限]
 	 * @return [type]          [执行结果]
 	 */
-	public static function _mkdir($dirname,$Auth='755'){
+	public static function _mkdir($dirname,$Auth='755')
+    {
 		$command = 'mkdir -m '.$Auth.' '.$dirname;
 		return self::execute($command);
 	}
@@ -46,7 +48,8 @@ class File{
 	 * @param  string $dirName  [文件夹]
 	 * @return [String]           [执行结果]
 	 */
-	public static function _touch($fileName,$dirName='./'){
+	public static function _touch($fileName,$dirName='./')
+    {
 		$command = 'touch '.rtrim($dirName,'/').'/'.$fileName;
 		return self::execute($command);
 	}
@@ -56,7 +59,8 @@ class File{
 	 * @param  boolean $isDir    [是否删除的为文件夹]
 	 * @return [String]            [执行的结果]
 	 */
-	public static function _delete($fileName,$isDir=false){
+	public static function _delete($fileName,$isDir=false)
+    {
 		$command = 'rm -f'.($isDir==true?'R':'').' '.$fileName;
 		return self::execute($command);
 	}
@@ -65,7 +69,8 @@ class File{
 	 * @param  [String] $dirName [要清空的目录]
 	 * @return [String]          [执行的结果]
 	 */
-	public static function clearDir($dirName){
+	public static function clearDir($dirName)
+    {
 		$command = 'direc="%%1" #$('.$dirName.')
 					for dir2del in $direc/* ; do
 					  rm -fR $dir2del
@@ -78,7 +83,8 @@ class File{
 	 * @param  [String]  $fileName   [压缩后的文件名]
 	 * @return [String]              [生成路径]
 	 */
-	public static function _file_compress($path,$fileName="./",$par="-cvf"){
+	public static function _file_compress($path,$fileName="./",$par="-cvf")
+    {
 		$command = 'tar '.$par.' '.$fileName.' '.$path;
 		return self::execute($command);
 	}
@@ -88,7 +94,8 @@ class File{
 	 * @param  Boolean $isRemotely [是否为远端文件]
 	 * @return [Result]              [文件内容]
 	 */
-	public static function _file_get_contents($fileName,$isRemotely=false){
+	public static function _file_get_contents($fileName,$isRemotely=false)
+    {
 		if($isRemotely){
 			$command = 'curl '.$fileName;
 		}else{
@@ -97,7 +104,8 @@ class File{
 		return self::execute($command);
 	}
 
-	public static function _file_exists($fileName){
+	public static function _file_exists($fileName)
+    {
 		# 拼接shell
 		$command = '[ ! -d '.$fileName.'] && echo 1 || echo 2';
 		# 判断文件是否存在
@@ -115,7 +123,8 @@ class File{
 	 * @param  [String]  $fileName   [文件路径]
 	 * @return  [Array]  $file   [文件属性]
 	 */
-	public static function _file_property($fileName){
+	public static function _file_property($fileName)
+    {
 		# 判断文件是否存在
 		if(!self::_file_exists($fileName)){
 			# 文件不存在
@@ -161,7 +170,8 @@ class File{
 	 * @param  [type] $append   [是否追加写入]
 	 * @return [type]           [写入的结果]
 	 */
-	public static function _file_put_contents($fileName,$content,$append=ture){
+	public static function _file_put_contents($fileName,$content,$append=ture)
+    {
 		# 拼接shell语句
 		$command = 'echo '.$content.' '.($append==true?'>>':'>').' '.$fileName;
 		# 执行并返回结果
@@ -170,7 +180,8 @@ class File{
 	/**
 	 * 获取操作系统
 	 */
-	protected static function getOs(){
+	protected static function getOs()
+    {
 		# 判断是否为Linux
 		if(PHP_OS=='Linux'){
 			# 如果是则返回真
@@ -185,7 +196,8 @@ class File{
 	 * @param  [type] $command [Shell语句]
 	 * @return [type]          [执行的结果]
 	 */
-	protected static function execute($command){
+	protected static function execute($command)
+    {
 		# 拼接shell头部
 		$command = "#!/bin/bash\n".$command;
 		# 输出语句
