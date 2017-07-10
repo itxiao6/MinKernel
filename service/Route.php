@@ -16,11 +16,17 @@ class Route{
 				$fileType = substr(strrchr($value.$uri,"."),1);
 				# 判断文件类型是否为css
 				if($fileType == 'css'){
-					header('Content-Type:text/css;charset=utf-8');
+					header('Content-Type:text/css;');
 				# 判断文件类型是否为js文件
 				}else if($fileType=='js'){
-					header('Content-Type:text/js;charset=utf-8');
-				}
+					header('Content-Type:text/js;');
+				}else if($fileType=='png'){
+                    header('Content-Type:image/png;');
+                }else if($fileType=='jpg'){
+                    header('Content-Type:text/jpeg;');
+                }else if($fileType=='gif'){
+                    header('Content-Type:text/gif;');
+                }
 				// 输入文件内容
 				exit(file_get_contents($value.$uri));
 			}
