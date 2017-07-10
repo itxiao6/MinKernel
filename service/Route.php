@@ -1,6 +1,5 @@
 <?php
 namespace Service;
-use Service\Log;
 use Kernel\Controller;
 use Exception;
 use Illuminate\Http\Request;

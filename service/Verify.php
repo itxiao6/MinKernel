@@ -30,7 +30,8 @@ class Verify {
      * @access public
      * @param  array $config 配置参数
      */
-    public function __construct($config=array()){
+    public function __construct($config=array())
+    {
         $this->config   =   array_merge($this->config, $config);
     }
 
@@ -40,7 +41,8 @@ class Verify {
      * @param  string $name 配置名称
      * @return multitype    配置值
      */
-    public function __get($name) {
+    public function __get($name)
+    {
         return $this->config[$name];
     }
 
@@ -51,7 +53,8 @@ class Verify {
      * @param  string $value 配置值
      * @return void
      */
-    public function __set($name,$value){
+    public function __set($name,$value)
+    {
         if(isset($this->config[$name])) {
             $this->config[$name]    =   $value;
         }
@@ -63,7 +66,8 @@ class Verify {
      * @param  string $name 配置名称
      * @return bool
      */
-    public function __isset($name){
+    public function __isset($name)
+    {
         return isset($this->config[$name]);
     }
 
@@ -74,7 +78,8 @@ class Verify {
      * @param string $id 验证码标识
      * @return bool 用户验证码是否正确
      */
-    public function check($code, $id = '') {
+    public function check($code, $id = '')
+    {
         if(strtoupper($_SESSION['verify_code'][$id]) ==  strtoupper($code)){
             return true;
         }else{
@@ -89,7 +94,8 @@ class Verify {
      * @param string $id 要生成验证码的标识
      * @return void
      */
-    public function entry($id = '') {
+    public function entry($id = '')
+    {
         # 图片宽(px)
         $this->imageW || $this->imageW = $this->length*$this->fontSize*1.5 + $this->length*$this->fontSize/2;
         # 图片高(px)
@@ -177,7 +183,8 @@ class Verify {
      *        ω：决定周期（最小正周期T=2π/∣ω∣）
      *
      */
-    private function _writeCurve() {
+    private function _writeCurve()
+    {
         $px = $py = 0;
 
         # 曲线前部分
@@ -226,7 +233,8 @@ class Verify {
      * 画杂点
      * 往图片上写不同颜色的字母或数字
      */
-    private function _writeNoise() {
+    private function _writeNoise()
+    {
         $codeSet = '2345678abcdefhijkmnpqrstuvwxyz';
         for($i = 0; $i < 10; $i++){
             #杂点颜色
@@ -242,7 +250,8 @@ class Verify {
      * 绘制背景图片
      * 注：如果验证码输出图片比较大，将占用比较多的系统资源
      */
-    private function _background() {
+    private function _background()
+    {
         $path = ROOT_PATH.DIRECTORY_SEPARATOR.'common'.DIRECTORY_SEPARATOR.'verify'.DIRECTORY_SEPARATOR.'bgs'.DIRECTORY_SEPARATOR;
         $dir = dir($path);
 
@@ -264,7 +273,8 @@ class Verify {
     }
 
     /* 加密验证码 */
-    private function authcode($str){
+    private function authcode($str)
+    {
         $key = substr(md5($this->seKey), 5, 8);
         $str = substr(md5($str), 8, 10);
         return md5($key . $str);

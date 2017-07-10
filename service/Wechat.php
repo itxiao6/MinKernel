@@ -1,24 +1,24 @@
 <?php
 namespace Service;
 use Doctrine\Common\Cache\FilesystemCache;
-use Thenbsp\Wechat\Wechat\AccessToken;
-use Thenbsp\Wechat\Wechat\Jsapi;
-use Thenbsp\Wechat\Wechat\Qrcode;
-use Thenbsp\Wechat\Wechat\ServerIp;
-use Thenbsp\Wechat\Wechat\ShortUrl;
-use Thenbsp\Wechat\OAuth\Client;
-use Thenbsp\Wechat\Bridge\Util;
-use Thenbsp\Wechat\Payment\Unifiedorder;
-use Thenbsp\Wechat\Payment\Notify;
-use Thenbsp\Wechat\Payment\Coupon\Cash;
-use Thenbsp\Wechat\Payment\Coupon\Transfers;
-use Thenbsp\Wechat\Message\Template\Template;
-use Thenbsp\Wechat\Message\Template\Sender;
-use Thenbsp\Wechat\Menu\Button;
-use Thenbsp\Wechat\Menu\ButtonCollection;
-use Thenbsp\Wechat\Menu\Create;
-use Thenbsp\Wechat\User\User;
-use Thenbsp\Wechat\Payment\Jsapi\PayChoose;
+use Itxiao6\Wechat\Wechat\AccessToken;
+use Itxiao6\Wechat\Wechat\Jsapi;
+use Itxiao6\Wechat\Wechat\Qrcode;
+use Itxiao6\Wechat\Wechat\ServerIp;
+use Itxiao6\Wechat\Wechat\ShortUrl;
+use Itxiao6\Wechat\OAuth\Client;
+use Itxiao6\Wechat\Bridge\Util;
+use Itxiao6\Wechat\Payment\Unifiedorder;
+use Itxiao6\Wechat\Payment\Notify;
+use Itxiao6\Wechat\Payment\Coupon\Cash;
+use Itxiao6\Wechat\Payment\Coupon\Transfers;
+use Itxiao6\Wechat\Message\Template\Template;
+use Itxiao6\Wechat\Message\Template\Sender;
+use Itxiao6\Wechat\Menu\Button;
+use Itxiao6\Wechat\Menu\ButtonCollection;
+use Itxiao6\Wechat\Menu\Create;
+use Itxiao6\Wechat\User\User;
+use Itxiao6\Wechat\Payment\Jsapi\PayChoose;
 /**
 * 微信操作
 */
