@@ -315,7 +315,7 @@ class Wechat{
      * 微信异步通知回调
      * @param $callBack 微信支付逻辑处理回调
      */
-	public static function notitfy($callBack){
+	public static function notitfy($callBack='exit'){
 		# 初始化回调通知类
 		$notify = new Notify();
 		# 验证通知
@@ -465,7 +465,7 @@ class Wechat{
      * @param $callback 回调方法
      * @param array $value
      */
-	public static function addEvent($event,$callback,$value=[]){
+	public static function addEvent($event,$callback = 'exit',$value=[]){
 		$result = self::xmlToArray($GLOBALS['HTTP_RAW_POST_DATA']);
 		if(strtolower($event) == strtolower($result['Event']) || (strtolower($event) == $result['MsgType']) ){
 			$callback($result,$value);
