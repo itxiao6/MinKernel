@@ -329,7 +329,7 @@ function http($url, $data='', $method='GET'){
  * @param  [String] $default [默认值]
  * @return [String]          [返回的值]
  */
-function env($param,$default=''){
+function env($param,$default='defaultValue'){
     global $env;
     # 判断配置文件是否加载过
     if(!isset($env)){
@@ -343,9 +343,9 @@ function env($param,$default=''){
     # 是否读取全部配置
     if($param=='all'){
         # 判断操作是读还是写
-        if($value != 'defaultValue'){
+        if($default != 'defaultValue'){
             # 修改值并返回
-            return $env = $value;
+            return $env = $default;
         }else{
             # 返回要取得的值
             return $env;
@@ -454,7 +454,7 @@ function M($tableName='',$key='id'){
  * @param [String] $tableName [Model的表名]
  * @param [String] $key [Model 主键]
  */
-fucntion D($tableName='',$key='id'){
+function D($tableName='',$key='id'){
     # 获取要实例化的模型名字
     $class = 'App\Model\\'.ucfirst($tableName);
     # 判断是否定义了模型文件
