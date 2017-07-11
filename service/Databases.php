@@ -2,7 +2,7 @@
 namespace Service;
 use Illuminate\Container\Container;
 use Illuminate\Database\Capsule\Manager as DB;
-// 文档参考 https://laravel.com/api/5.4/Illuminate/Database/Schema/Builder.html
+// 文档参考 https://laravel.com/api/5.4/Illuminate/Database/Schema/Blueprint.html
 class Databases{
     public static function __init(){
         # 获取全局的数据库连接

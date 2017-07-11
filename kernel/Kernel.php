@@ -46,7 +46,7 @@ class Kernel{
             error_reporting(0);
         }
 
-        #将时区设置为中国
+        # 设置时区
         date_default_timezone_set(C('default_timezone','sys'));
 
         # 定义全局变量
