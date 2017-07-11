@@ -5,6 +5,7 @@ use Whoops\Handler\PrettyPageHandler;
 use Service\Session;
 use Service\Route;
 use DebugBar\StandardDebugBar;
+use Service\Databases;
 /**
 * 框架核心类
 */
@@ -99,6 +100,13 @@ class Kernel{
 
         # 获取API模式传入的参数
         $param_arr = getopt('U:');
+        # 获取操作
+        $action = getopt('A:');
+//        dd($action['A']=='databases');
+//        var_dump($action);die();
+        if($action['A']=='databases'){
+            Databases::init();
+        }
         # 判断是否为API模式
         if($param_arr['U']){
             $_SERVER['REDIRECT_URL'] = $param_arr['U'];
