@@ -3,11 +3,19 @@ namespace Kernel;
 use Illuminate\Container\Container;
 use Illuminate\Database\Capsule\Manager as DB;
 use Illuminate\Database\Eloquent\Model as Eloquent;
+use Illuminate\Database\Eloquent\SoftDeletes;
 /**
 * 模型父类
 */
 class Model extends Eloquent{
+    use SoftDeletes;
 
+    /**
+     * 应该被调整为日期的属性
+     *
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
   /**
    * 这是模型的表定义
    *
