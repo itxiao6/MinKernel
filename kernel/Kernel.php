@@ -102,8 +102,7 @@ class Kernel{
         $param_arr = getopt('U:');
         # 获取操作
         $action = getopt('A:');
-//        dd($action['A']=='databases');
-//        var_dump($action);die();
+        # 判断操作
         if($action['A']=='databases'){
             Databases::init();
         }
