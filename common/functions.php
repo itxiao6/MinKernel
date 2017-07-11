@@ -342,14 +342,8 @@ function env($param,$default='defaultValue'){
     }
     # 是否读取全部配置
     if($param=='all'){
-        # 判断操作是读还是写
-        if($default != 'defaultValue'){
-            # 修改值并返回
-            return $env = $default;
-        }else{
-            # 返回要取得的值
-            return $env;
-        }
+        # 返回要取得的值
+        return $env;
     }else{
         # 判断是否存在环境配置项
         if( isset($env[$param]) ){
