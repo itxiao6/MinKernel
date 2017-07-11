@@ -434,21 +434,6 @@ function DB_LOG(){
  * @param [String] $key [Model 主键]
  */
 function M($tableName='',$key='id'){
-    # 获取要实例化的模型名字
-    $class = 'App\Model\\'.ucfirst($tableName);
-    # 判断是否定义了模型文件
-    if( class_exists((String) $class) ){
-        # 实例化类
-        $object = new $class;
-        # 判断是否修改的主键
-        if($key!='id'){
-            $object -> setKey($key);
-        }
-        # 设置表名
-        $object -> setTable($tableName);
-        # 返回模型
-        return $object;
-    }
     # 判断是否制定了表名
     if($tableName==''){
         # 直接返回一个没有指定过表名的Model
@@ -463,6 +448,30 @@ function M($tableName='',$key='id'){
     }
     # 返回实例化后的Model
     return $model;
+}
+/**
+ * [D 实例化模型如果没有模型则 创建一个虚拟的Model]
+ * @param [String] $tableName [Model的表名]
+ * @param [String] $key [Model 主键]
+ */
+fucntion D($tableName='',$key='id'){
+    # 获取要实例化的模型名字
+    $class = 'App\Model\\'.ucfirst($tableName);
+    # 判断是否定义了模型文件
+    if( class_exists((String) $class) ){
+        # 实例化类
+        $object = new $class;
+        # 判断是否修改的主键
+        if($key!='id'){
+            $object -> setKey($key);
+        }
+        # 设置表名
+        $object -> setTable($tableName);
+        # 返回模型
+        return $object;
+    }else{
+        return M($tableName,$key);
+    }
 }
 
 /**
