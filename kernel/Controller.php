@@ -134,10 +134,11 @@ class Controller{
   	# 获取全局变量
   	global $debugbar;
     global $debugbarRenderer;
-    if(is_array(DB_LOG())){
+    global $database;
+    if($database && is_array(DB_LOG())){
     	# 遍历sql
 	    foreach (DB_LOG() as $key => $value) {
-	    		$debugbar["messages"]->addMessage('语句:'.$value['query'].' 耗时:'.$value['time'].' 参数:'.json_encode($value['bindings']));
+	    	$debugbar["Database"]->addMessage('语句:'.$value['query'].' 耗时:'.$value['time'].' 参数:'.json_encode($value['bindings']));
 	    }
     }
     # 判断是否开启了 debugbar

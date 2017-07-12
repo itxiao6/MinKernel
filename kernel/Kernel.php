@@ -5,6 +5,18 @@ use Whoops\Handler\PrettyPageHandler;
 use Service\Session;
 use Service\Route;
 use DebugBar\StandardDebugBar;
+//
+use DebugBar\DebugBar;
+use DebugBar\DataCollector\ExceptionsCollector;
+use DebugBar\DataCollector\MemoryCollector;
+use DebugBar\DataCollector\MessagesCollector;
+use DebugBar\DataCollector\PhpInfoCollector;
+use DebugBar\DataCollector\RequestDataCollector;
+use DebugBar\DataCollector\TimeDataCollector;
+use DebugBar\DataCollector\LocalizationCollector;
+use DebugBar\DataCollector\DataCollector;
+use DebugBar\DataCollector\ConfigCollector;
+use DebugBar\DataCollector\AggregatedCollector;
 /**
 * 框架核心类
 */
@@ -47,15 +59,25 @@ class Kernel{
 
         # 设置时区
         date_default_timezone_set(C('default_timezone','sys'));
+        # 判断是否开启了debugbar
+        if(C('debugbar','sys')) {
+            # 定义全局变量
+            global $debugbar;
+            global $debugbarRenderer;
+            global $database;
 
-        # 定义全局变量
-        global $debugbar;
-        global $debugbarRenderer;
-        global $database;
+            # 启动DEBUGBAR
+            $debugbar = new DebugBar();
+            $debugbar->addCollector(new PhpInfoCollector());
+            $debugbar->addCollector(new TimeDataCollector());
+            $debugbar->addCollector(new MessagesCollector('Request'));
+            $debugbar->addCollector(new MessagesCollector('Database'));
+            $debugbar->addCollector(new MessagesCollector('Application'));
+            $debugbar->addCollector(new MessagesCollector('View'));
+            $debugbar->addCollector(new ExceptionsCollector());
 
-        # 启动DEBUGBAR
-        $debugbar = new StandardDebugBar();
-        $debugbarRenderer = $debugbar->getJavascriptRenderer();
+            $debugbarRenderer = $debugbar->getJavascriptRenderer();
+        }
 
         # 定义请求常量
         define('REQUEST_METHOD',$_SERVER['REQUEST_METHOD']);

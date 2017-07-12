@@ -145,10 +145,24 @@ class Route{
 
 			# 判断控制器内操作是否存在
 			if(method_exists($controller,$actionNane) && (!in_array($actionNane,$magic))){
-
-				# 实例化请求类
+                if(C('debugbar','sys')) {
+                    global $debugbar;
+                    global $debugbarRenderer;
+                    # GET 信息
+                    $debugbar['Request'] -> addMessage(['GET'=>$_GET]);
+                    # POST 信息
+                    $debugbar['Request'] -> addMessage(['POST'=>$_POST]);
+                    # SERVER 信息
+                    $debugbar['Request'] -> addMessage(['SERVER'=>$_SERVER]);
+                    # 应用名
+                    $debugbar['Application'] -> addMessage(['APP'=>APP_NAME]);
+                    # 控制器
+                    $debugbar['Application'] -> addMessage(['CONTROLLER'=>CONTROLLER_NAME]);
+                    # 操作
+                    $debugbar['Application'] -> addMessage(['ACTION'=>ACTION_NAME]);
+                }
+                # 实例化请求类
                 $request = new Request($_GET,$_POST,$_REQUEST,$_COOKIE,$_FILES,$_SERVER);
-
 				# 实例化控制器
 				$controller -> $actionNane($request);
 
