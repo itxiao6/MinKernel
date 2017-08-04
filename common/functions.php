@@ -58,90 +58,6 @@ function get_url($is_preg_get=true){
     }
     return$uri;
 }
-/**
-* [get_page 获取分页]
-* @param [Int] $num [一页条数]
-* @param [String] $type [返回类型]
-* @return [Object] $this [本对象]
-*/
-function get_page($num,$object,$type='Array',$where=[]){
-    # 匹配掉uri里的路径
-    $uri = substr($_SERVER['REQUEST_URI'],0,strrpos($_SERVER['REQUEST_URI'],'?'));
-    unset($_GET[preg_replace('!\.!','_',$uri)]);
-    # 获取get url
-    if(count($where)<=0){$where = $_GET;}
-    # 定义where_url
-    $where_url = '';
-    # 循环链接 条件连续字符串
-    foreach ($where as $key => $value) {
-        if($key!='page'){
-            $where_url .= $key.'='.$value.'&';
-        }
-    }
-    
-    # 条件url
-    $data['where_url'] = $where_url;
-
-    # 判断当前页数不能为空
-    if($_GET['page'] < 1){$_GET['page'] = 1;}else{$_GET['page']+=0;}
-
-    # 数据总条数
-    $data['total'] = $object -> count();
-
-    # 数据集合(对象)
-    $data['data'] = $object -> skip($num * ($_GET['page']-1))->take($num) -> get();
-
-    # 当前页数据
-    $data['to'] = $data['data'] -> count();
-
-    # 当前页数
-    $data['from'] = ($_GET['page'] < 1?1:$_GET['page']);
-
-    # 总页数
-    $data['last_page'] = ceil($data['total'] / $num);
-
-    # 判断是否已经到达末页了
-    if($_GET['page'] < $data['last_page']){
-
-        # 下一页链接地址
-        $data['next_page_url'] = '?'.$where_url.'page='.($_GET['page'] + 1);
-
-    }else{
-
-        # 空链接
-        $data['next_page_url'] = null;
-
-    }
-    # 判断是否已经是首页
-    if($_GET['page'] > 1){
-
-        # 上一页链接地址
-        $data['prev_page_url'] = '?'.$where_url.'page='.($_GET['page'] - 1);
-
-    }else{
-
-        # 空链接
-        $data['prev_page_url'] = null;
-
-    }
-
-
-    # 判断要返回的数据类型
-    if($type=='Array'){
-
-      # 转换数据为数组
-      $data['data'] = $data['data'] -> toArray();
-
-      # 返回数组格式的数据
-      return $data;
-
-    }else if($type=='Object'){
-
-      # 返回对象形式的数据
-      return $data;
-
-    }
-}
 
 /**
  * [ arrayToXml 数组转换成XML ]
@@ -159,14 +75,6 @@ function arrayToXml($arr){
     }
     $xml.="</xml>";
     return $xml;
-}
-/**
- * [ isWechat 数组转换成XML ]
- * @return Bool 是否为微信打开
- */
-function isWechat()
-{
-    return !(false === strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger'));
 }
 
 /**

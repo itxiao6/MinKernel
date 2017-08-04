@@ -5,4 +5,8 @@ return [
 	'resources'=>ROOT_PATH.'vendor'.DIRECTORY_SEPARATOR.'maximebf'.DIRECTORY_SEPARATOR.'debugbar'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'DebugBar',
 	# 后台资源文件
 	'assets'=>ROOT_PATH.'common',
+    # 百度富文本编辑器资源路由
+	'umeditor'=>ROOT_PATH.'common',
+    # 富文本上传的内容
+	'uploads'=>ROOT_PATH.'common',
 ];

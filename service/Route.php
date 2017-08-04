@@ -3,6 +3,7 @@ namespace Service;
 use Kernel\Controller;
 use Exception;
 use Illuminate\Http\Request;
+use Service\Http;
 # 路由类
 class Route{
 	# 虚拟目录
@@ -36,10 +37,10 @@ class Route{
 	public static function init()
     {
 		# 获取url
-		$uri = get_url(true);
+		$uri = Http::get_url(true);
 
 		# 定义请求URL
-		define('REQUEST_URI',get_url(false));
+		define('REQUEST_URI',Http::get_url(false));
 
 		# 处理虚拟目录
 		self::abstract_path($uri);
@@ -127,8 +128,7 @@ class Route{
 		}
 
 		# 定义应用视图模板路径
-		C('view_path','sys',['app' => ROOT_PATH.'app'.DIRECTORY_SEPARATOR.$route[0].DIRECTORY_SEPARATOR.'View','message'=>C('view_path','sys')['message']]);
-
+		C('view_path','sys',['app' => ROOT_PATH.'app'.DIRECTORY_SEPARATOR.$route[0].DIRECTORY_SEPARATOR.'View','message'=>ROOT_PATH.'message']);
 		# 获取类名
 		$className = 'App\\'.$route[0].'\Controller\\'.CONTROLLER_NAME;
 
@@ -148,18 +148,22 @@ class Route{
                 if(C('debugbar','sys')) {
                     global $debugbar;
                     global $debugbarRenderer;
+                    # SESSION 信息
+                    $debugbar['Request'] -> addMessage(['SESSION'=>$_SESSION]);
                     # GET 信息
                     $debugbar['Request'] -> addMessage(['GET'=>$_GET]);
                     # POST 信息
                     $debugbar['Request'] -> addMessage(['POST'=>$_POST]);
+                    # COOKIE 信息
+                    $debugbar['Request'] -> addMessage(['COOKIE'=>$_COOKIE]);
                     # SERVER 信息
                     $debugbar['Request'] -> addMessage(['SERVER'=>$_SERVER]);
                     # 应用名
-                    $debugbar['Application'] -> addMessage(['APP'=>APP_NAME]);
+                    $debugbar['Application'] -> addMessage('应用名:'.APP_NAME);
                     # 控制器
-                    $debugbar['Application'] -> addMessage(['CONTROLLER'=>CONTROLLER_NAME]);
+                    $debugbar['Application'] -> addMessage('模块名:'.CONTROLLER_NAME);
                     # 操作
-                    $debugbar['Application'] -> addMessage(['ACTION'=>ACTION_NAME]);
+                    $debugbar['Application'] -> addMessage('操作名'.ACTION_NAME);
                 }
                 # 实例化请求类
                 $request = new Request($_GET,$_POST,$_REQUEST,$_COOKIE,$_FILES,$_SERVER);
@@ -179,7 +183,10 @@ class Route{
 			}
 		}else{
 			# 判断是否 存在此模板
-			if(file_exists(ROOT_PATH.'app'.DIRECTORY_SEPARATOR.APP_NAME.DIRECTORY_SEPARATOR.'View'.DIRECTORY_SEPARATOR.CONTROLLER_NAME.DIRECTORY_SEPARATOR.$actionNane.'.html')){
+			if(file_exists(ROOT_PATH.'app'.DIRECTORY_SEPARATOR.APP_NAME.DIRECTORY_SEPARATOR.'View'.DIRECTORY_SEPARATOR.CONTROLLER_NAME.DIRECTORY_SEPARATOR.$actionNane.'.html')
+                || file_exists(ROOT_PATH.'app'.DIRECTORY_SEPARATOR.APP_NAME.DIRECTORY_SEPARATOR.'View'.DIRECTORY_SEPARATOR.CONTROLLER_NAME.DIRECTORY_SEPARATOR.$actionNane.'.php')
+                || file_exists(ROOT_PATH.'app'.DIRECTORY_SEPARATOR.APP_NAME.DIRECTORY_SEPARATOR.'View'.DIRECTORY_SEPARATOR.CONTROLLER_NAME.DIRECTORY_SEPARATOR.$actionNane.'.tpl')
+            ){
 				# 实例化控制器父类
 				$controller = new Controller;
 				# 渲染模板

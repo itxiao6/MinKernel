@@ -79,7 +79,7 @@ class Verify {
      * @return bool 用户验证码是否正确
      */
     public function check($code, $id = '')
-    {
+    {   
         if(strtoupper($_SESSION['verify_code'][$id]) ==  strtoupper($code)){
             return true;
         }else{
@@ -155,10 +155,11 @@ class Verify {
         # 保存验证码
         $key        =   $this->authcode($this->seKey);
         // $code       =   $this->authcode(strtoupper(implode('', $code)));
+        $str = '';
         foreach ($code as $key => $value) {
-            $str = '';
+            $str .= $value;
         }
-        
+
         $_SESSION['verify_code'][$id] = $str;
 
         header('Cache-Control: private, max-age=0, no-store, no-cache, must-revalidate');

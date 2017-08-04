@@ -14,4 +14,6 @@ return [
 		'extensions'=>['php','html','tpl'], #模板文件的后缀名
 		'view_path'=>['message'=>ROOT_PATH.'message'], # 模板路径
 		'default_timezone'      =>  'PRC',	# 默认时区
+        'cache_time' => env('cache_time',-1), # 缓存时间单位为(秒) -1 为关闭缓存
+        'var_ajax_submit'=>'ajax', # ajax提交的默认变量
 	];
