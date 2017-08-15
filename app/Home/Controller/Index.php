@@ -8,6 +8,7 @@ use Kernel\Controller;
 class Index extends Base {
   # 首页操作
   public function index($request){
+      phpinfo();die();
     # 渲染模板
     $this -> display();
   }
