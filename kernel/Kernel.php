@@ -131,6 +131,9 @@ class Kernel
         # 设置图片上传临时目录
         ini_set('upload_tmp_dir', UPLOAD_TMP_DIR);
 
+        # 设置openssl 证书
+        ini_set('openssl.cafile', ROOT_PATH.'pem/openssl.pem');
+
         # 设置session有效期
         // session_set_cookie_params( C('session_lifetime','sys') );
 
