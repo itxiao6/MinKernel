@@ -107,6 +107,26 @@ class Cache{
         self::__init();
         return self::$cacheDriver -> delete(...func_get_args());
     }
+    /**
+     * 记住数据
+     * @param String $key 键
+     * @param \Closure $callback 闭包函数
+     * @param Int $timeout 过期时间
+     * @return mixed
+     */
+    public static function remember($key,$callback,$timeout){
+        # 获取数据
+        $result = self::get($key);
+        # 判断是否存在数据
+        if(!$result){
+            # 调用闭包
+            $result = $callback();
+            # 缓存数据
+            self::set($key,$result,$timeout);
+        }
+        # 返回数据
+        return $result;
+    }
 
     /**
      * 装饰者模式实现者
