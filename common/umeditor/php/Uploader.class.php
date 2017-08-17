@@ -14,6 +14,8 @@ class Uploader
     private $oriName;              //原始文件名
     private $fileName;             //新文件名
     private $fullName;             //完整文件名,即从当前配置目录开始的URL
+    private $upFileName;           // 上传后的文件名
+    private $date;                  // 上传日期
     private $fileSize;             //文件大小
     private $fileType;             //文件类型
     private $stateInfo;            //上传状态信息,
@@ -96,8 +98,10 @@ class Uploader
             $this->stateInfo = $this->getStateInfo( "DIR_ERROR" );
             return;
         }
+        # 获取临时文件名
+        $this -> upFileName = $this->getName();
 
-        $this->fullName = $folder . '/' . $this->getName();
+        $this->fullName = $folder . '/' . $this -> upFileName;
 
         if ( $this->stateInfo == $this->stateMap[ 0 ] ) {
             if ( !move_uploaded_file( $file[ "tmp_name" ] , $this->fullName ) ) {
@@ -134,7 +138,7 @@ class Uploader
         return array(
             "originalName" => $this->oriName ,
             "name" => $this->fileName ,
-            "url" => $this->fullName ,
+            "url" => $this -> date.'/'.$this -> upFileName ,
             "size" => $this->fileSize ,
             "type" => $this->fileType ,
             "state" => $this->stateInfo
@@ -197,7 +201,9 @@ class Uploader
         if ( strrchr( $pathStr , "/" ) != "/" ) {
             $pathStr .= "/";
         }
-        $pathStr .= date( "Ymd" );
+
+        $this -> date = date( "Ymd" );
+        $pathStr .= $this -> date;
         if ( !file_exists( $pathStr ) ) {
             if ( !mkdir( $pathStr , 0777 , true ) ) {
                 return false;

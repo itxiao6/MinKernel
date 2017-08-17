@@ -1,0 +1,190 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="author" content="ZZJBS"/>
+        <!-- 引入文件 -->
+        <link rel="stylesheet" href="/css/common.css" /><!-- 公共样式 -->
+        <script type="text/javascript" src="/js/lib/jquery-3.1.1.min.js"></script><!-- 引入jquery文件 -->
+        <script type="text/javascript" src="/js/app/common.js"></script><!-- 引入公共js文件 -->
+
+        <link rel="stylesheet" href="/css/wy_main.css">
+        <title>风安帮</title>
+		<style>
+			.protocol{
+				cursor: pointer;
+			}
+		</style>
+    </head>
+    <body>
+        <!-- 头 -->
+    	<header class="wy_header">
+    		<img class="wy_logo" src="/images/lf_logo.png" alt="">
+    		<span class="wy_tit">欢迎注册</span>
+    		<a class="wy_backBtn" href="/Home/Index/index.html">返回首页</a>
+    	</header>
+		<form action="" method="post">
+        <!-- 中间 -->
+    	<div class="wy_loginBody wy_registerBody">
+    		<div class="wy_loginBg1 wy_registerBg1">
+    			<div class="wy_loginBg2 wy_registerBg2">
+                    <!-- 注册框 -->
+    				<div class="wy_registerform">
+    					<p class="wy_p">账号注册</p>
+                        <!-- 身份选择 -->
+    					<div class="wy_shenfenBox">
+    						<span>选&nbsp;&nbsp;择&nbsp;&nbsp;身&nbsp;&nbsp;份&nbsp;：</span>
+    						<input id="wy_radio1" type="radio" value="1" name="usertype" checked="checked"><label for="wy_radio1">品牌商</label>
+
+    						<input id="wy_radio2" type="radio" value="2" name="usertype"><label for="wy_radio2">安装团队</label>
+
+    						<input id="wy_radio3" type="radio" value="3" name="usertype"><label for="wy_radio3">辅材供应商</label>
+
+    						<input id="wy_radio4" type="radio" value="4" name="usertype"><label for="wy_radio4">终端消费者</label>
+    					</div>
+                        
+                        <!-- 手机号 -->
+    					<div class="wy_inputBox">
+    						<span>手&nbsp;&nbsp;&nbsp;&nbsp;机&nbsp;&nbsp;&nbsp;&nbsp;号&nbsp;&nbsp;：</span>
+    						<input class="wy_input" name="phone" id="phone" type="text" placeholder='请输入手机号'>
+    					</div>
+                        <!-- 验证码 -->
+    					<div class="wy_inputBox wy_inputBox1">
+    						<span>手&nbsp;&nbsp;机&nbsp;&nbsp;验&nbsp;&nbsp;证&nbsp;：</span>
+    						<input class="wy_input wy_input1" name="code" id="verifyCode" type="text" placeholder='请输入手机号验证码'>
+    						<input class="wy_yzmBtn get_phone_code" type="button" value="获取验证码">
+    					</div>
+                        <!-- 身份证 -->
+    					<div class="wy_inputBox">
+    						<span>身&nbsp;&nbsp;份&nbsp;&nbsp;证&nbsp;&nbsp;号&nbsp;：</span>
+    						<input class="wy_input" name="card_id" id="card_id" type="text" placeholder='请输入18位身份证号码'>
+    					</div>
+                        <!-- 密码 -->
+    					<div class="wy_inputBox">
+    						<span>登&nbsp;&nbsp;录&nbsp;&nbsp;密&nbsp;&nbsp;码&nbsp;：</span>
+    						<input class="wy_input" name="password" id="password" type="text" placeholder='建议至少使用两种字符组合'>
+    					</div>
+                        <!-- 确认密码 -->
+    					<div class="wy_inputBox">
+    						<span>确&nbsp;&nbsp;认&nbsp;&nbsp;密&nbsp;&nbsp;码&nbsp;：</span>
+    						<input class="wy_input" name="re_password" id="re_password" type="text" placeholder='请再次输入登录密码'>
+    					</div>
+                        <!-- 支付密码 -->
+    					<div class="wy_inputBox">
+    						<span>支&nbsp;&nbsp;付&nbsp;&nbsp;密&nbsp;&nbsp;码&nbsp;：</span>
+    						<input class="wy_input" name="pay_password" id="pay_password" type="text" placeholder='设置6位数字密码'>
+    					</div>
+                        
+                        <div class="wy_bottomBox">
+                            <!-- 协议 -->
+                            <div class="wy_gouBox">
+                                <img src="/images/wy_gou.png" height="15" width="15" alt="">
+								<span >阅读并同意<em class="protocol">《风安帮用户注册协议》</em></span>
+                            </div>
+                            <!-- 去登录 -->
+                            <div class="wy_rightBox">
+                                <span>已有账号？</span>
+                                <a class="wy_gologin" href="login.html">登录</a>
+                            </div>
+                        </div>
+
+    					<button  class="wy_loginBtn" id="submit" type="button">注册</button>
+					</div>
+    			</div>
+    		</div>
+    	</div>
+		</form>
+        <!-- 底部 -->
+    	<footer class="wy_footer">
+    		<ul>
+				<!--<li><a href="javascript:void(0);">联系方式</a><span>|</span></li>-->
+				<li><a href="/Home/Auth/register.html">注册新用户</a><span>|</span></li>
+				<li><a href="/Home/Notice/index.html">交易规则</a><span>|</span></li>
+				<li><a href="/Home/Auth/register.html">品牌商入口</a><span>|</span></li>
+				<li><a href="/Home/Demand/chooseType.html">发布需求</a><span>|</span></li>
+				<!--<li><a href="javascript:void(0);">挑选优质服务商</a><span>|</span></li>-->
+				<li><a href="/Home/Demand/needHouse.html?index=1">需求大厅</a><span>|</span></li>
+				<li><a href="/Home/Material/goods.html">辅材街</a><span>|</span></li>
+				<li><a href="/Home/Service/serviceHall.html">服务大厅</a><span>|</span></li>
+				<li><a href="/Home/TeamEducate/submitTrain.html">团队培训</a></li>
+            </ul>
+            <p class="wy_p"><img class="wy_tel" src="/images/wy_tel.png" alt=""><span class='wy_span1'>客服热线：</span> <span>400-xxx-xxxx</span>（周一至周日：7*24小时）</p>
+            <p>©2017-2018  风安帮 豫ICP备15058772号  <span class="wy_span2">技术支持：</span><a class="wy_jbs" href="http://www.zzjbs.com">金帮手</a></p>
+    	</footer>
+	<script>
+		$(document).ready(function(){
+            var status = 1;
+            var time = 0;
+            var event;
+		    $('.get_phone_code').click(function(){
+                if(status == '0') {return false;}
+                else{status=0;time = 60;};
+                event = setInterval(function(){
+                    if(time <= 0){
+                        time = 0;
+                        $('.get_phone_code').val('获取验证码');
+                        clearInterval(event);
+                        return status = 1;
+                    }
+                    time = time - 1;
+					$('.get_phone_code').val(time+'秒后重新获取');
+                },1000);
+
+				// 获取验证码
+				$.post('/Home/Auth/get_code.html',{phone:$('#phone').val()},function(data){
+					if(data.status==1){
+						alert('获取验证码成功');
+					}else{
+					    alert('获取验证码失败');
+					}
+				});
+
+			});
+		});
+		$("#submit").on("click",function(){
+		    var phone = $('#phone').val();
+            var password = $('#password').val();
+            var re_password = $('#re_password').val();
+            var card_id = $('#card_id').val();
+            var user_type = '1';
+			if(phone == ''){
+				alert('手机号 不能为空');
+				return false;
+			}
+            if(!(/^1[34578]\d{9}$/.test(phone))){
+                alert("手机号码有误!");
+                return false;
+            }
+            if (!/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(card_id)){
+                alert("身份证号码有误!");
+                return false;
+			}
+			if(password != re_password){
+                alert('两次密码不相同');
+                return false;
+			}
+			if(password.length<6){
+                alert('密码长度必须大于6位');
+                return false;
+			}
+            if($('input[name="usertype"]:checked').val() == '' || $('input[name="usertype"]:checked').val() < 0  || $('input[name="usertype"]:checked').val() < 5 ){
+			    alert('请选择一个用户类型');
+			    return false;
+			}
+			$.post('',$('form').serialize(),function(data){
+			    if(data.status==1){
+			        alert(data.message);
+			        window.location = '/Home/Index/index.html';
+				}else{
+			        alert(data.message);
+				}
+			});
+
+		});
+		$('.protocol').on('click',function () {
+			window.location.href = '/Home/Auth/registrationProtocol.html';
+        })
+	</script>
+    </body>
+</html>

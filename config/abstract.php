@@ -7,6 +7,4 @@ return [
 	'assets'=>ROOT_PATH.'common',
     # 百度富文本编辑器资源路由
 	'umeditor'=>ROOT_PATH.'common',
-    # 富文本上传的内容
-	'uploads'=>ROOT_PATH.'common',
 ];

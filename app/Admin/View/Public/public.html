@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@yield('title')</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- basic styles -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
+    <!--[if IE 7]>
+
+    <link rel="stylesheet" href="/assets/css/font-awesome-ie7.min.css" />
+
+    <![endif]-->
+    <link rel="stylesheet" href="/assets/css/jquery-ui-1.10.3.custom.min.css" />
+    <!--[if IE 7]>
+    <link rel="stylesheet" href="/assets/css/font-awesome-ie7.min.css" />
+    <![endif]-->
+    <!-- page specific plugin stylesf -->
+    <!-- fonts -->
+    <!-- ace styles -->
+    <link rel="stylesheet" href="/assets/css/ace.min.css" />
+    <link rel="stylesheet" href="/assets/css/ace-rtl.min.css" />
+    <link rel="stylesheet" href="/assets/css/ace-skins.min.css" />
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/assets/css/ace-ie.min.css" />
+    <![endif]-->
+    <!-- inline styles related to this page -->
+    <!-- ace settings handler -->
+    <script src="/assets/js/ace-extra.min.js"></script>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/assets/js/html5shiv.js"></script>
+    <script src="/assets/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="navbar navbar-default" id="navbar">
+    <script type="text/javascript">
+        try{ace.settings.check('navbar' , 'fixed')}catch(e){}
+    </script>
+    <div class="navbar-container" id="navbar-container">
+        <div class="navbar-header pull-left">
+            <a href="#" class="navbar-brand">
+                <small>
+                    <i class="icon-leaf"></i>
+                    风安帮管理后台
+                </small>
+            </a><!-- /.brand -->
+        </div><!-- /.navbar-header -->
+        <div class="navbar-header pull-right" role="navigation">
+            <ul class="nav ace-nav">
+                <!-- <li class="grey">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <i class="icon-tasks"></i>
+                        <span class="badge badge-grey">4</span>
+                    </a>
+                    <ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
+                        <li class="dropdown-header">
+                            <i class="icon-ok"></i>
+                            4 Tasks to complete
+                        </li>
+                        <li>
+                            <a href="#">
+                                <div class="clearfix">
+                                    <span class="pull-left">Software Update</span>
+                                    <span class="pull-right">65%</span>
+                                </div>
+                                <div class="progress progress-mini ">
+                                    <div style="width:65%" class="progress-bar "></div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <div class="clearfix">
+                                    <span class="pull-left">Hardware Upgrade</span>
+                                    <span class="pull-right">35%</span>
+                                </div>
+                                <div class="progress progress-mini ">
+                                    <div style="width:35%" class="progress-bar progress-bar-danger"></div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <div class="clearfix">
+                                    <span class="pull-left">Unit Testing</span>
+                                    <span class="pull-right">15%</span>
+                                </div>
+                                <div class="progress progress-mini ">
+                                    <div style="width:15%" class="progress-bar progress-bar-warning"></div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <div class="clearfix">
+                                    <span class="pull-left">Bug Fixes</span>
+                                    <span class="pull-right">90%</span>
+                                </div>
+                                <div class="progress progress-mini progress-striped active">
+                                    <div style="width:90%" class="progress-bar progress-bar-success"></div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                See tasks with details
+                                <i class="icon-arrow-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </li> -->
+                <!-- <li class="purple">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <i class="icon-bell-alt icon-animated-bell"></i>
+                        <span class="badge badge-important">8</span>
+                    </a>
+                    <ul class="pull-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">
+                        <li class="dropdown-header">
+                            <i class="icon-warning-sign"></i>
+                            8 Notifications
+                        </li>
+                        <li>
+                            <a href="#">
+                                <div class="clearfix">
+                                    <span class="pull-left">
+                                        <i class="btn btn-xs no-hover btn-pink icon-comment"></i>
+                                        New Comments
+                                    </span>
+                                    <span class="pull-right badge badge-info">+12</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="btn btn-xs btn-primary icon-user"></i>
+                                Bob just signed up as an editor ...
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <div class="clearfix">
+                                    <span class="pull-left">
+                                        <i class="btn btn-xs no-hover btn-success icon-shopping-cart"></i>
+                                        New Orders
+                                    </span>
+                                    <span class="pull-right badge badge-success">+8</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <div class="clearfix">
+                                    <span class="pull-left">
+                                        <i class="btn btn-xs no-hover btn-info icon-twitter"></i>
+                                        Followers
+                                    </span>
+                                    <span class="pull-right badge badge-info">+11</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                See all notifications
+                                <i class="icon-arrow-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </li> -->
+                <!-- <li class="green">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <i class="icon-envelope icon-animated-vertical"></i>
+                        <span class="badge badge-success">5</span>
+                    </a>
+                    <ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
+                        <li class="dropdown-header">
+                            <i class="icon-envelope-alt"></i>
+                            5 Messages
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="/assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
+
+                                <span class="msg-body">
+
+                                    <span class="msg-title">
+
+                                        <span class="blue">Alex:</span>
+
+                                        Ciao sociis natoque penatibus et auctor ...
+
+                                    </span>
+
+
+
+                                    <span class="msg-time">
+
+                                        <i class="icon-time"></i>
+
+                                        <span>a moment ago</span>
+
+                                    </span>
+
+                                </span>
+
+                            </a>
+
+                        </li>
+
+
+
+                        <li>
+
+                            <a href="#">
+
+                                <img src="/assets/avatars/avatar3.png" class="msg-photo" alt="Susan's Avatar" />
+
+                                <span class="msg-body">
+
+                                    <span class="msg-title">
+
+                                        <span class="blue">Susan:</span>
+
+                                        Vestibulum id ligula porta felis euismod ...
+
+                                    </span>
+
+
+
+                                    <span class="msg-time">
+
+                                        <i class="icon-time"></i>
+
+                                        <span>20 minutes ago</span>
+
+                                    </span>
+
+                                </span>
+
+                            </a>
+
+                        </li>
+
+
+
+                        <li>
+
+                            <a href="#">
+
+                                <img src="/assets/avatars/avatar4.png" class="msg-photo" alt="Bob's Avatar" />
+
+                                <span class="msg-body">
+
+                                    <span class="msg-title">
+
+                                        <span class="blue">Bob:</span>
+
+                                        Nullam quis risus eget urna mollis ornare ...
+
+                                    </span>
+
+
+
+                                    <span class="msg-time">
+
+                                        <i class="icon-time"></i>
+
+                                        <span>3:15 pm</span>
+
+                                    </span>
+
+                                </span>
+
+                            </a>
+
+                        </li>
+
+
+
+                        <li>
+
+                            <a href="inbox.html">
+
+                                See all messages
+
+                                <i class="icon-arrow-right"></i>
+
+                            </a>
+
+                        </li>
+
+                    </ul>
+
+                </li> -->
+
+
+
+                <li class="light-blue" style="width:155px">
+
+                    <a data-toggle="dropdown" href="#"  class="dropdown-toggle">
+
+                        <img class="nav-user-photo" src="/assets/avatars/user.jpg" alt="Jason's Photo" />
+
+                        <span class="user-info">
+
+                                    <small >管理员</small>
+
+                                  {{$_SESSION['admin']['username']}}
+
+                                </span>
+
+
+
+                        <i class="icon-caret-down"></i>
+
+                    </a>
+
+
+
+                    <ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close" >
+
+                        <!-- <li>
+
+                            <a href="#">
+
+                                <i class="icon-cog"></i>
+
+                                Settings
+
+                            </a>
+
+                        </li> -->
+
+
+
+                        <!--  <li>
+
+                             <a href="#">
+
+                                 <i class="icon-user"></i>
+
+                                 Profile
+
+                             </a>
+
+                         </li> -->
+
+
+
+                        <li class="divider"></li>
+                        <li style="text-align:center; ">
+                            <a href="/Admin/Users/edit_pass.html" style="font-size:15px;">
+                                修改密码
+                            </a>
+                        </li>
+                        <li style="text-align:center;">
+                            <a href="/Admin/Users/logout.html" style="font-size:15px;">
+                                退出
+                            </a>
+                        </li>
+
+
+                    </ul>
+
+                </li>
+
+            </ul><!-- /.ace-nav -->
+
+        </div><!-- /.navbar-header -->
+
+    </div><!-- /.container -->
+
+</div>
+
+
+
+<div class="main-container" id="main-container">
+
+    <script type="text/javascript">
+
+        try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+
+    </script>
+
+
+
+    <div class="main-container-inner">
+
+        <a class="menu-toggler" id="menu-toggler" href="#">
+
+            <span class="menu-text"></span>
+
+        </a>
+
+
+
+        <div class="sidebar" id="sidebar">
+
+            <script type="text/javascript">
+
+                try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+
+            </script>
+
+
+
+            <div class="sidebar-shortcuts" id="sidebar-shortcuts">
+
+                <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+
+                    <button class="btn btn-success">
+
+                        <i class="icon-signal"></i>
+
+                    </button>
+
+
+
+                    <button class="btn btn-info">
+
+                        <i class="icon-pencil"></i>
+
+                    </button>
+
+
+
+                    <button class="btn btn-warning">
+
+                        <i class="icon-group"></i>
+
+                    </button>
+
+
+
+                    <button class="btn btn-danger">
+
+                        <i class="icon-cogs"></i>
+
+                    </button>
+
+                </div>
+
+
+
+                <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+
+                    <span class="btn btn-success"></span>
+
+
+
+                    <span class="btn btn-info"></span>
+
+
+
+                    <span class="btn btn-warning"></span>
+
+
+
+                    <span class="btn btn-danger"></span>
+
+                </div>
+
+            </div><!-- #sidebar-shortcuts -->
+
+            {{-- 导航开始 --}}
+            <ul class="nav nav-list">
+
+                <li>
+
+                    <a href="/Admin/Index/index.html">
+
+                        <i class="icon-dashboard"></i>
+
+                        <span class="menu-text"> 控制台 </span>
+
+                    </a>
+
+                </li>
+
+
+
+
+                <li @if(CONTROLLER_NAME=='Users') class="active" @endif >
+
+                    <a class="dropdown-toggle">
+
+                        <i class="icon-list"></i>
+
+                        <span class="menu-text"> 用户管理 </span>
+
+
+
+                        <b class="arrow icon-angle-down"></b>
+
+                    </a>
+
+
+
+                    <ul class="submenu">
+
+                        <li @if(CONTROLLER_NAME=='Users' && $_GET['is_auth']==2) class="active" @endif>
+
+                            <a href="/Admin/Users/index.html">
+
+                                <i class="icon-double-angle-right"></i>
+
+                                认证用户
+
+                            </a>
+
+                        </li>
+                        <li @if(CONTROLLER_NAME=='Users' && $_GET['is_auth']==1) class="active" @endif>
+
+                            <a href="/Admin/Users/index1.html">
+
+                                <i class="icon-double-angle-right"></i>
+                                未认证用户
+                            </a>
+
+                        </li>
+                        <li @if(CONTROLLER_NAME=='Users' && ACTION_NAME=='businessAuth') class="active" @endif>
+
+                            <a href="/Admin/Users/businessAuth.html">
+
+                                <i class="icon-double-angle-right"></i>
+                                企业认证
+                            </a>
+
+                        </li>  
+                        <li @if(CONTROLLER_NAME=='Users' && ACTION_NAME=='ownAuth') class="active" @endif>
+
+                            <a href="/Admin/Users/ownAuth.html">
+
+                                <i class="icon-double-angle-right"></i>
+                                个人认证
+                            </a>
+
+                        </li>
+                    </ul>
+                </li>
+
+                <li @if(CONTROLLER_NAME=='Demand') class="active" @endif>
+
+                    <a href="javascript:void(0)" class="dropdown-toggle">
+
+                        <i class="icon-list"></i>
+
+                        <span class="menu-text"> 需求大厅 </span>
+
+                        <b class="arrow icon-angle-down"></b>
+
+                    </a>
+
+                    <ul class="submenu">
+
+                        <li @if(CONTROLLER_NAME=='Demand' && ACTION_NAME=='index') class="active" @endif>
+
+                            <a href="/Admin/Demand/index.html">
+
+                                <i class="icon-double-angle-right"></i>
+
+                                需求列表
+                            </a>
+
+                        </li>
+
+                    </ul>
+
+                </li>
+
+                <!--  <li  @if(CONTROLLER_NAME=='Goods') class="active" @endif>
+
+                   <a href="javascript:void(0)" class="dropdown-toggle">
+
+                      <i class="icon-list"></i>
+                       <span class="menu-text"> 商品管理 </span>
+
+                       <b class="arrow icon-angle-down"></b>
+
+                   </a>
+
+
+
+                   <ul class="submenu">
+                       <li @if(CONTROLLER_NAME=='Goods' && ACTION_NAME=='index') class="active" @endif >
+
+                           <a href="/Admin/Goods/index.html">
+
+                               <i class="icon-double-angle-right"></i>
+                               商品列表
+                           </a>
+
+                       </li>
+                       <li @if(CONTROLLER_NAME=='Goods' && ACTION_NAME=='add') class="active" @endif >
+
+                           <a href="/Admin/Goods/add.html">
+
+                               <i class="icon-double-angle-right"></i>
+
+                               添加商品
+
+                           </a>
+                       </li>
+
+                   </ul>
+
+                    </li> -->
+                <li  @if(CONTROLLER_NAME=='TeamEducate') class="active" @endif>
+
+                    <a href="javascript:void(0)" class="dropdown-toggle">
+
+                        <i class="icon-list"></i>
+                        <span class="menu-text"> 团队培训管理 </span>
+
+                        <b class="arrow icon-angle-down"></b>
+
+                    </a>
+
+
+
+                    <ul class="submenu">
+
+                        <li @if(CONTROLLER_NAME=='TeamEducate' && ACTION_NAME=='activeEducate') class="active" @endif >
+                            <a href="/Admin/TeamEducate/activeEducate.html">
+
+                                <i class="icon-double-angle-right"></i>
+
+                                培训活动管理
+
+                            </a>
+
+                        </li>
+                    </ul>
+
+                </li>
+                <li  @if(CONTROLLER_NAME=='Article') class="active" @endif>
+
+                    <a href="javascript:void(0)" class="dropdown-toggle">
+
+                        <i class="icon-list"></i>
+                        <span class="menu-text"> 文章管理 </span>
+
+                        <b class="arrow icon-angle-down"></b>
+
+                    </a>
+
+
+
+                    <ul class="submenu">
+
+                        <li @if(CONTROLLER_NAME=='Article' && ACTION_NAME=='index') class="active" @endif >
+
+                            <a href="/Admin/Article/index.html">
+
+                                <i class="icon-double-angle-right"></i>
+                                文章列表
+                            </a>
+                        </li>
+                        <li @if(CONTROLLER_NAME=='Article' && ACTION_NAME=='message') class="active" @endif >
+
+                            <a href="/Admin/Article/message.html">
+
+                                <i class="icon-double-angle-right"></i>
+                                消息列表
+                            </a>
+                        </li>
+                        <li @if(CONTROLLER_NAME=='Article' && ACTION_NAME=='blackList') class="active" @endif >
+
+                            <a href="/Admin/Article/blackList.html">
+
+                                <i class="icon-double-angle-right"></i>
+                                黑名单列表
+                            </a>
+                        </li>
+                    </ul>
+
+                </li>
+
+                <li @if(CONTROLLER_NAME=='Category') class="active" @endif>
+
+                    <a href="javascript:void(0)" class="dropdown-toggle">
+
+                        <i class="icon-list"></i>
+
+                        <span class="menu-text"> 需求类别管理 </span>
+
+
+
+                        <b class="arrow icon-angle-down"></b>
+
+                    </a>
+
+
+
+                    <ul class="submenu">
+
+                        <li @if(CONTROLLER_NAME=='Category' && ACTION_NAME=='index' && $_GET['type']==1) class="active" @endif >
+
+                        <a href="/Admin/Category/index.html">
+
+                            <i class="icon-double-angle-right"></i>
+
+                            需求类别列表
+
+                        </a>
+
+                        </li>
+<!--                         <li @if(CONTROLLER_NAME=='Banner' && ACTION_NAME=='index' && $_GET['type']==2) class="active" @endif >
+
+                        <a href="/Admin/Banner/index/type/2.html">
+
+                            <i class="icon-double-angle-right"></i>
+
+                            积分商城轮播图列表
+
+                        </a>
+
+                        </li>
+                        <li @if(CONTROLLER_NAME=='Banner' && ACTION_NAME=='add') class="active" @endif >
+
+                            <a href="/Admin/Banner/add.html">
+
+                                <i class="icon-double-angle-right"></i>
+
+                                添加图片
+
+                            </a>
+
+                        </li> -->
+                    </ul>
+
+                </li>
+                <li @if(CONTROLLER_NAME=='Shop') class="active" @endif>
+
+                    <a href="javascript:void(0)" class="dropdown-toggle">
+
+                        <i class="icon-list"></i>
+
+                        <span class="menu-text"> 店铺管理 </span>
+
+
+
+                        <b class="arrow icon-angle-down"></b>
+
+                    </a>
+
+
+
+                    <ul class="submenu">
+
+                        <li @if(CONTROLLER_NAME=='Shop' && ACTION_NAME=='index') class="active" @endif >
+
+                            <a href="/Admin/Shop/index.html">
+
+                                <i class="icon-double-angle-right"></i>
+
+                                店铺列表
+
+                            </a>
+
+                        </li>
+                        <!-- <li @if(CONTROLLER_NAME=='Profit' && ACTION_NAME=='config') class="active" @endif >
+
+                            <a href="/Admin/Profit/config.html">
+
+                                <i class="icon-double-angle-right"></i>
+
+                                鼓励奖历史配置
+
+                            </a>
+
+                        </li> -->
+<!--                         <li @if(CONTROLLER_NAME=='Profit' && ACTION_NAME=='setConfig') class="active" @endif >
+
+                            <a href="/Admin/Profit/setConfig.html">
+
+                                <i class="icon-double-angle-right"></i>
+
+                                鼓励奖配置
+
+                            </a>
+
+                        </li> -->
+                    </ul>
+
+                </li>
+                <li @if(CONTROLLER_NAME=='Order') class="active" @endif>
+
+                    <a href="javascript:void(0)" class="dropdown-toggle">
+
+                        <i class="icon-list"></i>
+
+                        <span class="menu-text"> 财务管理 </span>
+
+                        <b class="arrow icon-angle-down"></b>
+
+                    </a>
+
+
+
+                    <ul class="submenu">
+
+                        <li @if(CONTROLLER_NAME=='Order' && ACTION_NAME=='index') class="active" @endif >
+
+                            <a href="/Admin/Order/index.html">
+                                <i class="icon-double-angle-right"></i>
+
+                                充值列表
+
+                            </a>
+
+                        </li>
+
+                        <li @if(CONTROLLER_NAME=='Order' && ACTION_NAME=='index1') class="active" @endif >
+
+                            <a href="/Admin/Order/index1.html">
+                                <i class="icon-double-angle-right"></i>
+
+                                保证金列表
+
+                            </a>
+
+                        </li>
+
+                        <li @if(CONTROLLER_NAME=='Order' && ACTION_NAME=='getCash') class="active" @endif >
+
+                            <a href="/Admin/Order/getCash.html">
+                                <i class="icon-double-angle-right"></i>
+
+                                提现管理
+
+                            </a>
+
+                        </li>
+                    </ul>
+
+                </li>
+<!--                 <li @if(CONTROLLER_NAME=='Participation') class="active" @endif>
+
+                    <a href="javascript:void(0)" class="dropdown-toggle">
+
+                        <i class="icon-list"></i>
+
+                        <span class="menu-text"> 代缴项目管理 </span>
+
+                        <b class="arrow icon-angle-down"></b>
+
+                    </a>
+
+
+
+                    <ul class="submenu">
+
+                        <li @if(CONTROLLER_NAME=='Participation' && ACTION_NAME=='index') class="active" @endif >
+
+                            <a href="/Admin/Participation/index.html">
+                                <i class="icon-double-angle-right"></i>
+
+                                分红
+
+                            </a>
+
+                        </li>
+                        <li @if(CONTROLLER_NAME=='Participation' && ACTION_NAME=='log') class="active" @endif >
+
+                            <a href="/Admin/Participation/log.html">
+                                <i class="icon-double-angle-right"></i>
+
+                                分红记录
+
+                            </a>
+
+                        </li>
+                    </ul>
+
+                </li> -->
+<!--                 <li @if(CONTROLLER_NAME=='Nav') class="active" @endif>
+
+                    <a href="javascript:void(0)" class="dropdown-toggle">
+
+                        <i class="icon-list"></i>
+
+                        <span class="menu-text"> 微信导航管理 </span>
+
+                        <b class="arrow icon-angle-down"></b>
+
+                    </a>
+
+
+
+                    <ul class="submenu">
+                        <li @if(CONTROLLER_NAME=='Nav' && ACTION_NAME=='nav') class="active" @endif >
+
+                            <a href="/Admin/Nav/nav.html">
+                                <i class="icon-double-angle-right"></i>
+
+                                导航列表
+
+                            </a>
+
+                        </li>
+
+                    </ul>
+
+                </li> -->
+                <li @if(CONTROLLER_NAME=='City') class="active" @endif>
+
+                    <a href="javascript:void(0)" class="dropdown-toggle">
+
+                        <i class="icon-list"></i>
+
+                        <span class="menu-text"> 注册区域管理 </span>
+
+                        <b class="arrow icon-angle-down"></b>
+
+                    </a>
+
+
+
+                    <ul class="submenu">
+
+                        <li @if(CONTROLLER_NAME=='City' && ACTION_NAME=='add') class="active" @endif >
+
+                            <a href="/Admin/City/add.html">
+                                <i class="icon-double-angle-right"></i>
+
+                                添加地区
+
+                            </a>
+
+                        </li>
+                        <li @if(CONTROLLER_NAME=='City' && ACTION_NAME=='index') class="active" @endif >
+
+                            <a href="/Admin/City/index.html">
+                                <i class="icon-double-angle-right"></i>
+
+                                地区列表
+
+                            </a>
+
+                        </li>
+                    </ul>
+
+                </li>
+<!--                 <li @if(CONTROLLER_NAME=='APP') class="active" @endif>
+
+                    <a href="javascript:void(0)" class="dropdown-toggle">
+
+                        <i class="icon-list"></i>
+
+                        <span class="menu-text"> 下载App管理 </span>
+
+                        <b class="arrow icon-angle-down"></b>
+
+                    </a>
+                    <ul class="submenu">
+
+                        <li @if(CONTROLLER_NAME=='App' && ACTION_NAME=='index') class="active" @endif >
+
+                            <a href="/Admin/App/index.html">
+                                <i class="icon-double-angle-right"></i>
+
+                                下载App列表
+
+                            </a>
+
+                        </li>
+                    </ul>
+
+                </li> -->
+                <li @if(CONTROLLER_NAME=='Banner') class="active" @endif>
+
+                    <a href="javascript:void(0)" class="dropdown-toggle">
+
+                        <i class="icon-list"></i>
+
+                        <span class="menu-text"> 设置管理 </span>
+
+                        <b class="arrow icon-angle-down"></b>
+
+                    </a>
+                    <ul class="submenu">
+
+                        <li @if(CONTROLLER_NAME=='Banner' && ACTION_NAME=='index') class="active" @endif >
+
+                            <a href="/Admin/Banner/index.html">
+                                <i class="icon-double-angle-right"></i>
+
+                                轮播图管理
+
+                            </a>
+
+                        </li>
+                        <li @if(CONTROLLER_NAME=='Config') class="active" @endif>
+
+                            <a href="/Admin/Config/index.html">
+
+                                <i class="icon-list"></i>
+
+                                <span class="icon-double-angle-right"> 参数管理 </span>
+
+                            </a>
+
+                        </li>                        
+                    </ul>
+
+                </li>
+
+            </ul>
+            {{-- 导航开始 --}}
+
+
+            <div class="sidebar-collapse" id="sidebar-collapse">
+
+                <i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
+
+            </div>
+
+
+
+            <script type="text/javascript">
+
+                try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+
+            </script>
+
+        </div>
+
+        <div class="main-content">
+
+            {{-- 内容区开始 --}}
+            @yield('content')
+            {{-- 内容区结束 --}}
+
+        </div>
+
+        <div class="ace-settings-container" id="ace-settings-container">
+
+            <!-- <div class="btn btn-app btn-xs btn-warning ace-settings-btn" id="ace-settings-btn">
+
+                <i class="icon-cog bigger-150"></i>
+
+            </div> -->
+            <div class="ace-settings-box" id="ace-settings-box">
+                <div>
+
+                    <div class="pull-left">
+
+                        <select id="skin-colorpicker" class="hide">
+
+                            <option data-skin="default" value="#438EB9">#438EB9</option>
+
+                            <option data-skin="skin-1" value="#222A2D">#222A2D</option>
+
+                            <option data-skin="skin-2" value="#C6487E">#C6487E</option>
+
+                            <option data-skin="skin-3" value="#D0D0D0">#D0D0D0</option>
+
+                        </select>
+
+                    </div>
+
+                    <span>&nbsp; Choose Skin</span>
+
+                </div>
+
+
+
+                <div>
+
+                    <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-navbar" />
+
+                    <label class="lbl" for="ace-settings-navbar"> Fixed Navbar</label>
+
+                </div>
+
+
+
+                <div>
+
+                    <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-sidebar" />
+
+                    <label class="lbl" for="ace-settings-sidebar"> Fixed Sidebar</label>
+
+                </div>
+
+
+
+                <div>
+
+                    <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-breadcrumbs" />
+
+                    <label class="lbl" for="ace-settings-breadcrumbs"> Fixed Breadcrumbs</label>
+
+                </div>
+
+
+
+                <div>
+
+                    <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-rtl" />
+
+                    <label class="lbl" for="ace-settings-rtl"> Right To Left (rtl)</label>
+
+                </div>
+
+
+
+                <div>
+
+                    <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-add-container" />
+
+                    <label class="lbl" for="ace-settings-add-container">
+
+                        Inside
+
+                        <b>.container</b>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+        </div><!-- /#ace-settings-container -->
+
+    </div><!-- /.main-container-inner -->
+
+
+
+    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+
+        <i class="icon-double-angle-up icon-only bigger-110"></i>
+
+    </a>
+
+</div><!-- /.main-container -->
+
+
+
+</body>
+
+</html>

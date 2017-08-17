@@ -1,6 +1,5 @@
 <?php
 namespace Service;
-use Doctrine\Common\Cache\FilesystemCache;
 use Itxiao6\Wechat\Wechat\AccessToken;
 use Itxiao6\Wechat\Wechat\Jsapi;
 use Itxiao6\Wechat\Wechat\Qrcode;
@@ -25,7 +24,7 @@ use Itxiao6\Wechat\Payment\Jsapi\PayChoose;
 class Wechat{
 	# Token
 	public static $token = false;
-	# 缓存Dricer
+    # 缓存Dricer
 	protected static $cacheDriver = false;
 	# AccessToken
 	protected static $accessToken = false;
@@ -108,7 +107,10 @@ class Wechat{
      */
 	public static function get_access_token(){
 		if(self::$cacheDriver==false){
-			self::$cacheDriver = new FilesystemCache(CACHE_DATA);
+		    $driver = C('cache_type','wechat');
+		    $driver_param = C('driver_param','wechat');
+			self::$cacheDriver = new $driver();
+			self::$cacheDriver -> setRedis($driver_param);
 		}
 		# 初始化AccessToken
 		self::$accessToken = new AccessToken(C('appid','wechat'), C('secret','wechat'));

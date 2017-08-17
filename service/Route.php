@@ -4,6 +4,8 @@ use Kernel\Controller;
 use Exception;
 use Illuminate\Http\Request;
 use Service\Http;
+use Uploader;
+use Service\Upload;
 # 路由类
 class Route{
 	# 虚拟目录
@@ -33,6 +35,10 @@ class Route{
 			}
 		}
 	}
+	# 解析域名
+	public static function host(){
+
+    }
 	# 解析路由
 	public static function init()
     {
@@ -59,59 +65,111 @@ class Route{
 			# 定义路由信息为空
 			$route = [];
 		}
+		# 判断当前域名是否有模块绑定
+        if(!empty(C($_SERVER['HTTP_HOST'],'host'))){
+            # 按照域名解析法
+            # 判断参数是否大于等于3
+            if(count($route) >= 3){
+                # 解析多余参数(伪静态)
+                for($i=3;$i <= count($route);$i++){
+                    # 判断值是否存在
+                    if(isset($route[$i+1])){
+                        # 解析到GET里面
+                        $_GET[$route[$i]] = $route[$i+1];
+                        # 跳过已经取过的值
+                        $i++;
+                    }
+                }
+            }
 
-		# 判断参数是否大于等于4
-		if(count($route) >= 4){
-			# 解析多余参数(伪静态)
-			for($i=3;$i <= count($route);$i++){
-				# 判断值是否存在
-				if(isset($route[$i+1])){
-					# 解析到GET里面
-					$_GET[$route[$i]] = $route[$i+1];
-					# 跳过已经取过的值
-					$i++;
-				}
-			}
-		}
-		# 保证 $_REQUEST能够取到值
-		$_REQUEST = array_merge($_POST,$_GET,$_COOKIE);
-		# 过滤空参数
-		foreach ($route as $key => $value){
-			# 判断路由结果是否为空
-			if($value==''){
-				# 删除此路由
-				unset($route[$key]);
-			}
-		}
-		# 判断A是否为空
-		if(count($route)==3 && $route[2]==''){
-			$route[2] = C('default_a_name','app');
-		}
-		# 判断传了几个URL
-		if(count($route)==2){
-			# 加载部分配置
-			$route[2] = C('default_a_name','app');
+            # 保证 $_REQUEST能够取到值
+            $_REQUEST = array_merge($_POST,$_GET,$_COOKIE);
+            # 过滤空参数
+            foreach ($route as $key => $value){
+                # 判断路由结果是否为空
+                if($value==''){
+                    # 删除此路由
+                    unset($route[$key]);
+                }
+            }
+            # 过滤空参数
+            foreach ($route as $key => $value){
+                # 判断路由结果是否为空
+                if($value==''){
+                    # 删除此路由
+                    unset($route[$key]);
+                }
+            }
 
-		# 判断CA是否为空
-		}else if(count($route)==1){
-			$route[1] = C('default_c_name','app');
-			$route[2] = C('default_a_name','app');
-		# 判断是否 M A C都为空
-		}else if(count($route)==0){
-			# 判断是否存在Host绑定
-			if(empty(C($_SERVER['HTTP_HOST'],'host'))){
-				# 加载默认的模块
-				$route[0] = C('default_m_name','app');
+            # 判断ACTION是否为空
+            if(count($route) == 1 && empty($route[1])){
+                $route[1] = C('default_a_name','app');
+            }
+            # 判断控制器是否为空
+            if(count($route) == 0 && empty($route[0])){
+                # 加载默认控制器名称
+                $route[0] = C('default_c_name','app');
+                # 加载默认操作名
+                $route[1] = C('default_a_name','app');
+            }
+            # 加载绑定的应用
+            array_unshift($route,C($_SERVER['HTTP_HOST'],'host'));
+        }else{
+            # 判断参数是否大于等于4
+            if(count($route) >= 4){
+                # 解析多余参数(伪静态)
+                for($i=3;$i <= count($route);$i++){
+                    # 判断值是否存在
+                    if(isset($route[$i+1])){
+                        # 解析到GET里面
+                        $_GET[$route[$i]] = $route[$i+1];
+                        # 跳过已经取过的值
+                        $i++;
+                    }
+                }
+            }
+            # 保证 $_REQUEST能够取到值
+            $_REQUEST = array_merge($_POST,$_GET,$_COOKIE);
+            # 过滤空参数
+            foreach ($route as $key => $value){
+                # 判断路由结果是否为空
+                if($value==''){
+                    # 删除此路由
+                    unset($route[$key]);
+                }
+            }
+            # 判断A是否为空
+            if(count($route)==3 && $route[2]==''){
+                $route[2] = C('default_a_name','app');
+            }
+            # 判断传了几个URL
+            if(count($route)==2){
+                # 加载部分配置
+                $route[2] = C('default_a_name','app');
 
-			}else{
-				# 加载Host绑定的模块
-				$route[0] = C($_SERVER['HTTP_HOST'],'host');
+                # 判断CA是否为空
+            }else if(count($route)==1){
+                $route[1] = C('default_c_name','app');
+                $route[2] = C('default_a_name','app');
+                # 判断是否 M A C都为空
+            }else if(count($route)==0){
+                # 判断是否存在Host绑定
+                if(empty(C($_SERVER['HTTP_HOST'],'host'))){
+                    # 加载默认的模块
+                    $route[0] = C('default_m_name','app');
 
-			}
-			# 加载部分配置
-			$route[1] = C('default_c_name','app');
-			$route[2] = C('default_a_name','app');
-		}
+                }else{
+                    # 加载Host绑定的模块
+                    $route[0] = C($_SERVER['HTTP_HOST'],'host');
+
+                }
+                # 加载部分配置
+                $route[1] = C('default_c_name','app');
+                $route[2] = C('default_a_name','app');
+            }
+        }
+
+
 		# 定义应用名称
 		define('APP_NAME',$route[0]);
 
@@ -120,7 +178,10 @@ class Route{
 
 		# 定义操作名称
 		define('ACTION_NAME',$route[2]);
-
+        # 判断是否为编辑器上传文件
+        if(APP_NAME=='__System__' && CONTROLLER_NAME=='__System__' && ACTION_NAME=='__upload__'){
+            self::upload();
+        }
 		# 判断模块是否存在
 		if(!file_exists(ROOT_PATH.'app'.DIRECTORY_SEPARATOR.APP_NAME)){
 			# 指定模块找不到
@@ -197,4 +258,30 @@ class Route{
 			}
 		}
 	}
+	public static function upload(){
+        include ROOT_PATH."common/umeditor/php/Uploader.class.php";
+        //上传配置
+        $config = array(
+            "savePath" => "/upload/umeditor/",             //存储文件夹
+            "maxSize" => 1000 ,                   //允许的文件最大尺寸，单位KB
+            "allowFiles" => array( ".gif" , ".png" , ".jpg" , ".jpeg" , ".bmp" )  //允许的文件格式
+        );
+        // 上传文件保存目录
+        $Path = ROOT_PATH."public/upload/umeditor/";
+        // 背景保存在临时目录中
+        $config[ "savePath" ] = $Path;
+        $up = new Uploader( "upfile" , $config );
+        $type = $_REQUEST['type'];
+        $callback=$_GET['callback'];
+
+        $info = $up->getFileInfo();
+        /**
+         * 返回数据
+         */
+        if($callback) {
+            exit('<script>'.$callback.'('.json_encode($info).')</script>');
+        } else {
+            exit(json_encode($info));
+        }
+    }
 }

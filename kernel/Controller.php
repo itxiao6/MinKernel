@@ -4,6 +4,7 @@ use Itxiao6\View\Compilers\ViewCompiler;
 use Itxiao6\View\Engines\CompilerEngine;
 use Itxiao6\View\FileViewFinder;
 use Itxiao6\View\Factory;
+use Illuminate\Database\Capsule\Manager as DB;
 /**
 
 * 控制器父类

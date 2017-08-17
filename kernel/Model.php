@@ -130,7 +130,6 @@ class Model extends Eloquent
     */
     public function __construct($tableName='')
     {
-
         # 获取全局的数据库连接
         global $database;
         # 判断数据库是否已经连接

@@ -19,14 +19,14 @@ use DebugBar\DataCollector\DataCollector;
 use DebugBar\DataCollector\ConfigCollector;
 use DebugBar\DataCollector\AggregatedCollector;
 /**
- * 框架核心类
- */
+* 框架核心类
+*/
 class Kernel
 {
     /**
      * 启动框架
      */
-    public static function start()
+	public static function start()
     {
         # 设置协议头
         header("Content-Type:text/html;charset=utf-8");
@@ -127,7 +127,7 @@ class Kernel
 
         # 修改session文件的储存位置
         session_save_path(CACHE_SESSION);
-
+        
         # 设置图片上传临时目录
         ini_set('upload_tmp_dir', UPLOAD_TMP_DIR);
 
@@ -148,5 +148,5 @@ class Kernel
         }
         # 加载路由
         Route::init();
-    }
+	}
 }

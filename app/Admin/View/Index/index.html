@@ -1,12 +1,5 @@
 {{-- 继承公用视图 --}}
 @extends('Public.public')
-{{-- 分配标题 --}}
-@section('title', '后台首页')
-{{-- 分配path级别路径 --}}
-@section('title_one','后台')
-@section('title_two','首页')
-{{-- 分配描述 --}}
-@section('description', '..')
 
 @section('content')
 <style type="text/css">
@@ -23,8 +16,8 @@
 		<i class="icon-beaker"></i>
 	</div>
 	<div class="infobox-data">
-		<span class="infobox-data-number">{{$data['time']}}</span>
-		<div class="infobox-content">日期</div>
+		<span class="infobox-data-number">{{$data['usercount']}}</span>
+		<div class="infobox-content">用户总数</div>
 	</div>
 </div></td> <td>
 <div class="infobox infobox-green">
@@ -32,8 +25,8 @@
 		<i class="icon-beaker"></i>
 	</div>
 	<div class="infobox-data">
-		<span class="infobox-data-number">{{$data['all_num']}}</span>
-		<div class="infobox-content">总销售额</div>
+		<span class="infobox-data-number">{{$data['todayuser']}}</span>
+		<div class="infobox-content">今日新增用户数量</div>
 	</div>
 </div></td> <td>
 <div class="infobox infobox-blue">
@@ -41,8 +34,8 @@
 		<i class="icon-beaker"></i>
 	</div>
 	<div class="infobox-data">
-		<span class="infobox-data-number">{{$data['land_num']}}</span>
-		<div class="infobox-content">当日销售额</div>
+		<span class="infobox-data-number">{{$data['userauth']}}</span>
+		<div class="infobox-content">已认证用户数量</div>
 	</div></td>
 </div></tr>
 <tr><td>
@@ -51,8 +44,8 @@
 		<i class="icon-beaker"></i>
 	</div>
 	<div class="infobox-data">
-		<span class="infobox-data-number">{{$data['open_num']}}</span>
-		<div class="infobox-content">已成交订单总数</div>
+		<span class="infobox-data-number">{{$data['demandcount']}}</span>
+		<div class="infobox-content">项目数量</div>
 	</div>
 </div></td> <td>
 <div class="infobox infobox-orange">
@@ -60,8 +53,8 @@
 		<i class="icon-beaker"></i>
 	</div>
 	<div class="infobox-data">
-		<span class="infobox-data-number">{{$data['mush_num']}}</span>
-		<div class="infobox-content">当日成交数</div>
+		<span class="infobox-data-number">{{$data['shopcount']}}</span>
+		<div class="infobox-content">店铺数量</div>
 	</div>
 </div>
 </td> <td>
@@ -70,8 +63,8 @@
 		<i class="icon-beaker"></i>
 	</div>
 	<div class="infobox-data">
-		<span class="infobox-data-number">{{$data['manure_num']}}</span>
-		<div class="infobox-content">总加盟人数</div>
+		<span class="infobox-data-number">{{$data['rechargecount']}}</span>
+		<div class="infobox-content">充值总金额</div>
 	</div>
 </div></td>
 </tr><tr><td>
@@ -80,10 +73,10 @@
 		<i class="icon-beaker"></i>
 	</div>
 	<div class="infobox-data">
-		<span class="infobox-data-number">{{$data['today_num']}}</span>
-		<div class="infobox-content">当日加盟人数</div>
+		<span class="infobox-data-number">{{$data['Bondcount']}}</span>
+		<div class="infobox-content">缴纳企业认证保证金</div>
 	</div>
-</div></td> <td>
+</div></td> <!-- <td>
 <div class="infobox infobox-green2">
 	<div class="infobox-icon">
 		<i class="icon-beaker"></i>
@@ -120,7 +113,86 @@
 		<span class="infobox-data-number">{{$data['today_active']}}</span>
 		<div class="infobox-content">总通过金额</div>
 	</div>
-</div></td> 
-</tr>
+</div></td>  -->
+<!-- </tr> -->
 </table>
+<!-- basic scripts -->
+
+
+
+<!--[if !IE]> -->
+
+
+
+<script src="/assets/js/jquery-2.0.3.min.js"></script>
+
+<!-- <![endif]-->
+
+
+
+<!--[if IE]>
+
+<script src="/assets/js/jquery-1.10.2.min.js"></script>
+
+<![endif]-->
+
+
+
+<!--[if !IE]> -->
+
+
+
+<script type="text/javascript">
+
+    window.jQuery || document.write("<script src='/assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
+
+</script>
+
+
+
+<!-- <![endif]-->
+
+
+
+<!--[if IE]>
+
+<script type="text/javascript">
+
+	window.jQuery || document.write("<script src='/assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
+
+</script>
+
+<![endif]-->
+
+
+
+<script type="text/javascript">
+
+    if("ontouchend" in document) document.write("<script src='/assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+
+</script>
+
+<script src="/assets/js/bootstrap.min.js"></script>
+
+<script src="/assets/js/typeahead-bs2.min.js"></script>
+
+
+
+<!-- page specific plugin scripts -->
+
+
+
+<script src="/assets/js/jquery.dataTables.min.js"></script>
+
+<script src="/assets/js/jquery.dataTables.bootstrap.js"></script>
+
+
+
+<!-- ace scripts -->
+
+
+
+<script src="/assets/js/ace-elements.min.js"></script>
+
+<script src="/assets/js/ace.min.js"></script>
 @endsection

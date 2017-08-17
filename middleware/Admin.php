@@ -9,7 +9,7 @@ class Admin
     {
         # 判断是否登录过了
         if($_SESSION['admin']['id'] < 1){
-            redirect('/Admin/Auth/login.html');
+            redirect('/Auth/login.html');
         }else{
 
         }

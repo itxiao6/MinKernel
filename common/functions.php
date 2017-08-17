@@ -14,6 +14,33 @@ function get_excel($data,$filename='数据表'){
     \YExcel\Excel::put('php://output', $data);
     exit();
 }
+
+/**
+ * 缓存函数
+ * @param String $key 键
+ * @param String $fun 数据
+ * @param int $outTime 过期时间
+ * @return mixed 结果
+ */
+function cache($key,$fun='',$outTime = -1)
+{
+    # 判断是否开启了缓存
+    if(C('cache_time','sys') == - 1){
+        return $fun();
+    }
+    # 判断缓存是否存在
+//    if(!($data = unserialize(\Service\Redis::get($key)))){
+        # 获取新的数据
+        $data = $fun();
+        # 缓存
+//        \Service\Redis::set($key,serialize($data),$outTime == -1 ? C('cache_time','sys') : $outTime);
+        # 返回缓存过后的结果
+        return $data;
+//    }else{
+        # 返回缓存
+//        return $data;
+//    }
+}
 /**
 * [function_dump 打印函数定义的文件名和位置]
 * @param [String] $funcname [函数名]
@@ -36,27 +63,88 @@ function function_dump($funcname) {
       $filename = $func->getFileName();
       return "function $funcname defined by $filename($start - $end)\n";
 }
+
 /**
-* [get_url 请求获取url]
-* @param [Bool] $is_page_get [是否分页]
+* [get_page 获取分页]
+* @param [Int] $num [一页条数]
+* @param [String] $type [返回类型]
 * @return [Object] $this [本对象]
 */
-function get_url($is_preg_get=true){
-    if(isset($_SERVER['REQUEST_URI'])){
-        $uri=$_SERVER['REQUEST_URI'];
-    }else{
-        if(isset($_SERVER['argv'])){
-            $uri=$_SERVER['PHP_SELF'].'?'.$_SERVER['argv'][0];
-        }else{
-            $uri=$_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING'];
+function get_page($num,$object,$type='Array',$where=[]){
+    # 匹配掉uri里的路径
+    $uri = substr($_SERVER['REQUEST_URI'],0,strrpos($_SERVER['REQUEST_URI'],'?'));
+    unset($_GET[preg_replace('!\.!','_',$uri)]);
+    # 获取get url
+    if(count($where)<=0){$where = $_GET;}
+    # 定义where_url
+    $where_url = '';
+    # 循环链接 条件连续字符串
+    foreach ($where as $key => $value) {
+        if($key!='page'){
+            $where_url .= $key.'='.$value.'&';
         }
     }
-    # 判断是否带get参数
-    if($is_preg_get && strpos($uri,'?')!=false){
-        # 过滤get参数
-        $uri = substr($uri,0,strpos($uri,'?'));
+
+    # 条件url
+    $data['where_url'] = $where_url;
+
+    # 判断当前页数不能为空
+    if($_GET['page'] < 1){$_GET['page'] = 1;}else{$_GET['page']+=0;}
+
+    if ($type === 'Array'){
+        #数据总条数
+        $data['total'] = count($object);
+        #取出固定位置的数据
+        $data['data'] = array_slice($object,$num * ($_GET['page']-1),$num);
+        #当前页的数据
+        $data['to'] = count($data['data']);
+    }else{
+        # 数据总条数
+        $data['total'] = $object -> count();
+        # 数据集合(对象)
+        $data['data'] = $object -> skip($num * ($_GET['page']-1))->take($num) -> get();
+        # 当前页数据
+        $data['to'] = $data['data'] -> count();
     }
-    return$uri;
+
+    # 当前页数
+    $data['from'] = ($_GET['page'] < 1?1:$_GET['page']);
+
+    # 总页数
+    $data['last_page'] = sprintf('%d',ceil($data['total'] / $num));
+
+    # 判断是否已经到达末页了
+    if($_GET['page'] < $data['last_page']){
+        # 下一页链接地址
+        $data['next_page_url'] = '?'.$where_url.'page='.($_GET['page'] + 1);
+
+    }else{
+        # 空链接
+        $data['next_page_url'] = null;
+
+    }
+    # 判断是否已经是首页
+    if($_GET['page'] > 1){
+        # 上一页链接地址
+        $data['prev_page_url'] = '?'.$where_url.'page='.($_GET['page'] - 1);
+
+    }else{
+        # 空链接
+        $data['prev_page_url'] = null;
+
+    }
+
+
+    # 判断要返回的数据类型
+    if($type=='Array'){
+      # 返回数组格式的数据
+      return $data;
+
+    }else if($type=='Object'){
+      # 返回对象形式的数据
+      return $data;
+
+    }
 }
 
 /**
@@ -76,6 +164,7 @@ function arrayToXml($arr){
     $xml.="</xml>";
     return $xml;
 }
+
 
 /**
  * [ getTimestamp 获取时间戳 ]
@@ -98,18 +187,7 @@ function getCurrentUrl()
 }
 
 
-/**
- * [ getClientIp 获取客户端ip ]
- * @return String 访问者的ip
- */
-function getClientIp()
-{
-    $headers = function_exists('apache_request_headers')
-        ? apache_request_headers()
-        : $_SERVER;
 
-    return isset($headers['REMOTE_ADDR']) ? $headers['REMOTE_ADDR'] : '0.0.0.0';
-}
 
 /**
  * [ getRandomString 获取随机字符串 ]
@@ -196,41 +274,6 @@ function U($Model='',$params='') {
 }
 
 
-/**
- * 模拟提交参数，支持https提交 可用于各类api请求
- * @param string $url ： 提交的地址
- * @param array $data :POST数组
- * @param string $method : POST/GET，默认GET方式
- * @return mixed
- */
-function http($url, $data='', $method='GET'){
-    if($method=='GET'){
-        $param = '?';
-        foreach ($data as $key => $value) {
-            $param .= $key.'='.$value.'&';
-        }
-        $param = rtrim($param,'&');
-        return file_get_contents($url.$param);
-    }
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; MSIE 5.01; Windows NT 5.0)');
-    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-    curl_setopt($ch, CURLOPT_AUTOREFERER, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    $result = curl_exec($ch);
-    if (curl_errno($ch)) {
-        exit(curl_error($ch));
-    }
-
-    curl_close($ch);
-    # 返回结果集
-    return $result;
-}
 /**
  * [env 读取环境配置]
  * @param  [String] $param   [读取的项目]
@@ -367,8 +410,10 @@ function D($tableName='',$key='id'){
         if($key!='id'){
             $object -> setKey($key);
         }
-        # 设置表名
-        $object -> setTable($tableName);
+        if($tableName!=''){
+            # 设置表名
+            $object -> setTable($tableName);
+        }
         # 返回模型
         return $object;
     }else{
@@ -376,79 +421,7 @@ function D($tableName='',$key='id'){
     }
 }
 
-/**
- * 判断是否SSL协议
- * @return boolean
- */
-function IS_SSL() {
-    if(isset($_SERVER['HTTPS']) && ('1' == $_SERVER['HTTPS'] || 'on' == strtolower($_SERVER['HTTPS']))){
-        return true;
-    }elseif(isset($_SERVER['SERVER_PORT']) && ('443' == $_SERVER['SERVER_PORT'] )) {
-        return true;
-    }
-    return false;
-}
-/**
- * 发送HTTP状态
- * @param integer $code 状态码
- * @return void
- */
-function send_http_status($code) {
-    static $_status = array(
-            # Informational 1xx
-            100 => 'Continue',
-            101 => 'Switching Protocols',
-            # Success 2xx
-            200 => 'OK',
-            201 => 'Created',
-            202 => 'Accepted',
-            203 => 'Non-Authoritative Information',
-            204 => 'No Content',
-            205 => 'Reset Content',
-            206 => 'Partial Content',
-            # Redirection 3xx
-            300 => 'Multiple Choices',
-            301 => 'Moved Permanently',
-            302 => 'Moved Temporarily ',  # 1.1
-            303 => 'See Other',
-            304 => 'Not Modified',
-            305 => 'Use Proxy',
-            # 306 is deprecated but reserved
-            307 => 'Temporary Redirect',
-            # Client Error 4xx
-            400 => 'Bad Request',
-            401 => 'Unauthorized',
-            402 => 'Payment Required',
-            403 => 'Forbidden',
-            404 => 'Not Found',
-            405 => 'Method Not Allowed',
-            406 => 'Not Acceptable',
-            407 => 'Proxy Authentication Required',
-            408 => 'Request Timeout',
-            409 => 'Conflict',
-            410 => 'Gone',
-            411 => 'Length Required',
-            412 => 'Precondition Failed',
-            413 => 'Request Entity Too Large',
-            414 => 'Request-URI Too Long',
-            415 => 'Unsupported Media Type',
-            416 => 'Requested Range Not Satisfiable',
-            417 => 'Expectation Failed',
-            # Server Error 5xx
-            500 => 'Internal Server Error',
-            501 => 'Not Implemented',
-            502 => 'Bad Gateway',
-            503 => 'Service Unavailable',
-            504 => 'Gateway Timeout',
-            505 => 'HTTP Version Not Supported',
-            509 => 'Bandwidth Limit Exceeded'
-    );
-    if(isset($_status[$code])) {
-        header('HTTP/1.1 '.$code.' '.$_status[$code]);
-        # 确保FastCGI模式下正常
-        header('Status:'.$code.' '.$_status[$code]);
-    }
-}
+
 /**
  * 获取输入参数 支持过滤和默认值
  * 使用方法:
@@ -601,4 +574,11 @@ function kernel_filter(&$value){
     if(preg_match('/^(EXP|NEQ|GT|EGT|LT|ELT|OR|XOR|LIKE|NOTLIKE|NOT BETWEEN|NOTBETWEEN|BETWEEN|NOTIN|NOT IN|IN)$/i',$value)){
         $value .= ' ';
     }
+}
+
+//随机生成唯一订单号
+function getOrderNum(){
+    $yCode = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J');
+    return (String) $yCode[intval(date('Y')) - 2011] . strtoupper(dechex(date('m'))) . date('d') . substr(time(), -5) . substr(microtime(), 2, 5) . sprintf('%02d', rand(0, 99));
+
 }
