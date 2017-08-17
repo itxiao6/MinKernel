@@ -1,6 +1,4 @@
 <?php
-$redis = new \Redis();
-$redis -> connect('127.0.0.1', 6379);
 return [
 	# 微信的公众平台的appid
 	'appid'=>'wx7920eeb86e010ad8',
