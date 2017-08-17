@@ -18,6 +18,5 @@ return [
     'Bucket_Host'=>'',# 空间名称
     'accessKey'=>'',# 空间名称
     'secretKey'=>'',# 空间名称
-    'cache_time' =>  -1 ,# 缓存时间单位为(秒) -1 为关闭缓存
     'debugbar'=>true # 是否开启debugbar
 ];
