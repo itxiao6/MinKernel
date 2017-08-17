@@ -12,7 +12,7 @@ return [
     # session存储方式
     'session_save'=>'file', # file/redis
     # 缓存方式
-    'cache_type'=>'file', # file/redis
+    'cache_type'=>'file', # file/redis/memcached
     # 七牛云存储参数
     'Bucket_Name'=>'',# 空间名称
     'Bucket_Host'=>'',# 空间名称

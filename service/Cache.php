@@ -2,7 +2,9 @@
 namespace Service;
 use Doctrine\Common\Cache\RedisCache;
 use Doctrine\Common\Cache\FilesystemCache;
+use Doctrine\Common\Cache\MemcacheCache;
 use Redis;
+use Memcached;
 /**
  * 缓存类
  * Class Cache
@@ -42,6 +44,19 @@ class Cache{
                     $redis_driver = new FilesystemCache(CACHE_DATA);
                     # 设置驱动到Cache 类
                     self::setDriver($redis_driver);
+                    break;
+                case 'memcached' :
+                    # Memcached 驱动初始化
+                    # 实例化系统Memcached 扩展
+                    $memcached = new Memcached();
+                    # 链接Memcached
+                    $memcached -> connect(C('host','memcached'), C('port','memcached'));
+                    # 实例化缓存驱动
+                    $memcached_driver = new MemcacheCache;
+                    # 设置缓存驱动的链接
+                    $memcached_driver -> setMemcached($memcached);
+                    # 设置缓缓存驱动到Cache类
+                    self::setDriver($memcached_driver);
                     break;
                 default:
                     break;
