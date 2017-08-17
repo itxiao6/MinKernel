@@ -4,7 +4,7 @@
   "keywords": ["framework"],
   "license": "MIT",
   "require": {
-    "itxiao6/database": "v5.4.27",
+    "itxiao6/database": "1.1",
     "illuminate/http": "v5.4.27",
     "filp/whoops": "2.1.9",
     "phpmailer/phpmailer": "~5.2",
