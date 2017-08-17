@@ -18,6 +18,7 @@ use Itxiao6\Wechat\Menu\ButtonCollection;
 use Itxiao6\Wechat\Menu\Create;
 use Itxiao6\Wechat\User\User;
 use Itxiao6\Wechat\Payment\Jsapi\PayChoose;
+use Service\Cache;
 /**
 * 微信操作
 */
@@ -107,10 +108,10 @@ class Wechat{
      */
 	public static function get_access_token(){
 		if(self::$cacheDriver==false){
-		    $driver = C('cache_type','wechat');
-		    $driver_param = C('driver_param','wechat');
-			self::$cacheDriver = new $driver();
-			self::$cacheDriver -> setRedis($driver_param);
+            # 实例化缓存类
+            $cache_object = new Cache();
+            # 获取缓存驱动
+            self::$cacheDriver = $cache_object-> getDriver();
 		}
 		# 初始化AccessToken
 		self::$accessToken = new AccessToken(C('appid','wechat'), C('secret','wechat'));

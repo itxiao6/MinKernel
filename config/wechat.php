@@ -20,9 +20,4 @@ return [
 	'open_mchid' => '',
 	#通知回调地址
 	'notify_url'=>'',
-    # 缓存驱动
-    'cache_type'=>\Doctrine\Common\Cache\RedisCache::class,
-    # 驱动参数
-    'driver_param'=> $redis,
-
 ];
