@@ -9,6 +9,8 @@ return [
     'username'=>'root',
     # 数据库密码
     'password'=>'',
+    # session存储方式
+    'session_save'=>'redis', # file/redis
     # 七牛云存储参数
     'Bucket_Name'=>'',# 空间名称
     'Bucket_Host'=>'',# 空间名称

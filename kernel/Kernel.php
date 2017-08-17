@@ -134,6 +134,12 @@ class Kernel
         # 设置session有效期
         // session_set_cookie_params( C('session_lifetime','sys') );
 
+        # 判断session存储方式
+        if(env('session_save') == 'redis'){
+            ini_set("session.save_handler", "redis");
+            ini_set("session.save_path", "tcp://".C('host').":".C('port'));
+        }
+
         # 启动session
         session_start();
 
