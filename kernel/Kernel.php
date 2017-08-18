@@ -137,7 +137,7 @@ class Kernel
         # 判断session存储方式
         if(env('session_save') == 'redis'){
             ini_set("session.save_handler", "redis");
-            ini_set("session.save_path", "tcp://".C('host').":".C('port'));
+            ini_set("session.save_path", "tcp://".C('host','redis').":".C('port','redis'));
         }
 
         # 启动session
