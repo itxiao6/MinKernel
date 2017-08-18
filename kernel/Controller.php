@@ -14,6 +14,8 @@ class Controller
 {
     # 视图数据
     protected $viewData = [];
+    # 是否渲染debugbar
+    protected $debugbar = true;
 
     public function __construct()
     {
@@ -122,6 +124,8 @@ class Controller
     * @return void
     */
     protected function ajaxReturn($data,$type='',$json_option=0) {
+        # 不渲染debugbar
+        $this -> debugbar = false;
         if(empty($type)) $type  =   C('default_ajax_return','sys');
         switch (strtoupper($type)){
             case 'JSON' :
@@ -191,14 +195,14 @@ class Controller
         global $debugbarRenderer;
         global $database;
         # 判断是否开启了数据库日志 并且数据库有查询语句
-        if($database && is_array(DB_LOG()) && C('debugbar','sys')  && (!IS_AJAX)){
+        if($database && is_array(DB_LOG()) && C('debugbar','sys')  && (!IS_AJAX) && $this ->debugbar){
             # 遍历sql
             foreach (DB_LOG() as $key => $value) {
                 $debugbar["Database"]->addMessage('语句:'.$value['query'].' 耗时:'.$value['time'].' 参数:'.json_encode($value['bindings']));
             }
         }
         # 判断是否开启了 debugbar
-        if(C('debugbar','sys') && (!IS_AJAX)){
+        if(C('debugbar','sys') && (!IS_AJAX) && $this ->debugbar){
           echo preg_replace('!\/vendor\/maximebf\/debugbar\/src\/DebugBar\/!','/',$debugbarRenderer->renderHead());
           echo $debugbarRenderer->render();
         }
