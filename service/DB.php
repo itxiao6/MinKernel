@@ -1,6 +1,6 @@
 <?php
 namespace Service;
-use Illuminate\Database\Capsule\Manager;
+use Itxiao6\Database\Capsule\Manager;
 use Illuminate\Container\Container;
 
 /**

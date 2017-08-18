@@ -1,9 +1,9 @@
 <?php
 namespace Kernel;
 use Illuminate\Container\Container;
-use Illuminate\Database\Capsule\Manager as DB;
-use Illuminate\Database\Eloquent\Model as Eloquent;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Itxiao6\Database\Capsule\Manager as DB;
+use Itxiao6\Database\Eloquent\Model as Eloquent;
+use Itxiao6\Database\Eloquent\SoftDeletes;
 /**
 * 模型父类
 */
@@ -111,7 +111,7 @@ class Model extends Eloquent
     */
     #  protected function asDateTime($value)
     # {
-    #	  return $value;
+    #     return $value;
     #  }
 
 
