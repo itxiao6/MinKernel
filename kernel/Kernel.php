@@ -26,7 +26,7 @@ class Kernel
     /**
      * 启动框架
      */
-	public static function start()
+    public static function start()
     {
         # 设置协议头
         header("Content-Type:text/html;charset=utf-8");
@@ -100,7 +100,7 @@ class Kernel
         # 是否为Model 请求
         define('IS_MOBILE',Http::IS_MOBILE()     ==true ? true : false);
         # 是否为AJAX 请求
-        define('IS_AJAX', ((isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') || !empty($_POST[C('var_ajax_submit','sys')]) || !empty($_GET[C('var_ajax_submit','sys')])) ? true : false);
+        define('IS_AJAX', Http::IS_AJAX() == true ? true : false);
         # 数据缓存目录
         define('CACHE_DATA',ROOT_PATH.'runtime'.DIRECTORY_SEPARATOR.'data'.DIRECTORY_SEPARATOR);
         # 日志文件缓存路径
@@ -154,5 +154,5 @@ class Kernel
         }
         # 加载路由
         Route::init();
-	}
+    }
 }

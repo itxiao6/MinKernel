@@ -46,6 +46,15 @@ class Http{
     }
 
     /**
+     * 是否为AJAX 请求
+     * @return bool
+     */
+    public static function IS_AJAX(){
+        return (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') ||
+            strtolower($_POST['request_method']) == 'ajax' || strtolower($_GET['request_method']) == 'ajax';
+    }
+
+    /**
      * 是否为GET 请求
      * @return bool
      */
