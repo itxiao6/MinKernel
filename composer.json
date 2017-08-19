@@ -4,7 +4,7 @@
   "keywords": ["framework"],
   "license": "MIT",
   "require": {
-    "itxiao6/database": "1.1",
+    "itxiao6/database": "1.0.0.1",
     "illuminate/http": "v5.4.27",
     "filp/whoops": "2.1.9",
     "phpmailer/phpmailer": "~5.2",
@@ -23,12 +23,12 @@
     }
   ],
   "autoload": {
-  	"psr-4": {
+    "psr-4": {
       "Kernel\\":"kernel/",
       "Service\\":"service/",
       "Middleware\\":"middleware/",
       "App\\":"app/",
       "App\\Model\\":"models/"
-  	}
+    }
   }
 }

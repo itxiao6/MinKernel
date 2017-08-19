@@ -145,7 +145,7 @@ class Cache{
      * @param $arguments
      * @return mixed
      */
-    public static function __call($name, $arguments){
+    public function __call($name, $arguments){
         self::__init();
         return self::$cacheDriver -> $name(...$arguments);
     }
