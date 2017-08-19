@@ -262,6 +262,12 @@ class Wechat{
      * @return bool 返回用户的信息
      */
 	public static function get_user_info($callBack){
+		if(!isset($_GET['code'])){
+			$_GET['code'] = '';
+		}
+		if(!isset($_GET['state'])){
+			$_GET['state'] = '';
+		}
 		if(self::$user_accessToken==false || (empty($_GET['code']) && empty($_GET['state'])) ){
 			self::get_Web_user_Access_Token($callBack);
 		}
@@ -274,7 +280,7 @@ class Wechat{
 		# 获取用户信息
 		self::$userinfo = self::$user_accessToken->getUser()->toArray();
 		# 过滤微信特殊表情符号(不过滤html)
-		self::$userinfo['nickname'] = Util::filterNickname(self::$userinfo['nickname']);
+		self::$userinfo['nickname'] = Util::filterNickname(isset(self::$userinfo['nickname'])?self::$userinfo['nickname']:'');
 		# 返回用户信息(可以toArray)
 		return self::$userinfo;
 	}
@@ -423,7 +429,11 @@ class Wechat{
      * @param $data 菜单数据
      * @return Create 创建结果
      */
-	public static function menu_create($data){
+	public static function menu_create($data = []){
+		# 判断是否存在按钮
+		if(count($data) < 1){
+			return false;
+		}
 		# 判断是否已经获取过accessToken
 		if(self::$accessToken==false){
 			# 获取accessToken
@@ -515,10 +525,12 @@ class Wechat{
     }
     /**
      * 通过openid获取用户信息
-     * @param $openid 用户的openid
+     * @param String $openid 用户的openid
      * @return Array 用户信息
      */
-	public static function get_openid_user_info($openid){
+	public static function get_openid_user_info($openid==''){
+		# 判断openid是否为空
+		if($openid==''){return false;}
 		# 判断是否已经获取过accessToken
 		if(self::$accessToken==false){
 			# 获取accessToken
@@ -577,6 +589,18 @@ class Wechat{
 	public static function checkToken($token=''){
 		if($token==''){
 			$token = self::$token;
+		}
+		if(!isset($_GET['signature'])){
+			$_GET["signature"] ='';
+		}
+		if(!isset($_GET["timestamp"])){
+			$_GET["timestamp"] = '';
+		}
+		if(!isset($_GET["nonce"])){
+			$_GET["nonce"] = '';
+		}
+		if(!isset($_GET["echostr"])){
+			$_GET["echostr"] = '';
 		}
         $signature = $_GET["signature"];
         $timestamp = $_GET["timestamp"];
