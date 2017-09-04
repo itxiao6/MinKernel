@@ -8,7 +8,6 @@ use Kernel\Controller;
 class Base extends Controller{
 	# 构造函数
 	function __init(){
-	    # 后台鉴权中间件
-//		$this -> addMiddleware(\Middleware\Admin::class);
+
 	}
 }
