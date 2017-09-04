@@ -9,6 +9,10 @@ class Route{
 	# 虚拟目录
 	public static function abstract_path($uri)
     {
+        # 判断url是否包含非法字符
+        if(strpos($uri,'../') || strpos($uri,'.php')){
+            exit();
+        }
 		# 处理虚拟目录
 		foreach (C('all','abstract') as $key => $value) {
 			# 判断是否存在此文件
@@ -29,7 +33,7 @@ class Route{
                     header('Content-Type:text/gif;');
                 }
 				// 输入文件内容
-				exit(file_get_contents($value.$uri));
+				exit(include($value.$uri));
 			}
 		}
 	}
