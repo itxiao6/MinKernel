@@ -37,10 +37,6 @@ class Route{
 			}
 		}
 	}
-	# 解析域名
-	public static function host(){
-
-    }
 	# 解析路由
 	public static function init()
     {
