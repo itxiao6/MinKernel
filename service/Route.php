@@ -33,7 +33,7 @@ class Route{
                     header('Content-Type:text/gif;');
                 }
 				// 输入文件内容
-				exit(include($value.$uri));
+				exit(file_get_contents($value.$uri));
 			}
 		}
 	}
