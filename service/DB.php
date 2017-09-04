@@ -32,6 +32,25 @@ class DB extends Manager
             }
         }
     }
+
+    /**
+     * 获取数据库sql Log
+     * @return bool
+     * @throws \Exception
+     */
+    public static function DB_LOG(){
+        # 获取全局的数据库连接
+        global $database;
+        if($database===false){
+            return false;
+        }
+        # 判断是否开启了DB_log
+        if(C('database_log','sys')){
+            return self::getQueryLog();
+        }else{
+            throw new \Exception('未开启DB_log');
+        }
+    }
     /**
      * Dynamically pass methods to the default connection.
      *

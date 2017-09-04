@@ -10,7 +10,8 @@ use Memcached;
  * Class Cache
  * @package Service
  */
-class Cache{
+class Cache
+{
     /**
      * 缓存驱动
      * @var bool
@@ -20,7 +21,8 @@ class Cache{
     /**
      * 缓存驱动初始化
      */
-    public static function __init(){
+    public static function __init()
+    {
         # 判断驱动是否初始化过
         if(self::$cacheDriver==false){
             # 选择缓存类型
@@ -68,7 +70,8 @@ class Cache{
      * 获取当前的缓存驱动
      * @return mixed
      */
-    public static function getDriver(){
+    public static function getDriver()
+    {
         self::__init();
         return self::$cacheDriver;
     }
@@ -77,7 +80,8 @@ class Cache{
      * 设置当前的缓存驱动
      * @param $Driver 驱动
      */
-    public static function setDriver($Driver){
+    public static function setDriver($Driver)
+    {
         self::$cacheDriver = $Driver;
     }
 
@@ -85,7 +89,8 @@ class Cache{
      * 缓存一个值
      * @return mixed
      */
-    public static function set(){
+    public static function set()
+    {
         self::__init();
         return self::$cacheDriver -> save(...func_get_args());
     }
@@ -94,7 +99,8 @@ class Cache{
      * 获取一个缓存
      * @return mixed
      */
-    public static function get(){
+    public static function get()
+    {
         self::__init();
         return self::$cacheDriver -> fetch(...func_get_args());
     }
@@ -103,7 +109,8 @@ class Cache{
      * 移除一个缓存
      * @return mixed
      */
-    public static function remove(){
+    public static function remove()
+    {
         self::__init();
         return self::$cacheDriver -> delete(...func_get_args());
     }
@@ -114,7 +121,8 @@ class Cache{
      * @param Int $timeout 过期时间
      * @return mixed
      */
-    public static function remember($key,$callback,$timeout){
+    public static function remember($key,$callback,$timeout)
+    {
         # 获取数据
         $result = self::get($key);
         # 判断是否存在数据

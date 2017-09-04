@@ -26,7 +26,48 @@ class Http{
             # 过滤get参数
             $uri = substr($uri,0,strpos($uri,'?'));
         }
-        return$uri;
+        return $uri;
+    }
+
+    /**
+     * Http重定向
+     * @param $url
+     */
+    public static function redirect($url){
+        exit(header('Location:'.$url));
+    }
+
+    /**
+     * 是否为CLI环境
+     * @return bool
+     */
+    public static function IS_CLI(){
+        return PHP_SAPI=='cli'?true:false;
+    }
+
+    /**
+     * 是否为CGI方式访问
+     * @return bool
+     */
+    public static function IS_CGI(){
+        return (0 === strpos(PHP_SAPI,'cgi') ||
+                false !== strpos(PHP_SAPI,'fcgi')) ? true : false ;
+    }
+
+    /**
+     * 获取REQUEST_METHOD
+     * @return mixed
+     */
+    public static function REQUEST_METHOD(){
+        return $_SERVER['REQUEST_METHOD'];
+    }
+
+    /**
+     * 是否为PUT协议访问
+     * @return bool
+     */
+    public static function IS_PUT(){
+        return REQUEST_METHOD =='PUT' ? true : false;
     }
     /**
      * [ isWechat 数组转换成XML ]
@@ -42,7 +83,7 @@ class Http{
      * @return bool
      */
     public static function IS_POST(){
-        return IS_POST;
+        return REQUEST_METHOD =='POST' ? true : false;
     }
 
     /**
@@ -59,7 +100,7 @@ class Http{
      * @return bool
      */
     public static function IS_GET(){
-        return IS_GET;
+        return REQUEST_METHOD =='GET' ? true : false;
     }
     /**
      * getClientIp 获取客户端ip
@@ -119,6 +160,14 @@ class Http{
             return true;
         }
         return false;
+    }
+
+    /**
+     * 是否为DELETE协议
+     * @return bool
+     */
+    public static function IS_DELETE(){
+       return REQUEST_METHOD =='DELETE' ? true : false;
     }
     /**
      * 发送HTTP状态

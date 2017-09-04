@@ -5,15 +5,14 @@ namespace Service;
 */
 class File{
 
-
-	/**
-	 * [_get_file_contents 获取远端文件]
-	 * @param  [String]  $url          [目标地址]
-	 * @param  [String]  $dirName      [下载到指定文件夹]
-	 * @param  [String]  $fileName     [是否重命名]
-	 * @param  Boolean $isBackground [是否开启在后台下载]
-	 * @return [Boolean]                [是否下载成功]
-	 */
+    /**
+     * 下载文件
+     * @param String $url 目标地址
+     * @param String $dirName 下载到指定文件夹
+     * @param string $fileName 是否重命名
+     * @param bool $isBackground 是否开启在后台下载
+     * @return bool|string shell 结果
+     */
 	public static function _download($url,$dirName,$fileName='',$isBackground=false)
     {
 		# 判断是否为Linux
@@ -31,44 +30,48 @@ class File{
 			file_put_contents($dirName.($fileName==''?$suffix:$fileName),$result);
 		}
 	}
-	/**
-	 * [_mkdir 创建文件夹]
-	 * @param  [String] $dirname [文件夹名称]
-	 * @param  string $Auth    [权限]
-	 * @return [type]          [执行结果]
-	 */
+
+    /**
+     * 创建文件夹
+     * @param String $dirname 文件夹名称
+     * @param string $Auth 权限
+     * @return bool|string shell 结果
+     */
 	public static function _mkdir($dirname,$Auth='755')
     {
 		$command = 'mkdir -m '.$Auth.' '.$dirname;
 		return self::execute($command);
 	}
-	/**
-	 * [_touch 创建文件]
-	 * @param  [String] $fileName [文件名]
-	 * @param  string $dirName  [文件夹]
-	 * @return [String]           [执行结果]
-	 */
+
+    /**
+     * 创建文件
+     * @param string $fileName 文件名
+     * @param string $dirName 文件夹
+     * @return bool|string shell 结果
+     */
 	public static function _touch($fileName,$dirName='./')
     {
 		$command = 'touch '.rtrim($dirName,'/').'/'.$fileName;
 		return self::execute($command);
 	}
-	/**
-	 * [_delete 删除文件或文件夹]
-	 * @param  [String]  $fileName [文件名]
-	 * @param  boolean $isDir    [是否删除的为文件夹]
-	 * @return [String]            [执行的结果]
-	 */
+
+    /**
+     * 删除文件或文件夹
+     * @param String $fileName 文件名
+     * @param bool $isDir 是否删除的为文件夹
+     * @return bool|string shell 结果
+     */
 	public static function _delete($fileName,$isDir=false)
     {
 		$command = 'rm -f'.($isDir==true?'R':'').' '.$fileName;
 		return self::execute($command);
 	}
-	/**
-	 * [clearDir 清空指定文件夹]
-	 * @param  [String] $dirName [要清空的目录]
-	 * @return [String]          [执行的结果]
-	 */
+
+    /**
+     * 清空指定文件夹
+     * @param String $dirName 要清空的目录
+     * @return bool|string shell 结果
+     */
 	public static function clearDir($dirName)
     {
 		$command = 'direc="%%1" #$('.$dirName.')
@@ -77,23 +80,26 @@ class File{
 					done';
 		return self::execute($command);
 	}
-	/**
-	 * [_file_compress 压缩文件或文件夹]
-	 * @param  [String]  $path   [要压缩的文件(或文件夹)]
-	 * @param  [String]  $fileName   [压缩后的文件名]
-	 * @return [String]              [生成路径]
-	 */
+
+    /**
+     * 压缩文件或文件夹
+     * @param String $path 要压缩的文件(或文件夹)
+     * @param string $fileName 压缩后的文件名
+     * @param string $par 生成路径
+     * @return bool|string shell 结果
+     */
 	public static function _file_compress($path,$fileName="./",$par="-cvf")
     {
 		$command = 'tar '.$par.' '.$fileName.' '.$path;
 		return self::execute($command);
 	}
-	/**
-	 * [_file_get_contents 获取文件内容]
-	 * @param  [String]  $fileName   [文件路径]
-	 * @param  Boolean $isRemotely [是否为远端文件]
-	 * @return [Result]              [文件内容]
-	 */
+
+    /**
+     * 获取文件内容
+     * @param String $fileName 文件路径
+     * @param bool $isRemotely 是否为远端文件
+     * @return bool|string 文件内容
+     */
 	public static function _file_get_contents($fileName,$isRemotely=false)
     {
 		if($isRemotely){
@@ -104,6 +110,11 @@ class File{
 		return self::execute($command);
 	}
 
+    /**
+     * 文件是否存在
+     * @param String $fileName 文件名
+     * @return bool shell 结果
+     */
 	public static function _file_exists($fileName)
     {
 		# 拼接shell
@@ -118,11 +129,11 @@ class File{
 		}
 	}
 
-	/**
-	 * [_file_property 获取文件属性]
-	 * @param  [String]  $fileName   [文件路径]
-	 * @return  [Array]  $file   [文件属性]
-	 */
+    /**
+     * 获取文件属性
+     * @param String $fileName 文件路径
+     * @return array|bool 文件属性
+     */
 	public static function _file_property($fileName)
     {
 		# 判断文件是否存在
@@ -163,13 +174,14 @@ class File{
 		# 返回文件信息
 		return $file;
 	}
-	/**
-	 * [_file_put_contents 写入文件]
-	 * @param  [type] $fileName [文件名]
-	 * @param  [type] $content  [要写入的内容]
-	 * @param  [type] $append   [是否追加写入]
-	 * @return [type]           [写入的结果]
-	 */
+
+    /**
+     * 写入文件
+     * @param $fileName 文件名
+     * @param $content 要写入的内容
+     * @param $append 是否追加写入
+     * @return bool|string shell 结果
+     */
 	public static function _file_put_contents($fileName,$content,$append=ture)
     {
 		# 拼接shell语句
@@ -177,9 +189,11 @@ class File{
 		# 执行并返回结果
 		return self::execute($command);
 	}
-	/**
-	 * 获取操作系统
-	 */
+
+    /**
+     * 获取操作系统
+     * @return bool
+     */
 	protected static function getOs()
     {
 		# 判断是否为Linux
@@ -191,11 +205,12 @@ class File{
 			return false;
 		}
 	}
-	/**
-	 * [execute 执行shell语句]
-	 * @param  [type] $command [Shell语句]
-	 * @return [type]          [执行的结果]
-	 */
+
+    /**
+     * 执行shell语句
+     * @param String $command Shell语句
+     * @return bool|string shell 执行结果
+     */
 	protected static function execute($command)
     {
 		# 拼接shell头部

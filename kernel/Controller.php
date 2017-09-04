@@ -4,11 +4,10 @@ use Itxiao6\View\Compilers\ViewCompiler;
 use Itxiao6\View\Engines\CompilerEngine;
 use Itxiao6\View\FileViewFinder;
 use Itxiao6\View\Factory;
-use Illuminate\Database\Capsule\Manager as DB;
+use Service\Http;
+use Service\DB;
 /**
-
-* 控制器父类
-
+ * 控制器父类
 */
 class Controller
 {
@@ -24,20 +23,24 @@ class Controller
           $this -> __init();
         }
     }
-    /** 渲染模板
-    * @param  [String] 要渲染的模板名
-    * @param  [Array] 要分配到模板引擎的变量
-    * @return [渲染好的模板]
-    */
+
+    /**
+     * 渲染模板
+     * @param string $view 要渲染的模板名
+     * @param array $data 要分配到模板引擎的变量
+     */
     public function display($view='default',Array $data = [])
     {
         echo $this -> getView($view,$data);
     }
-    /** 获取模板内容
-    * @param  [String] 要渲染的模板名
-    * @param  [Array] 要分配到模板引擎的变量
-    * @return [渲染好的模板]
-    */
+
+    /**
+     * 获取模板内容
+     * @param string $view 要渲染的模板名
+     * @param array $data 要分配到模板引擎的变量
+     * @return mixed 模板内容
+     * @throws \Exception
+     */
     public function getView($view='default',Array $data = [])
     {
         # 循环处理模板目录
@@ -87,16 +90,6 @@ class Controller
         }
         # 渲染模板并输出
         return $factory -> make($view,$this -> viewData);
-    }
-
-
-    /**
-    * 添加一个中间件
-    * @param $name
-    */
-    public function addMiddleware($name)
-    {
-        return $name::handle();
     }
 
     /** 分配变量值
@@ -151,14 +144,13 @@ class Controller
         }
     }
     /**
-    * Action跳转(URL重定向） 支持指定模块和延时跳转
+    * Http重定向
     * @access protected
-    * @param string $url 跳转的URL表达式
-    * @param String $params 其它URL参数
+    * @param string $url 跳转的URL
     * @return void
     */
-    protected function redirect($url,$params='') {
-        redirect(U($url,$params));
+    protected function redirect($url) {
+        Http::redirect($url);
     }
 
     /**
@@ -195,9 +187,9 @@ class Controller
         global $debugbarRenderer;
         global $database;
         # 判断是否开启了数据库日志 并且数据库有查询语句
-        if($database && is_array(DB_LOG()) && C('debugbar','sys')  && (!IS_AJAX) && $this ->debugbar){
+        if($database && is_array(DB::DB_LOG()) && C('debugbar','sys')  && (!IS_AJAX) && $this ->debugbar){
             # 遍历sql
-            foreach (DB_LOG() as $key => $value) {
+            foreach (DB::DB_LOG() as $key => $value) {
                 $debugbar["Database"]->addMessage('语句:'.$value['query'].' 耗时:'.$value['time'].' 参数:'.json_encode($value['bindings']));
             }
         }

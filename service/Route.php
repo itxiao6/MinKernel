@@ -2,10 +2,8 @@
 namespace Service;
 use Kernel\Controller;
 use Exception;
-use Illuminate\Http\Request;
 use Service\Http;
 use Uploader;
-use Service\Upload;
 # 路由类
 class Route{
 	# 虚拟目录

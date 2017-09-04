@@ -84,23 +84,27 @@ class Kernel
         }
 
         # 定义请求常量
-        define('REQUEST_METHOD',$_SERVER['REQUEST_METHOD']);
+        define('REQUEST_METHOD',Http::REQUEST_METHOD());
         # 是否为GET 请求
-        define('IS_GET',REQUEST_METHOD =='GET' ? true : false);
+        define('IS_GET',Http::IS_GET());
         # 是否为POST 请求
-        define('IS_POST',REQUEST_METHOD =='POST' ? true : false);
+        define('IS_POST',Http::IS_POST());
         # 是否为PUT 请求
-        define('IS_PUT',REQUEST_METHOD =='PUT' ? true : false);
+        define('IS_PUT',Http::IS_PUT());
         # 是否为SSL(Https) 请求
-        define('IS_SSL',Http::IS_SSL()     ==true ? true : false);
+        define('IS_SSL',Http::IS_SSL());
         # 是否为DELETE 请求
-        define('IS_DELETE',REQUEST_METHOD =='DELETE' ? true : false);
+        define('IS_DELETE',Http::IS_DELETE());
         # 是否为WECHAT 请求
-        define('IS_WECHAT',Http::IS_WECHAT()     ==true ? true : false);
+        define('IS_WECHAT',Http::IS_WECHAT());
         # 是否为Model 请求
-        define('IS_MOBILE',Http::IS_MOBILE()     ==true ? true : false);
+        define('IS_MOBILE',Http::IS_MOBILE());
         # 是否为AJAX 请求
-        define('IS_AJAX', Http::IS_AJAX() == true ? true : false);
+        define('IS_AJAX', Http::IS_AJAX());
+        # 是否为CCG 请求
+        define('IS_CGI',Http::IS_CGI());
+        # 是否为SLI 环境
+        define('IS_CLI',Http::IS_CLI());
         # 数据缓存目录
         define('CACHE_DATA',ROOT_PATH.'runtime'.DIRECTORY_SEPARATOR.'data'.DIRECTORY_SEPARATOR);
         # 日志文件缓存路径
@@ -111,12 +115,8 @@ class Kernel
         define('UPLOAD_TMP_DIR',ROOT_PATH.'runtime'.DIRECTORY_SEPARATOR.'upload'.DIRECTORY_SEPARATOR);
         # 模板编译缓存目录
         define('CACHE_VIEW',ROOT_PATH.'runtime'.DIRECTORY_SEPARATOR.'view'.DIRECTORY_SEPARATOR);
-        # 是否为CCG 请求
-        define('IS_CGI',(0 === strpos(PHP_SAPI,'cgi') || false !== strpos(PHP_SAPI,'fcgi')) ? 1 : 0 );
         # 是否为WEN 环境
         define('IS_WIN',strstr(PHP_OS, 'WIN') ? 1 : 0 );
-        # 是否为SLI 环境
-        define('IS_CLI',PHP_SAPI=='cli'? 1   :   0);
         # 定义数据库链接状态为全局变量
         global $database;
         # 定义全局数据库链接为未连接
@@ -139,11 +139,8 @@ class Kernel
             ini_set("session.save_handler", "redis");
             ini_set("session.save_path", "tcp://".C('host','redis').":".C('port','redis'));
         }
-
         # 启动session
         session_start();
-
-
         # 获取API模式传入的参数
         $param_arr = getopt('U:');
         # 判断是否为API模式
