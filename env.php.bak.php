@@ -9,14 +9,14 @@ return [
     'username'=>'root',
     # 数据库密码
     'password'=>'',
+    # 前台应用域名绑定
+    'home_host'=>'localhost',
+    # 后台应用域名绑定
+    'admin_host'=>'127.0.0.1',
     # session存储方式
     'session_save'=>'file', # file/redis
     # 缓存方式
-    'cache_type'=>'file', # file/redis/memcached
-    # 七牛云存储参数
-    'Bucket_Name'=>'',# 空间名称
-    'Bucket_Host'=>'',# 空间名称
-    'accessKey'=>'',# 空间名称
-    'secretKey'=>'',# 空间名称
-    'debugbar'=>true # 是否开启debugbar
+    'cache_type'=>'file', # file/redis
+    # 是否开启debugbar
+    'debugbar'=>true
 ];

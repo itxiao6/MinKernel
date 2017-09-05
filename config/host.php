@@ -2,7 +2,7 @@
 # 模块域名绑定配置
 return [
     # 前台
-    'localhost'=>'Home',
+    env('home_host')=>'Home',
     # 后台
-    '127.0.0.1'=>'Admin'
+    env('admin_host')=>'Admin'
 ];

@@ -224,10 +224,8 @@ class Route{
                     # 操作
                     $debugbar['Application'] -> addMessage('操作名'.ACTION_NAME);
                 }
-                # 实例化请求类
-                $request = new Request($_GET,$_POST,$_REQUEST,$_COOKIE,$_FILES,$_SERVER);
 				# 实例化控制器
-				$controller -> $actionNane($request);
+				$controller -> $actionNane();
 
 			}else{
 				# 判断是否 存在此模板
