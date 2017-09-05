@@ -1,5 +1,6 @@
 <?php
 namespace Kernel;
+use Service\Timeer;
 use Whoops\Run;
 use Whoops\Handler\PrettyPageHandler;
 use Service\Session;
@@ -45,6 +46,8 @@ class Kernel
         }
         # 判断是否为调试模式
         if( DE_BUG === TRUE ){
+            # 计时器开始
+            Timeer::start();
             # 屏蔽所有notice 和 warning 级别的错误
             error_reporting(E_ALL^E_NOTICE^E_WARNING);
             $whoops = new Run;
@@ -55,6 +58,8 @@ class Kernel
             header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . 'GMT');
             header('Cache-Control: no-cache, must-revalidate');
             header('Pragma: no-cache');
+            # 计时
+            Timeer::end('开启调试');
         }else{
             # 屏蔽所有错误
             error_reporting(0);
@@ -72,7 +77,7 @@ class Kernel
             # 启动DEBUGBAR
             $debugbar = new DebugBar();
             $debugbar->addCollector(new PhpInfoCollector());
-            $debugbar->addCollector(new TimeDataCollector());
+            $debugbar->addCollector(new MessagesCollector('Time'));
             $debugbar->addCollector(new MessagesCollector('Request'));
             $debugbar->addCollector(new MessagesCollector('Session'));
             $debugbar->addCollector(new MessagesCollector('Database'));

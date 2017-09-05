@@ -6,6 +6,8 @@ use Itxiao6\View\FileViewFinder;
 use Itxiao6\View\Factory;
 use Service\Http;
 use Service\DB;
+use Service\Timeer;
+
 /**
  * 控制器父类
 */
@@ -188,9 +190,15 @@ class Controller
         global $database;
         # 判断是否开启了数据库日志 并且数据库有查询语句
         if($database && is_array(DB::DB_LOG()) && C('debugbar','sys')  && (!IS_AJAX) && $this ->debugbar){
+            # 遍历计时器事件
+            foreach (Timeer::get_event() as $item) {
+                $debugbar["Time"]
+                    ->addMessage($item['message']);
+            }
             # 遍历sql
             foreach (DB::DB_LOG() as $key => $value) {
-                $debugbar["Database"]->addMessage('语句:'.$value['query'].' 耗时:'.$value['time'].' 参数:'.json_encode($value['bindings']));
+                $debugbar["Database"]
+                    ->addMessage('语句:'.$value['query'].' 耗时:'.$value['time'].' 参数:'.json_encode($value['bindings']));
             }
         }
         # 判断是否开启了 debugbar

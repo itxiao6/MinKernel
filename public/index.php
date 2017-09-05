@@ -1,5 +1,4 @@
 <?php
-
 # php版本检测
 if( PHP_VERSION < 5.6 ){ exit('PHP version <= 5.6'); }
 # 定义项目根目录
