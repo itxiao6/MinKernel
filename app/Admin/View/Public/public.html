@@ -467,24 +467,24 @@
             {{-- 导航开始 --}}
             <ul class="nav nav-list">
                 @foreach($menu_list as $value)
-                <li @if(CONTROLLER_NAME==$value['controller']) class="active" @endif>
+                <li @if(CONTROLLER_NAME==$value -> controller) class="active" @endif>
 
                     <a href="javascript:void(0)" class="dropdown-toggle">
                         <i class="icon-list"></i>
-                        <span class="menu-text"> {{$value['name']}} </span>
+                        <span class="menu-text"> {{$value -> name}} </span>
                         <b class="arrow icon-angle-down"></b>
                     </a>
 
-                    @if(isset($value['son']) && is_array($value['son']))
+                    @if($value -> son != null)
                     <ul class="submenu">
-                        @foreach($value['son'] as $key=>$val)
-                        <li @if(CONTROLLER_NAME==$value['controller'] && ACTION_NAME==$val['action'])
+                        @foreach($value -> son as $key=>$val)
+                        <li @if(CONTROLLER_NAME==$value -> controller && ACTION_NAME==$val -> action)
                             class="active"
                             @endif >
 
-                            <a href="{{$val['href']}}">
+                            <a href="{{$val -> href}}">
                                 <i class="icon-double-angle-right"></i>
-                                {{$val['name']}}
+                                {{$val -> name}}
                             </a>
 
                         </li>
