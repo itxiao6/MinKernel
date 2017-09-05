@@ -10,6 +10,6 @@ class Base extends Controller{
 	# 构造函数
 	function __init(){
 	    # 获取后台导航
-        $this -> assign('menu_list',Menu::where(['pid'=>0]) -> get());
+        $this -> assign('menu_list',Menu::where(['pid'=>0]) -> remember(3600*24) -> get());
 	}
 }
