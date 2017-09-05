@@ -45,6 +45,8 @@ class Controller
      */
     public function getView($view='default',Array $data = [])
     {
+        # 计时开始
+        Timeer::start();
         # 循环处理模板目录
         foreach(C('view_path','sys') as $value){
           # 判断模板目录是否存在
@@ -90,8 +92,11 @@ class Controller
         if(!$factory -> exists($view)){
           throw new \Exception('找不到 '.$view.' 模板');
         }
-        # 渲染模板并输出
-        return $factory -> make($view,$this -> viewData);
+        # 渲染模板并返回
+        $result = $factory -> make($view,$this -> viewData);
+        # 计时开始
+        Timeer::end('渲染模板:'.$view.' 完成');
+        return $result;
     }
 
     /** 分配变量值
