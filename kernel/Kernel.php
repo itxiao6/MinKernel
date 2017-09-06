@@ -134,16 +134,53 @@ class Kernel
         define('IS_CGI',Http::IS_CGI());
         # 是否为SLI 环境
         define('IS_CLI',Http::IS_CLI());
+        # 判断缓存主目录是否存在
+        if(!is_dir(ROOT_PATH.'runtime'.DIRECTORY_SEPARATOR)){
+            # 递归创建目录
+            mkdir(ROOT_PATH.'runtime'.DIRECTORY_SEPARATOR,0777,true);
+        }
         # 数据缓存目录
         define('CACHE_DATA',ROOT_PATH.'runtime'.DIRECTORY_SEPARATOR.'data'.DIRECTORY_SEPARATOR);
+        # 检查目录是否存在
+        if(!is_dir(CACHE_DATA)){
+            # 递归创建目录
+            mkdir(CACHE_DATA,0777,true);
+        }
+        # 类映射缓存目录
+        define('CLASS_PATH',ROOT_PATH.'runtime'.DIRECTORY_SEPARATOR.'class'.DIRECTORY_SEPARATOR);
+        # 检查目录是否存在
+        if(!is_dir(CLASS_PATH)){
+            # 递归创建目录
+            mkdir(CLASS_PATH,0777,true);
+        }
         # 日志文件缓存路径
         define('CACHE_LOG',ROOT_PATH.'runtime'.DIRECTORY_SEPARATOR.'log'.DIRECTORY_SEPARATOR);
+        # 检查目录是否存在
+        if(!is_dir(CACHE_LOG)){
+            # 递归创建目录
+            mkdir(CACHE_LOG,0777,true);
+        }
         # 会话文件缓存路径
         define('CACHE_SESSION',ROOT_PATH.'runtime'.DIRECTORY_SEPARATOR.'session'.DIRECTORY_SEPARATOR);
+        # 检查目录是否存在
+        if(!is_dir(CACHE_SESSION)){
+            # 递归创建目录
+            mkdir(CACHE_SESSION,0777,true);
+        }
         # 上传文件临时目录
         define('UPLOAD_TMP_DIR',ROOT_PATH.'runtime'.DIRECTORY_SEPARATOR.'upload'.DIRECTORY_SEPARATOR);
+        # 检查目录是否存在
+        if(!is_dir(UPLOAD_TMP_DIR)){
+            # 递归创建目录
+            mkdir(UPLOAD_TMP_DIR,0777,true);
+        }
         # 模板编译缓存目录
         define('CACHE_VIEW',ROOT_PATH.'runtime'.DIRECTORY_SEPARATOR.'view'.DIRECTORY_SEPARATOR);
+        # 检查目录是否存在
+        if(!is_dir(CACHE_VIEW)){
+            # 递归创建目录
+            mkdir(CACHE_VIEW,0777,true);
+        }
         # 是否为WEN 环境
         define('IS_WIN',strstr(PHP_OS, 'WIN') ? 1 : 0 );
         # 定义数据库链接状态为全局变量
