@@ -18,5 +18,13 @@ return [
     # 缓存方式
     'cache_type'=>'file', # file/redis
     # 是否开启debugbar
-    'debugbar'=>true
+    'debugbar'=>true,
+    # 七牛空间名称
+    'Bucket_Name'=>'',
+    # 授权key
+    'accessKey'=>'',
+    # 秘钥key
+    'secretKey'=>'',
+    # 空间域名
+    'Bucket_Host'=>'',
 ];
