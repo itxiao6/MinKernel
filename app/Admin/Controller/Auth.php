@@ -45,4 +45,8 @@ class Auth extends Controller
         $_SESSION['admin'] = null;
         redirect('/Auth/login.html');
     }
+    # 清除缓存
+    public function clear(){
+
+    }
 }
