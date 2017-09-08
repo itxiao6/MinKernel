@@ -1,6 +1,8 @@
 <?php
 namespace App\Admin\Controller;
 use Kernel\Controller;
+use Service\Hash;
+
 /**
  * 后台鉴权控制器
  */
@@ -10,12 +12,17 @@ class Auth extends Controller
     public function login()
     {
         if (IS_POST) {
-            # 登录
-            if ($admin = M('admin') -> where(['username' => $_POST['username'], 'password' => md5($_POST['password'])])->first()) {
-                $_SESSION['admin']['user'] = $admin->toArray();
-                $this->ajaxReturn(['status' => 1,'message'=>'登录成功','url'=>'/Index/index.html']);
-            } else {
-                $this->ajaxReturn(['status' => 0,'message'=>'登录失败']);
+            # 获取用户的信息
+            if($admin = M('admin') -> where(['username' => $_POST['username']])->first()){
+                # 判断密码是否正确
+                if(Hash::check($_POST['password'],$admin -> password)){
+                    $_SESSION['admin']['user'] = $admin->toArray();
+                    $this->ajaxReturn(['status' => 1,'message'=>'登录成功','url'=>'/Index/index.html']);
+                }else{
+                    $this->ajaxReturn(['status' => 2,'message'=>'密码错误']);
+                }
+            }else{
+                $this->ajaxReturn(['status' => 4,'message'=>'账号不存在']);
             }
         }else{
             $this -> display();
