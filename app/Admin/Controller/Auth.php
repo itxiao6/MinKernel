@@ -1,5 +1,6 @@
 <?php
 namespace App\Admin\Controller;
+use App\Model\Admin;
 use Kernel\Controller;
 use Service\Hash;
 
@@ -34,10 +35,17 @@ class Auth extends Controller
     public function updatePassword()
     {
         if (IS_POST) {
-            if(M('admin')->where(['id'=>$_SESSION['admin']['id'],'password'=>md5($_POST['oldpwd'])])->first()){
-                M('admin') -> where(['id'=>$_SESSION['admin']['id']]) -> update(['password'=>md5($_POST['pwd'])]);
-                $_SESSION['admin'] = '';
-                echo '<script>alert("密码修改成功,重新登陆");location="/Auth/login.html"</script>';
+            if($user = Admin::where(['id'=>$_SESSION['admin']['id'],'password'=>md5($_POST['oldpwd'])])->first()){
+                if(Hash::check($_POST['oldpwd'],$user -> password)){
+                    if(Admin::where(['id'=>$_SESSION['admin']['id']]) -> update(['password'=>Hash::make($_POST['pwd'])])){
+                        $_SESSION['admin'] = null;
+                        echo '<script>alert("密码修改成功,重新登陆");location="/Auth/login.html"</script>';
+                    }else{
+                        exit('<script>alert("密码修改失败");history.go(-1)</script>');
+                    }
+                }else{
+                    exit('<script>alert("原始密码不正确");history.go(-1)</script>');
+                }
             }else{
                 exit('<script>alert("原始密码不正确");history.go(-1)</script>');
             }
