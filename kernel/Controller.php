@@ -95,7 +95,7 @@ class Controller
         # 渲染模板并返回
         $result = $factory -> make($view,$this -> viewData);
         # 计时开始
-        Timeer::end('渲染模板:'.$view.' 完成');
+        Timeer::end('【View】'.$view.' 完成');
         return $result;
     }
 

@@ -38,7 +38,7 @@ class Timeer{
         self::$end_time = explode(' ',microtime());
         $thistime = self::$end_time[0]+self::$end_time[1]-(self::$start_time[0]+self::$start_time[1]);
         $thistime = round($thistime,3);
-        self::$event_time[] = ['message'=>$name.'任务完成用时:'.$thistime.'秒'];
+        self::$event_time[] = ['message'=>$name.'用时:'.$thistime.'秒'];
         self::$start_time = explode(' ',microtime());
     }
     public static function get_event(){
