@@ -4,7 +4,7 @@ use Kernel\Model;
 
 /**
  * 后台用户模型
- * Class Config
+ * Class Admin
  * @package App\Model
  */
 class Admin extends Model

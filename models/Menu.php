@@ -4,7 +4,7 @@ use Kernel\Model;
 
 /**
  * 配置模型
- * Class Config
+ * Class Menu
  * @package App\Model
  */
 class Menu extends Model
