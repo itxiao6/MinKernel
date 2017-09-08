@@ -10,6 +10,9 @@ use Service\Timeer;
 class Base extends Controller{
 	# 构造函数
 	function __init(){
+	    if($_SESSION['admin']['user']['id']<1){
+	        redirect('/Auth/login.html');
+        }
 	    # 获取后台导航
         $this -> assign('menu_list',Menu::where(['pid'=>0]) -> remember(3600*24) -> get());
 	}

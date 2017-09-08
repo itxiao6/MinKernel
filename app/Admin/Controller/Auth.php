@@ -7,18 +7,18 @@ use Kernel\Controller;
 class Auth extends Controller
 {
     # 后台登录方法
-    public function login($request)
+    public function login()
     {
         if (IS_POST) {
             # 登录
-            if ($admin = M('admin')->where(['username' => $request->input('username'), 'password' => md5($request->input('password'))])->first()) {
-                $_SESSION['admin'] = $admin->toArray();
+            if ($admin = M('admin') -> where(['username' => $_POST['username'], 'password' => md5($_POST['password'])])->first()) {
+                $_SESSION['admin']['user'] = $admin->toArray();
                 $this->ajaxReturn(['status' => 1,'message'=>'登录成功','url'=>'/Index/index.html']);
             } else {
                 $this->ajaxReturn(['status' => 0,'message'=>'登录失败']);
             }
-        } else {
-            $this->display();
+        }else{
+            $this -> display();
         }
     }
 

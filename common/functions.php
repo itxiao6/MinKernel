@@ -272,43 +272,6 @@ function U($Model='',$params='') {
         return '/'.$data[0].'/'.$data[1].'/'.$data[2].'.html'.$url_params;
     }
 }
-
-
-/**
- * [env 读取环境配置]
- * @param  [String] $param   [读取的项目]
- * @param  [String] $default [默认值]
- * @return [String]          [返回的值]
- */
-function env($param,$default='defaultValue'){
-    global $env;
-    # 判断配置文件是否加载过
-    if(!isset($env)){
-        # 判断指定文件是否存在
-        if(file_exists(ROOT_PATH.'env.php')){
-            $env = require(ROOT_PATH.'env.php');
-        }else{
-            return false;
-        }
-    }
-    # 是否读取全部配置
-    if($param=='all'){
-        # 返回要取得的值
-        return $env;
-    }else{
-        # 判断是否存在环境配置项
-        if( isset($env[$param]) ){
-            # 返回读取到的值
-            return $env[$param];
-        }else{
-            # 返回默认值
-            return $default;
-        }
-    }
-}
-
-
-
 /**
  * [C 读取 / 获取 配置]
  * @param [String] $key   [字段](如果为all则会返回本类型节点所有相)
