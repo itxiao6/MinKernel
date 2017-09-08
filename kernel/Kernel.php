@@ -58,8 +58,6 @@ class Kernel
         # 设置协议头
         header("Content-Type:text/html;charset=utf-8");
 
-        # 加载公用函数库
-        require(ROOT_PATH.'common'.DIRECTORY_SEPARATOR.'functions.php');
         # 判断是否下载了composer包
         if ( file_exists(ROOT_PATH.'vendor'.DIRECTORY_SEPARATOR.'autoload.php') ) {
 
@@ -70,6 +68,10 @@ class Kernel
             # 退出程序并提示
             exit('请在项目根目录执行:composer install');
         }
+
+        # 加载公用函数库
+        require(ROOT_PATH.'common'.DIRECTORY_SEPARATOR.'functions.php');
+
         # 判断是否为调试模式
         if( DE_BUG === TRUE ){
             # 屏蔽所有notice 和 warning 级别的错误
