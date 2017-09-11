@@ -65,13 +65,13 @@ class Wechat extends Base{
         $create = new Create($accessToken);
         # 循环添加按钮
         foreach ($buttons as $key => $value) {
-            $create->add($value);
+            $create -> add($value);
         }
         # 执行创建
         try {
-            $create->doCreate();
+            $create -> doCreate();
         } catch (\Exception $e) {
-            exit($e->getMessage());
+            exit($e -> getMessage());
         }
         # 返回结果
         $this -> success('更新成功');
