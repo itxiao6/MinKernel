@@ -7,22 +7,23 @@ class File{
 
     /**
      * 删除文件夹
-     * @param string
-     * @param int
+     * @param $dir
+     * @param int $time_thres
+     * @return bool
      */
     public static function remove_dir($dir, $time_thres = -1)
     {
+        if(!is_dir($dir)){
+           return false;
+        }
         foreach (scandir($dir) as $f) {
             if($f=='.' || $f='..'){
-
-            }else{
-                if ($f ['isDir']) {
-                    self::remove_dir($f ['pathname'] . '/');
-                } else if ($f ['isFile'] && $f ['filename']) {
-                    if ($time_thres == -1 || $f ['mtime'] < $time_thres) {
-                        @unlink($f ['pathname']);
-                    }
-                }
+                continue;
+            }
+            if (is_dir($f)) {
+                self::remove_dir($f);
+            } else{
+                unlink($f);
             }
         }
     }
