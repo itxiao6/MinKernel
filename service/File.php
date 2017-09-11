@@ -17,7 +17,7 @@ class File{
 
             }else{
                 if ($f ['isDir']) {
-                    remove_dir($f ['pathname'] . '/');
+                    self::remove_dir($f ['pathname'] . '/');
                 } else if ($f ['isFile'] && $f ['filename']) {
                     if ($time_thres == -1 || $f ['mtime'] < $time_thres) {
                         @unlink($f ['pathname']);
