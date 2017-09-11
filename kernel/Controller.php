@@ -161,16 +161,29 @@ class Controller
     }
 
     /**
-     * 渲染成功页面
+     * 渲染消息页面
+     * @param $name 要渲染的消息页面
      * @param $message 成功消息
      * @param string $url 跳转的url
      * @param int $timeout 定时时间
      */
-    public function success($message,$url='history.go(-1);',$timeout=1000){
+    public function message($name,$message,$url='history.go(-1);',$timeout=1000){
         $this -> assign('message',$message);
         $this -> assign('url',$url);
         $this -> assign('timeout',$timeout);
-        $this -> display('success');
+        $this -> display($name);
+        exit();
+    }
+
+    /**
+     * 调用未定义的方法
+     * @param $name
+     * @param $arguments
+     */
+    public function __call($name, $arguments)
+    {
+        // 执行消息
+        $this -> message($name,...$arguments);
         exit();
     }
 
