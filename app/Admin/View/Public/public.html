@@ -355,6 +355,11 @@
                                 修改密码
                             </a>
                         </li>
+                        <li style="text-align:center; ">
+                            <a href="/Index/clear_cache.html" style="font-size:15px;">
+                                清除缓存
+                            </a>
+                        </li>
                         <li style="text-align:center;">
                             <a href="/Auth/logout.html" style="font-size:15px;">
                                 退出
@@ -463,38 +468,7 @@
 
             </div><!-- #sidebar-shortcuts -->
 
-            {{-- 导航开始 --}}
-            <ul class="nav nav-list">
-                @foreach($menu_list as $value)
-                <li @if(CONTROLLER_NAME==$value -> controller) class="active" @endif>
-
-                    <a href="javascript:void(0)" class="dropdown-toggle">
-                        <i class="icon-list"></i>
-                        <span class="menu-text"> {{$value -> name}} </span>
-                        <b class="arrow icon-angle-down"></b>
-                    </a>
-
-                    @if($value -> son != null)
-                    <ul class="submenu">
-                        @foreach($value -> son as $key=>$val)
-                        <li @if(CONTROLLER_NAME==$value -> controller && ACTION_NAME==$val -> action)
-                            class="active"
-                            @endif >
-
-                            <a href="{{$val -> href}}">
-                                <i class="icon-double-angle-right"></i>
-                                {{$val -> name}}
-                            </a>
-
-                        </li>
-                        @endforeach
-                    </ul>
-                    @endif
-
-                </li>
-                @endforeach
-            </ul>
-            {{-- 导航结束 --}}
+            @include('Public.nav')
 
             <div class="sidebar-collapse" id="sidebar-collapse">
 
