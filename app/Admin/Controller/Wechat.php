@@ -1,6 +1,8 @@
 <?php
 namespace App\Admin\Controller;
 use App\Model\Menu;
+use App\Model\WechatMenu;
+use Cache;
 use Itxiao6\Wechat\Wechat\AccessToken;
 use Itxiao6\Wechat\Menu\Button;
 use Itxiao6\Wechat\Menu\ButtonCollection;
@@ -24,15 +26,6 @@ class Wechat extends Base{
     # 更新微信菜单
     public function update_menu()
     {
-        # 微信菜单
-        $data = [
-            ['name'=>'个人中心','two'=>
-                [['name'=>'我的订单','event'=>'view','val'=>'http://www.taobao.com'],
-                    ['name'=>'我的钱包','event'=>'view','val'=>'http://www.tianmao.com']]
-            ],
-            ['name'=>'进入商城','event'=>'view','val'=>'http://www.tianmao.com'],
-            ['name'=>'进入商城','event'=>'view','val'=>'http://www.tianmao.com']
-        ];
         # 获取菜单
         $data = WechatMenu::where(['pid'=>0]) -> get();
         # 判断是否存在按钮
@@ -43,7 +36,8 @@ class Wechat extends Base{
         $buttons = [];
         # 循环所有数据
         foreach ($data as $key => $value) {
-            if(isset($value -> son)){
+            $button = [];
+            if(count($value -> son) > 0){
                 $button = new ButtonCollection($value -> name);
                 # 循环二级菜单
                 foreach ($value -> son as $k => $v) {
@@ -64,9 +58,9 @@ class Wechat extends Base{
         # 判断是否已经获取过accessToken
         $accessToken = new AccessToken(C('appid','wechat'), C('secret','wechat'));
         # 设置缓存
-        $accessToken->setCache(Cache::getDriver());
+        $accessToken -> setCache(Cache::getDriver());
         # 获取accessToken
-        $accessToken = $accessToken->getTokenString();
+        $accessToken -> getTokenString();
         # 实例化自定义菜单接口
         $create = new Create($accessToken);
         # 循环添加按钮
