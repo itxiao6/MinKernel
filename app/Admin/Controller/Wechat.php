@@ -1,6 +1,5 @@
 <?php
 namespace App\Admin\Controller;
-use Kernel\Controller;
 
 /**
  * 微信管理

@@ -1,6 +1,5 @@
 <?php
 namespace App\Admin\Controller;
-use Kernel\Controller;
 
 /**
 * 后台首页控制器

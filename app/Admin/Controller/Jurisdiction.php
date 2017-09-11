@@ -1,7 +1,5 @@
 <?php
 namespace App\Admin\Controller;
-use Kernel\Controller;
-
 /**
  * 权限管理
  */
