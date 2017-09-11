@@ -186,20 +186,6 @@ class Controller
         $this -> message($name,...$arguments);
         exit();
     }
-
-    /**
-     * 渲染错误页面
-     * @param $message 错误消息
-     * @param string $url 跳转url
-     * @param int $timeout 定时时间
-     */
-    public function error($message,$url='history.go(-1);',$timeout=1000){
-        $this -> assign('message',$message);
-        $this -> assign('url',$url);
-        $this -> assign('timeout',$timeout);
-        $this -> display('error');
-        exit();
-    }
     # 析构方法
     public function __destruct(){
         # 获取全局变量
