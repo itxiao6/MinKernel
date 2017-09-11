@@ -44,10 +44,6 @@ class Kernel
             }
             # 引入映射类
             require($class_name);
-            # 递归 判断是否改了映射注入
-            if(!class_exists($class)){
-                self::auto_load($class);
-            }
         }
     }
     /**
