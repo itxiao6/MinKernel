@@ -1,6 +1,7 @@
 <?php
 namespace App\Admin\Controller;
 use App\Model\Menu;
+use App\Model\WechatConfig;
 use App\Model\WechatMenu;
 use Cache;
 use Itxiao6\Wechat\Wechat\AccessToken;
@@ -56,7 +57,7 @@ class Wechat extends Base{
             $buttons[] = $button;
         }
         # 判断是否已经获取过accessToken
-        $accessToken = new AccessToken(C('appid','wechat'), C('secret','wechat'));
+        $accessToken = new AccessToken(WechatConfig::get('appid'),WechatConfig::get('secret'));
         # 设置缓存
         $accessToken -> setCache(Cache::getDriver());
         # 获取accessToken
