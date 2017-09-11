@@ -7,18 +7,21 @@ class File{
 
     /**
      * 删除文件夹
-     * @author rainfer <81818832@qq.com>
      * @param string
      * @param int
      */
-    function remove_dir($dir, $time_thres = -1)
+    public static function remove_dir($dir, $time_thres = -1)
     {
-        foreach (list_file($dir) as $f) {
-            if ($f ['isDir']) {
-                remove_dir($f ['pathname'] . '/');
-            } else if ($f ['isFile'] && $f ['filename']) {
-                if ($time_thres == -1 || $f ['mtime'] < $time_thres) {
-                    @unlink($f ['pathname']);
+        foreach (scandir($dir) as $f) {
+            if($f=='.' || $f='..'){
+
+            }else{
+                if ($f ['isDir']) {
+                    remove_dir($f ['pathname'] . '/');
+                } else if ($f ['isFile'] && $f ['filename']) {
+                    if ($time_thres == -1 || $f ['mtime'] < $time_thres) {
+                        @unlink($f ['pathname']);
+                    }
                 }
             }
         }
