@@ -1,5 +1,8 @@
 <?php
 namespace App\Admin\Controller;
+use App\Model\AdminNode;
+use App\Model\AdminRight;
+use App\Model\AdminRoles;
 use Kernel\Controller;
 use App\Model\Menu;
 use Service\File;
@@ -23,14 +26,35 @@ class Base extends Controller{
 //            -> remember(3600*24)
             -> get());
 	    # 权限验证
-        $this -> AuthCache();
+        if(!$this -> AuthCache()){
+            $this -> error('权限不足');
+        }
 
 	}
 	# 权限检查
 	public function AuthCache(){
-	    $controller = CONTROLLER_NAME;
+        # 获取控制器
+        $controller = CONTROLLER_NAME;
+        # 获取操作
         $action = ACTION_NAME;
 
+	    # 判断是否为超级管理员
+        if($_SESSION['admin']['user']['roles']=='-1'){
+            return true;
+        }
+
+        # 获取用户的角色
+        $roles = AdminRoles::where(['id'=>$_SESSION['admin']['user']['roles']]) -> first();
+        # 获取权限
+        $right = explode(',',$roles -> right);
+        # 获取结点
+        $admin_right = AdminRight::whereIn('id',$right) -> pluck('node','id');
+        # 获取结点
+        if($node = AdminNode::where(['controller_name'=>$controller,'action'=>$action]) -> whereIn('id',$admin_right) -> first()){
+            return true;
+        }else{
+            return false;
+        }
     }
     public function clear_cache()
     {
