@@ -49,7 +49,7 @@ class Base extends Controller{
         $right = explode(',',$roles -> right);
         # 获取结点
         $admin_right = AdminRight::whereIn('id',$right) -> pluck('node','id');
-        dd(AdminNode::where(['controller_name'=>$controller,'action_name'=>$action]) -> first());
+        dd(AdminNode::where(['controller_name'=>$controller,'action_name'=>$action]) -> toSql());
         # 获取结点
         if(AdminNode::where(['controller_name'=>$controller,'action_name'=>$action]) -> whereIn('id',$admin_right) -> first()){
             return true;
