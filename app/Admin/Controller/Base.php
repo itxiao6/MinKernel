@@ -53,6 +53,9 @@ class Base extends Controller{
         if(AdminNode::where(['controller_name'=>$controller,'action_name'=>$action])
             -> whereIn('id',explode(',',$admin_right))
             -> first()){
+            # 把权限结点更新
+            ($node = AdminNode::whereIn('id',$admin_right) -> get()) && $node = $node -> toArray();
+            $_SESSION['admin']['node'] = $node;
             return true;
         }else{
             return false;
