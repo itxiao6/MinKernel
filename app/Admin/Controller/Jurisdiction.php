@@ -1,9 +1,11 @@
 <?php
 namespace App\Admin\Controller;
-/**
- * 权限管理
- */
 
+/**
+ * 后台权限管理
+ * Class Jurisdiction
+ * @package App\Admin\Controller
+ */
 class Jurisdiction extends Base{
     # 结点管理
     public function node()

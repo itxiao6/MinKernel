@@ -2,9 +2,10 @@
 namespace App\Admin\Controller;
 
 /**
-* 后台首页控制器
-*/
-
+ * 后台首页控制器
+ * Class Index
+ * @package App\Admin\Controller
+ */
 class Index extends Base{
     # 后台首页
     public function index()

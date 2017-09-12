@@ -8,10 +8,12 @@ use Itxiao6\Wechat\Wechat\AccessToken;
 use Itxiao6\Wechat\Menu\Button;
 use Itxiao6\Wechat\Menu\ButtonCollection;
 use Itxiao6\Wechat\Menu\Create;
+
 /**
  * 微信管理
+ * Class Wechat
+ * @package App\Admin\Controller
  */
-
 class Wechat extends Base{
     # 菜单管理
     public function menu_list()

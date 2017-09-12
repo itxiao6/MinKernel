@@ -6,6 +6,8 @@ use Service\Hash;
 
 /**
  * 后台鉴权控制器
+ * Class Auth
+ * @package App\Admin\Controller
  */
 class Auth extends Controller
 {
