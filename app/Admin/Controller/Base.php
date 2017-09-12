@@ -18,7 +18,9 @@ class Base extends Controller{
             redirect('/Auth/login.html');
         }
         # 获取后台导航
-        $this -> assign('menu_list',Menu::where(['pid'=>0]) -> remember(3600*24) -> get());
+        $this -> assign('menu_list',Menu::where(['pid'=>0])
+//            -> remember(3600*24)
+            -> get());
 	    # 权限验证
         $this -> AuthCache();
 

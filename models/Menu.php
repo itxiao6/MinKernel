@@ -46,7 +46,9 @@ class Menu extends Model
      */
     public function son()
     {
-        return $this -> hasMany(self::class,'pid','id') -> remember(3600*24);
+        return $this -> hasMany(self::class,'pid','id')
+//            -> remember(3600*24)
+            ;
     }
 
 }
