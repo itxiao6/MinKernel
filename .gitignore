@@ -3,6 +3,6 @@ runtime
 .gitattributes
 .gitignore
 composer.lock
-env.php
+.env
 MinKernel.iml
 .idea
