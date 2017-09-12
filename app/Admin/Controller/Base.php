@@ -50,7 +50,7 @@ class Base extends Controller{
         # 获取结点
         $admin_right = AdminRight::whereIn('id',$right) -> pluck('node','id');
         # 获取结点
-        if($node = AdminNode::where(['controller_name'=>$controller,'action'=>$action]) -> whereIn('id',$admin_right) -> first()){
+        if(AdminNode::where(['controller_name'=>$controller,'action'=>$action]) -> whereIn('id',$admin_right) -> first()){
             return true;
         }else{
             return false;
