@@ -13,6 +13,6 @@ class AdminRight extends Model
      * 表名
      * @var string
      */
-    protected $table = 'admin_node';
+    protected $table = 'admin_right';
 
 }
