@@ -301,13 +301,13 @@
 
                     <a data-toggle="dropdown" href="#"  class="dropdown-toggle">
 
-                        <img class="nav-user-photo" src="/assets/avatars/user.jpg" alt="Jason's Photo" />
+                        <img class="nav-user-photo" src="{{$_SESSION['admin']['headurl']}}" alt="Jason's Photo" />
 
                         <span class="user-info">
 
-                                    <small >管理员</small>
+                                    <small >{{$_SESSION['admin']['user']['headurl']}}</small>
 
-                                  {{$_SESSION['admin']['username']}}
+                                  {{$_SESSION['admin']['user']['username']}}
 
                                 </span>
 
