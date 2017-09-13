@@ -44,7 +44,7 @@ class Menu extends Model
      * 关联子级导航
      * @return \Itxiao6\Database\Eloquent\Relations\HasMany
      */
-    public function son()
+    public function children()
     {
         return $this -> hasMany(self::class,'pid','id')
 //            -> remember(3600*24)

@@ -18,6 +18,15 @@ class Wechat extends Base{
     # 菜单管理
     public function menu_list()
     {
+        if(isset($_GET['data'])){
+            $data = \App\Model\WechatMenu::orderByRaw('id,concat(id,pid)') -> get();
+            foreach ($data as $key=>$item){
+                if($item -> pid!=''){
+                    $data[$key] -> name = '&nbsp;&nbsp;|-'.$item -> name;
+                }
+            }
+            $this -> ajaxReturn(['rel'=>true,'msg'=>'获取成功','list'=>$data]);
+        }
         #渲染模板
         $this -> display();
     }

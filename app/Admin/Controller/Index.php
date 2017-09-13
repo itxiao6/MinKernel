@@ -1,5 +1,6 @@
 <?php
 namespace App\Admin\Controller;
+use App\Model\Menu;
 
 /**
  * 后台首页控制器
@@ -21,99 +22,28 @@ class Index extends Base{
     # 获取导航
     public function get_nav()
     {
-        $data = 'var navs = [{
-            "title": "基本元素",
-            "icon": "fa-cubes",
-            "spread": true,
-            "children": [{
-                "title": "按钮",
-                "icon": "&#xe641;",
-                "href": "/Element/button.html"
-            }, {
-                "title": "表单",
-                "icon": "&#xe63c;",
-                "href": "/Element/form.html"
-            }, {
-                "title": "表格",
-                "icon": "&#xe63c;",
-                "href": "/Element/table.html"
-            }, {
-                "title": "导航",
-                "icon": "&#xe609;",
-                "href": "/Element/nav.html"
-            }, {
-                "title": "辅助性元素",
-                "icon": "&#xe60c;",
-                "href": "/Element/auxiliar.html"
-            }]
-        }, {
-            "title": "组件",
-            "icon": "fa-cogs",
-            "spread": false,
-            "children": [{
-                "title": "BTable",
-                "icon": "fa-table",
-                "href": "/Element/btable.html"
-            }, {
-                "title": "Navbar组件",
-                "icon": "fa-navicon",
-                "href": "/Element/navbar.html"
-            }, {
-                "title": "Tab组件",
-                "icon": "&#xe62a;",
-                "href": "/Element/tab.html"
-            }, {
-                "title": "Laytpl+Laypage",
-                "icon": "&#xe628;",
-                "href": "/Element/paging.html"
-            }]
-        }, {
-            "title": "第三方组件",
-            "icon": "&#x1002;",
-            "spread": false,
-            "children": [{
-                "title": "iCheck组件",
-                "icon": "fa-check-square-o",
-                "href": "/Element/icheck.html"
-            }]
-        }, {
-            "title": "地址本",
-            "icon": "fa-address-book",
-            "href": "",
-            "spread": false,
-            "children": [{
-                "title": "Github",
-                "icon": "fa-github",
-                "href": "https://www.github.com/"
-            }, {
-                "title": "QQ",
-                "icon": "fa-qq",
-                "href": "http://www.qq.com/"
-            }, {
-                "title": "Fly社区",
-                "icon": "&#xe609;",
-                "href": "http://fly.layui.com/"
-            }, {
-                "title": "新浪微博",
-                "icon": "fa-weibo",
-                "href": "http://weibo.com/"
-            }]
-        }, {
-            "title": "这是一级导航",
-            "icon": "fa-stop-circle",
-            "href": "https://www.baidu.com",
-            "spread": false
-        }, {
-            "title": "其他",
-            "icon": "fa-stop-circle",
-            "href": "#",
-            "spread": false,
-            "children": [{
-                "title": "子窗体中打开选项卡",
-                "icon": "fa-github",
-                "href": "/Element/cop.html"
-            }]
-        }];';
+        # 获取一级导航
+        ($nav = Menu::where(['pid'=>0]) -> select('id','title','icon','controller') -> get()) && $nav = $nav -> toArray();
+        # 判断是否有一级导航
+        if(count($nav) < 1){
+            return false;
+        }
+        # 处理是否展开
+        foreach ($nav as $key=>$item){
+            # 默认为不展开
+            $nav[$key]['spread'] = false;
+            # 找到当前控制器
+            if($item['controller']==CONTROLLER_NAME){
+                # 设置展开
+                $nav[$key]['spread'] = true;
+            }
+        }
+        # 获取二级导航
+        foreach ($nav as $key=>$item){
+            ($children = Menu::where(['pid'=>$item['id']]) -> select('title','icon','href') -> get()) && $children = $children -> toArray();
+            $nav[$key]['children'] = $children;
+        }
+        $data = 'var navs = '.json_encode($nav).';';
         $this -> ajaxReturn($data,'EVAL');
     }
     public function table(){
