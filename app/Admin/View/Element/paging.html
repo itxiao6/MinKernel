@@ -295,19 +295,19 @@
 		</div>
 		<!--模板-->
 		<script type="text/html" id="conTemp">
-			{{# layui.each(d.list, function(index, item){ }}
+			@{{# layui.each(d.list, function(index, item){ }}
 			<tr>
 				<td><input type="checkbox"></td>
-				<td>{{ item.name }}</td>
-				<td>{{ item.age }}</td>
-				<td>{{ item.createtime }}</td>
+				<td>@{{ item.name }}</td>
+				<td>@{{ item.age }}</td>
+				<td>@{{ item.createtime }}</td>
 				<td>
 					<a href="/detail-1" target="_blank" class="layui-btn layui-btn-normal layui-btn-mini">预览</a>
 					<a href="/manage/article_edit_1" class="layui-btn layui-btn-mini">编辑</a>
 					<a href="javascript:;" data-id="1" data-opt="del" class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
 				</td>
 			</tr>
-			{{# }); }}
+			@{{# }); }}
 		</script>
 		<script type="text/javascript" src="/assets/plugins/layui/layui.js"></script>
 		<script>
@@ -320,7 +320,7 @@
 
                 paging.init({
                     openWait: true,
-                    url: 'datas/laytpl_laypage_data.json?v=' + new Date().getTime(), //地址
+                    url: '/assets/datas/laytpl_laypage_data.json?v=' + new Date().getTime(), //地址
 					elem: '#con', //内容容器
 					type:'post',
 					params: { //发送到服务端的参数
