@@ -1,186 +1,75 @@
+<!DOCTYPE html>
 
-<!doctype html>
-<html lang="zh">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>后台登录</title>
-    <link rel="stylesheet" type="text/css" href="/admin/css/default.css">
-    <!--必要样式-->
-    <link rel="stylesheet" type="text/css" href="/admin/css/styles.css">
-    <!--[if IE]>
-    <script src="/admin/js/html5shiv.min.js"></script>
-    <![endif]-->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>登录</title>
+    <link rel="stylesheet" href="/assets/plugins/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" href="/assets/css/login.css" />
 </head>
-<body style="-webkit-perspective: 800px;
-    perspective: 800px;
-    height: 100vh;
-    margin: 0;
-    overflow: hidden;
-    font-family: 'Gudea', sans-serif;
-    background: #e1e4ff;
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #ffffff), color-stop(100%, #bb6dec));
-    background: -webkit-linear-gradient(-45deg, #ffeae9 0%, #438eb9 100%);
-    background: -webkit-linear-gradient(315deg, #438eb9 0%, #438eb9 100%);
-    background: linear-gradient(135deg, #438eb9 0%, #ccc 100%);">
 
-<div class='login' style="border-top: 2px solid #438eb9;">
-    <div class='login_title'>
-        <span>账号登录</span>
-    </div>
-    <div class='login_fields'>
-        <div class='login_fields__user'>
-            <div class='icon'>
-                <img src='/admin/images/user_icon_copy.png'>
+<body class="beg-login-bg">
+<div class="beg-login-box">
+    <header>
+        <h1>后台登录</h1>
+    </header>
+    <div class="beg-login-main">
+        <form action="" class="layui-form" method="post">
+            <input name="__RequestVerificationToken" type="hidden" value="fkfh8D89BFqTdrE2iiSdG_L781RSRtdWOH411poVUWhxzA5MzI8es07g6KPYQh9Log-xf84pIR2RIAEkOokZL3Ee3UKmX0Jc8bW8jOdhqo81" />
+            <div class="layui-form-item">
+                <label class="beg-login-icon">
+                    <i class="layui-icon">&#xe612;</i>
+                </label>
+                <input type="text" name="userName" id="__username" lay-verify="userName" autocomplete="off" placeholder="这里输入登录名" class="layui-input">
             </div>
-            <input id="__username" placeholder='用户名' type='text'>
-            <div class='validation'>
-                <img src='/admin/images/tick.png'>
+            <div class="layui-form-item">
+                <label class="beg-login-icon">
+                    <i class="layui-icon">&#xe642;</i>
+                </label>
+                <input type="password" name="password" id="__password" lay-verify="password" autocomplete="off" placeholder="这里输入密码" class="layui-input">
             </div>
-            </input>
-        </div>
-        <div class='login_fields__password'>
-            <div class='icon'>
-                <img src='/admin/images/lock_icon_copy.png'>
+            <div class="layui-form-item">
+                <div class="beg-pull-left beg-login-remember">
+                    <label>记住帐号？</label>
+                    <input type="checkbox" name="rememberMe" value="true" lay-skin="switch" checked title="记住帐号">
+                </div>
+                <div class="beg-pull-right">
+                    <button class="layui-btn layui-btn-primary" lay-submit lay-filter="login">
+                        <i class="layui-icon">&#xe650;</i> 登录
+                    </button>
+                </div>
+                <div class="beg-clear"></div>
             </div>
-            <input id="__password" placeholder='密码' type='password'>
-            <div class='validation'>
-                <img src='/admin/images/tick.png'>
-            </div>
-        </div>
-        <div class='login_fields__submit'>
-            <input type='button' value='登录' style="border: 2px solid #438eb9;">
-            <div class='forgot'>
-                <a href='#'>忘记密码?</a>
-            </div>
-        </div>
+        </form>
     </div>
-    <div class='success'>
-        <h2></h2>
-        <p></p>
-    </div>
-    <div class='error' style="color: #d5d8e2;">
-        <h2></h2>
-        <p></p>
-    </div>
-    <div class='disclaimer'>
-        <p>Minkernel.版权所有</p>
-    </div>
+    <footer>
+        <p>Minkernel</p>
+    </footer>
 </div>
-<div class='authent'>
-    <img src='/images/puff.svg'>
-    <p>认证中...</p>
-</div>
-
-<script type="text/javascript" src='/admin/js/stopExecutionOnTimeout.js'></script>
-<script src="/assets/js/jquery-1.10.2.min.js"></script>
-<script type="text/javascript" src="/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+<script type="text/javascript" src="/assets/plugins/layui/layui.js"></script>
 <script>
-    $('input[type="button"]').click(function () {
-        $('.login').addClass('test');
-        setTimeout(function () {
-            $('.login').addClass('testtwo');
-        }, 300);
-        setTimeout(function () {
-            $('.authent').show().animate({ right: -320 }, {
-                easing: 'easeOutQuint',
-                duration: 600,
-                queue: false
-            });
-            $('.authent').animate({ opacity: 1 }, {
-                duration: 200,
-                queue: false
-            }).addClass('visible');
-        }, 500);
+    layui.use(['layer', 'form'], function() {
+        var layer = layui.layer,
+            $ = layui.jquery,
+            form = layui.form();
 
-        setTimeout(function () {
-            $('.authent').show().animate({ right: 90 }, {
-                easing: 'easeOutQuint',
-                duration: 600,
-                queue: false
-            });
-            $('.authent').animate({ opacity: 0 }, {
-                duration: 200,
-                queue: false
-            }).addClass('visible');
-            $('.login').removeClass('testtwo');
-        }, 2500);
-        setTimeout(function () {
-            $('.login').removeClass('test');
-            $('.login div').fadeOut(123);
-        }, 2800);
-        setTimeout(function () {
-            $.post('',{username:$('#__username').val(),password:$('#__password').val()},function(data){
+        form.on('submit(login)',function(data){
+            $.post('',{username:data.field.userName,password:data.field.password},function(data){
                 if(data.status==1){
-                    $('.success h2').text(data.message);
-                    $('.success p').text(data.description);
-                    $('.success').fadeIn();
                     // 登录成功
                     window.location = data.url;
                 }else{
-                    $('.error h2').text(data.message);
-                    $('.error p').text(data.description);
-                    $('.error').fadeIn();
+                    alert(data.message);
                     // 登录失败
+                    window.location.href = window.location.href+"?message=登录失败";
                 }
+                return false;
             });
-            // 登录
-
-        }, 3200);
-    });
-    $('input[type="text"],input[type="password"]').focus(function () {
-        $(this).prev().animate({ 'opacity': '1' }, 200);
-    });
-    $('input[type="text"],input[type="password"]').blur(function () {
-        $(this).prev().animate({ 'opacity': '.5' }, 200);
-    });
-    $('input[type="text"],input[type="password"]').keyup(function () {
-        if (!$(this).val() == '') {
-            $(this).next().animate({
-                'opacity': '1',
-                'right': '30'
-            }, 200);
-        } else {
-            $(this).next().animate({
-                'opacity': '0',
-                'right': '20'
-            }, 200);
-        }
-    });
-    var open = 0;
-    $('.tab').click(function () {
-        $(this).fadeOut(200, function () {
-            $(this).parent().animate({ 'left': '0' });
         });
     });
 </script>
 </body>
-<style type="text/css">
-    body .login_fields__submit input {
-        border-radius: 50px;
-        background: transparent;
-        padding: 10px 50px;
-        border: 2px solid #DC6180;
-        color: #438eb9;
-        text-transform: uppercase;
-        font-size: 11px;
-        -webkit-transition-property: background,color;
-        transition-property: background,color;
-        -webkit-transition-duration: .2s;
-        transition-duration: .2s;
-    }
-    body .login_fields__submit input:hover {
-        color:#fff;
-        background: #438eb9;
-        cursor: pointer;
-        -webkit-transition-property: background,color;
-        transition-property: background,color;
-        -webkit-transition-duration: .2s;
-        transition-duration: .2s;
-    }
-    body .login_fields input[type='password'] {
-        color: #438eb9 !important;
-    }
-</style>
 </html>

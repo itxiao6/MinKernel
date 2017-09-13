@@ -20,6 +20,7 @@ class Controller
 
     public function __construct()
     {
+        C('debugbar','sys',false);
         # 判断初始化函数属否定义
         if(method_exists($this,'__init')){
           $this -> __init();
@@ -141,7 +142,7 @@ class Controller
                 header('Content-Type:application/json; charset=utf-8');
                 $handler  =   $_GET['jsonpCallback'];
                 exit($handler.'('.json_encode($data,$json_option).');');
-                case 'EVAL' :
+            case 'EVAL' :
                 # 返回可执行的js脚本
                 header('Content-Type:text/html; charset=utf-8');
                 exit($data);

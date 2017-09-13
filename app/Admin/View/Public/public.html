@@ -1,603 +1,152 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html>
+
 <head>
-    <meta charset="utf-8" />
-    <title>@yield('title')</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- basic styles -->
-    <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
-    <!--[if IE 7]>
-
-    <link rel="stylesheet" href="/assets/css/font-awesome-ie7.min.css" />
-
-    <![endif]-->
-    <link rel="stylesheet" href="/assets/css/jquery-ui-1.10.3.custom.min.css" />
-    <!--[if IE 7]>
-    <link rel="stylesheet" href="/assets/css/font-awesome-ie7.min.css" />
-    <![endif]-->
-    <!-- page specific plugin stylesf -->
-    <!-- fonts -->
-    <!-- ace styles -->
-    <link rel="stylesheet" href="/assets/css/ace.min.css" />
-    <link rel="stylesheet" href="/assets/css/ace-rtl.min.css" />
-    <link rel="stylesheet" href="/assets/css/ace-skins.min.css" />
-    <!--[if lte IE 8]>
-    <link rel="stylesheet" href="/assets/css/ace-ie.min.css" />
-    <![endif]-->
-    <!-- inline styles related to this page -->
-    <!-- ace settings handler -->
-    <script src="/assets/js/ace-extra.min.js"></script>
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="/assets/js/html5shiv.js"></script>
-    <script src="/assets/js/respond.min.js"></script>
-    <![endif]-->
+    <meta charset="utf-8">
+    <title>后台管理模板</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="/assets/plugins/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" href="/assets/css/global.css" media="all">
+    <link rel="stylesheet" href="/assets/plugins/font-awesome/css/font-awesome.min.css">
 </head>
 <body>
-<div class="navbar navbar-default" id="navbar">
-    <script type="text/javascript">
-        try{ace.settings.check('navbar' , 'fixed')}catch(e){}
-    </script>
-    <div class="navbar-container" id="navbar-container">
-        <div class="navbar-header pull-left">
-            <a href="#" class="navbar-brand">
-                <small>
-                    <i class="icon-leaf"></i>
-                    Minkernel管理后台
-                </small>
-            </a><!-- /.brand -->
-        </div><!-- /.navbar-header -->
-        <div class="navbar-header pull-right" role="navigation">
-            <ul class="nav ace-nav">
-                <!-- <li class="grey">
-                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                        <i class="icon-tasks"></i>
-                        <span class="badge badge-grey">4</span>
-                    </a>
-                    <ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
-                        <li class="dropdown-header">
-                            <i class="icon-ok"></i>
-                            4 Tasks to complete
-                        </li>
-                        <li>
-                            <a href="#">
-                                <div class="clearfix">
-                                    <span class="pull-left">Software Update</span>
-                                    <span class="pull-right">65%</span>
-                                </div>
-                                <div class="progress progress-mini ">
-                                    <div style="width:65%" class="progress-bar "></div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <div class="clearfix">
-                                    <span class="pull-left">Hardware Upgrade</span>
-                                    <span class="pull-right">35%</span>
-                                </div>
-                                <div class="progress progress-mini ">
-                                    <div style="width:35%" class="progress-bar progress-bar-danger"></div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <div class="clearfix">
-                                    <span class="pull-left">Unit Testing</span>
-                                    <span class="pull-right">15%</span>
-                                </div>
-                                <div class="progress progress-mini ">
-                                    <div style="width:15%" class="progress-bar progress-bar-warning"></div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <div class="clearfix">
-                                    <span class="pull-left">Bug Fixes</span>
-                                    <span class="pull-right">90%</span>
-                                </div>
-                                <div class="progress progress-mini progress-striped active">
-                                    <div style="width:90%" class="progress-bar progress-bar-success"></div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                See tasks with details
-                                <i class="icon-arrow-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </li> -->
-                <!-- <li class="purple">
-                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                        <i class="icon-bell-alt icon-animated-bell"></i>
-                        <span class="badge badge-important">8</span>
-                    </a>
-                    <ul class="pull-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">
-                        <li class="dropdown-header">
-                            <i class="icon-warning-sign"></i>
-                            8 Notifications
-                        </li>
-                        <li>
-                            <a href="#">
-                                <div class="clearfix">
-                                    <span class="pull-left">
-                                        <i class="btn btn-xs no-hover btn-pink icon-comment"></i>
-                                        New Comments
-                                    </span>
-                                    <span class="pull-right badge badge-info">+12</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="btn btn-xs btn-primary icon-user"></i>
-                                Bob just signed up as an editor ...
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <div class="clearfix">
-                                    <span class="pull-left">
-                                        <i class="btn btn-xs no-hover btn-success icon-shopping-cart"></i>
-                                        New Orders
-                                    </span>
-                                    <span class="pull-right badge badge-success">+8</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <div class="clearfix">
-                                    <span class="pull-left">
-                                        <i class="btn btn-xs no-hover btn-info icon-twitter"></i>
-                                        Followers
-                                    </span>
-                                    <span class="pull-right badge badge-info">+11</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                See all notifications
-                                <i class="icon-arrow-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </li> -->
-                <!-- <li class="green">
-                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                        <i class="icon-envelope icon-animated-vertical"></i>
-                        <span class="badge badge-success">5</span>
-                    </a>
-                    <ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
-                        <li class="dropdown-header">
-                            <i class="icon-envelope-alt"></i>
-                            5 Messages
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="/assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
-
-                                <span class="msg-body">
-
-                                    <span class="msg-title">
-
-                                        <span class="blue">Alex:</span>
-
-                                        Ciao sociis natoque penatibus et auctor ...
-
-                                    </span>
-
-
-
-                                    <span class="msg-time">
-
-                                        <i class="icon-time"></i>
-
-                                        <span>a moment ago</span>
-
-                                    </span>
-
-                                </span>
-
-                            </a>
-
-                        </li>
-
-
-
-                        <li>
-
-                            <a href="#">
-
-                                <img src="/assets/avatars/avatar3.png" class="msg-photo" alt="Susan's Avatar" />
-
-                                <span class="msg-body">
-
-                                    <span class="msg-title">
-
-                                        <span class="blue">Susan:</span>
-
-                                        Vestibulum id ligula porta felis euismod ...
-
-                                    </span>
-
-
-
-                                    <span class="msg-time">
-
-                                        <i class="icon-time"></i>
-
-                                        <span>20 minutes ago</span>
-
-                                    </span>
-
-                                </span>
-
-                            </a>
-
-                        </li>
-
-
-
-                        <li>
-
-                            <a href="#">
-
-                                <img src="/assets/avatars/avatar4.png" class="msg-photo" alt="Bob's Avatar" />
-
-                                <span class="msg-body">
-
-                                    <span class="msg-title">
-
-                                        <span class="blue">Bob:</span>
-
-                                        Nullam quis risus eget urna mollis ornare ...
-
-                                    </span>
-
-
-
-                                    <span class="msg-time">
-
-                                        <i class="icon-time"></i>
-
-                                        <span>3:15 pm</span>
-
-                                    </span>
-
-                                </span>
-
-                            </a>
-
-                        </li>
-
-
-
-                        <li>
-
-                            <a href="inbox.html">
-
-                                See all messages
-
-                                <i class="icon-arrow-right"></i>
-
-                            </a>
-
-                        </li>
-
-                    </ul>
-
-                </li> -->
-
-
-
-                <li class="light-blue" style="width:155px">
-
-                    <a data-toggle="dropdown" href="#"  class="dropdown-toggle">
-
-                        <img class="nav-user-photo" src="{{$_SESSION['admin']['user']['headurl']}}" alt="Jason's Photo" />
-
-                        <span class="user-info">
-
-                                    <small >{{$_SESSION['admin']['user']['username']}}</small>
-                                    {{$_SESSION['admin']['user']['nickname']}}
-
-
-                                </span>
-
-
-
-                        <i class="icon-caret-down"></i>
-
-                    </a>
-
-
-
-                    <ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close" >
-
-                        <!-- <li>
-
-                            <a href="#">
-
-                                <i class="icon-cog"></i>
-
-                                Settings
-
-                            </a>
-
-                        </li> -->
-
-
-
-                        <!--  <li>
-
-                             <a href="#">
-
-                                 <i class="icon-user"></i>
-
-                                 Profile
-
-                             </a>
-
-                         </li> -->
-
-
-
-                        <li class="divider"></li>
-                        <li style="text-align:center; ">
-                            <a href="/Users/edit_pass.html" style="font-size:15px;">
-                                修改密码
-                            </a>
-                        </li>
-                        <li style="text-align:center; ">
-                            <a href="/Index/clear_cache.html" style="font-size:15px;">
-                                清除缓存
-                            </a>
-                        </li>
-                        <li style="text-align:center;">
-                            <a href="/Auth/logout.html" style="font-size:15px;">
-                                退出
-                            </a>
-                        </li>
-
-                    </ul>
-
+<div class="layui-layout layui-layout-admin" style="border-bottom: solid 5px #1aa094;">
+    <div class="layui-header header header-demo">
+        <div class="layui-main">
+            <div class="admin-login-box">
+                <a class="logo" style="left: 0;" href="http://beginner.zhengjinfan.cn/demo/beginner_admin/">
+                    <span style="font-size: 22px;">BeginnerAdmin</span>
+                </a>
+                <div class="admin-side-toggle">
+                    <i class="fa fa-bars" aria-hidden="true"></i>
+                </div>
+                <div class="admin-side-full">
+                    <i class="fa fa-life-bouy" aria-hidden="true"></i>
+                </div>
+            </div>
+            <ul class="layui-nav admin-header-item">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">清除缓存</a>
                 </li>
+                <li class="layui-nav-item" id="pay">
+                    <a href="javascript:;">捐赠我</a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">浏览网站</a>
+                </li>
+                <li class="layui-nav-item" id="video1">
+                    <a href="javascript:;">视频</a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;" class="admin-header-user">
+                        <img src="/assets/images/0.jpg" />
+                        <span>beginner</span>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <a href="javascript:;"><i class="fa fa-user-circle" aria-hidden="true"></i> 个人信息</a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;"><i class="fa fa-gear" aria-hidden="true"></i> 设置</a>
+                        </dd>
+                        <dd id="lock">
+                            <a href="javascript:;">
+                                <i class="fa fa-lock" aria-hidden="true" style="padding-right: 3px;padding-left: 1px;"></i> 锁屏 (Alt+L)
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="/Auth/logout.html"><i class="fa fa-sign-out" aria-hidden="true"></i> 注销</a>
+                        </dd>
+                    </dl>
+                </li>
+            </ul>
+            <ul class="layui-nav admin-header-item-mobile">
+                <li class="layui-nav-item">
+                    <a href="login.html"><i class="fa fa-sign-out" aria-hidden="true"></i> 注销</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="layui-side layui-bg-black" id="admin-side">
+        <div class="layui-side-scroll" id="admin-navbar-side" lay-filter="side"></div>
+    </div>
+    <div class="layui-body" style="bottom: 0;border-left: solid 2px #1AA094;" id="admin-body">
+        <div class="layui-tab admin-nav-card layui-tab-brief" lay-filter="admin-tab">
+            <ul class="layui-tab-title">
+                <li class="layui-this">
+                    <i class="fa fa-dashboard" aria-hidden="true"></i>
+                    <cite>控制面板</cite>
+                </li>
+            </ul>
+            <div class="layui-tab-content" style="min-height: 150px; padding: 5px 0 0 0;">
+                <div class="layui-tab-item layui-show">
+                    <iframe src="/Index/main.html"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-footer footer footer-demo" id="admin-footer">
+        <div class="layui-main">
+            <p>2016 &copy;
+                <a href="http://m.zhengjinfan.cn/">m.zhengjinfan.cn/</a> LGPL license
+            </p>
+        </div>
+    </div>
+    <div class="site-tree-mobile layui-hide">
+        <i class="layui-icon">&#xe602;</i>
+    </div>
+    <div class="site-mobile-shade"></div>
 
-            </ul><!-- /.ace-nav -->
-
-        </div><!-- /.navbar-header -->
-
-    </div><!-- /.container -->
-
-</div>
-
-
-
-<div class="main-container" id="main-container">
-
-    <script type="text/javascript">
-
-        try{ace.settings.check('main-container' , 'fixed')}catch(e){}
-
+    <!--锁屏模板 start-->
+    <script type="text/template" id="lock-temp">
+        <div class="admin-header-lock" id="lock-box">
+            <div class="admin-header-lock-img">
+                <img src="/assets/images/0.jpg"/>
+            </div>
+            <div class="admin-header-lock-name" id="lockUserName">beginner</div>
+            <input type="text" class="admin-header-lock-input" value="输入密码解锁.." name="lockPwd" id="lockPwd" />
+            <button class="layui-btn layui-btn-small" id="unlock">解锁</button>
+        </div>
     </script>
-
-
-
-    <div class="main-container-inner">
-
-        <a class="menu-toggler" id="menu-toggler" href="#">
-
-            <span class="menu-text"></span>
-
-        </a>
-
-
-
-        <div class="sidebar" id="sidebar">
-
-            <script type="text/javascript">
-
-                try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
-
-            </script>
-
-
-
-            <div class="sidebar-shortcuts" id="sidebar-shortcuts">
-
-                <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
-
-                    <button class="btn btn-success">
-
-                        <i class="icon-signal"></i>
-
-                    </button>
-
-
-
-                    <button class="btn btn-info">
-
-                        <i class="icon-pencil"></i>
-
-                    </button>
-
-
-
-                    <button class="btn btn-warning">
-
-                        <i class="icon-group"></i>
-
-                    </button>
-
-
-
-                    <button class="btn btn-danger">
-
-                        <i class="icon-cogs"></i>
-
-                    </button>
-
-                </div>
-
-
-
-                <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
-
-                    <span class="btn btn-success"></span>
-
-
-
-                    <span class="btn btn-info"></span>
-
-
-
-                    <span class="btn btn-warning"></span>
-
-
-
-                    <span class="btn btn-danger"></span>
-
-                </div>
-
-            </div><!-- #sidebar-shortcuts -->
-
-            @include('Public.nav')
-
-            <div class="sidebar-collapse" id="sidebar-collapse">
-
-                <i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
-
-            </div>
-
-
-
-            <script type="text/javascript">
-
-                try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
-
-            </script>
-
-        </div>
-
-        <div class="main-content">
-
-            {{-- 内容区开始 --}}
-            @yield('content')
-            {{-- 内容区结束 --}}
-
-        </div>
-
-        <div class="ace-settings-container" id="ace-settings-container">
-
-            <!-- <div class="btn btn-app btn-xs btn-warning ace-settings-btn" id="ace-settings-btn">
-
-                <i class="icon-cog bigger-150"></i>
-
-            </div> -->
-            <div class="ace-settings-box" id="ace-settings-box">
-                <div>
-
-                    <div class="pull-left">
-
-                        <select id="skin-colorpicker" class="hide">
-
-                            <option data-skin="default" value="#438EB9">#438EB9</option>
-
-                            <option data-skin="skin-1" value="#222A2D">#222A2D</option>
-
-                            <option data-skin="skin-2" value="#C6487E">#C6487E</option>
-
-                            <option data-skin="skin-3" value="#D0D0D0">#D0D0D0</option>
-
-                        </select>
-
-                    </div>
-
-                    <span>&nbsp; Choose Skin</span>
-
-                </div>
-
-
-
-                <div>
-
-                    <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-navbar" />
-
-                    <label class="lbl" for="ace-settings-navbar"> Fixed Navbar</label>
-
-                </div>
-
-
-
-                <div>
-
-                    <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-sidebar" />
-
-                    <label class="lbl" for="ace-settings-sidebar"> Fixed Sidebar</label>
-
-                </div>
-
-
-
-                <div>
-
-                    <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-breadcrumbs" />
-
-                    <label class="lbl" for="ace-settings-breadcrumbs"> Fixed Breadcrumbs</label>
-
-                </div>
-
-
-
-                <div>
-
-                    <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-rtl" />
-
-                    <label class="lbl" for="ace-settings-rtl"> Right To Left (rtl)</label>
-
-                </div>
-
-
-
-                <div>
-
-                    <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-add-container" />
-
-                    <label class="lbl" for="ace-settings-add-container">
-
-                        Inside
-
-                        <b>.container</b>
-
-                    </label>
-
-                </div>
-
-            </div>
-
-        </div><!-- /#ace-settings-container -->
-
-    </div><!-- /.main-container-inner -->
-
-
-
-    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
-
-        <i class="icon-double-angle-up icon-only bigger-110"></i>
-
-    </a>
-
-</div><!-- /.main-container -->
-
-
-
+    <!--锁屏模板 end -->
+
+    <script type="text/javascript" src="/assets/plugins/layui/layui.js"></script>
+    <script type="text/javascript" src="/Index/get_nav.html"></script>
+    <script src="/assets/js/index.js"></script>
+    <script>
+        layui.use('layer', function() {
+            var $ = layui.jquery,
+                layer = layui.layer;
+
+            $('#video1').on('click', function() {
+                layer.open({
+                    title: 'YouTube',
+                    maxmin: true,
+                    type: 2,
+                    content: 'video.html',
+                    area: ['800px', '500px']
+                });
+            });
+            $('#pay').on('click', function () {
+                layer.open({
+                    title: false,
+                    type: 1,
+                    content: '<img src="/assets/images/xx.png" />',
+                    area: ['500px', '250px'],
+                    shadeClose: true
+                });
+            });
+
+
+        });
+    </script>
+</div>
 </body>
 
 </html>

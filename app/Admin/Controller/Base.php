@@ -15,7 +15,6 @@ use Service\File;
 class Base extends Controller{
 	# 构造函数
 	function __init(){
-        C('debugbar','sys',false);
 	    # 判断是否已经登陆过
         if($_SESSION['admin']['user']['id']<1){
             # 重定向到登陆页面
