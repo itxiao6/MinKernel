@@ -15,7 +15,7 @@
                 <h1>后台登录</h1>
             </header>
             <div class="beg-login-main">
-                <form action="" class="layui-form" method="post">
+                <form class="layui-form" method="post">
                     <div class="layui-form-item">
                         <label class="beg-login-icon">
                             <i class="layui-icon">&#xe612;</i>
@@ -52,7 +52,6 @@
                 var layer = layui.layer,
                     $ = layui.jquery,
                     form = layui.form();
-
                 form.on('submit(login)',function(data){
                     $.post('',{username:data.field.userName,password:data.field.password},function(data){
                         if(data.status==1){
