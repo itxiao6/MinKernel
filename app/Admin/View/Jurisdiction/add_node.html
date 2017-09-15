@@ -1,0 +1,33 @@
+<div style="margin: 15px;">
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">结点名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="name" placeholder="请输入结点名称" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">级别</label>
+            <div class="layui-input-block">
+                <select name="level" lay-verify="required">
+                    @foreach(\App\Model\AdminNode::LEVEL as $key=>$val)
+                    <option value="{{$key}}">{{$val}}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">控制器</label>
+            <div class="layui-input-block">
+                <select name="level" lay-verify="required">
+                    @foreach(scandir(ROOT_PATH.'app/Admin/Controller/') as $key=>$val)
+                    @if($val != '.' && $val != '..')
+                    <option value="{{substr($val,0,strripos($val,'.'))}}">{{substr($val,0,strripos($val,'.'))}}</option>
+                    @endif
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        <button lay-filter="edit" lay-submit style="display: none;"></button>
+    </form>
+</div>

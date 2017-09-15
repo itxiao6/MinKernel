@@ -10,6 +10,10 @@ use Kernel\Model;
 class AdminNode extends Model
 {
     /**
+     * 权限级别
+     */
+    CONST LEVEL = [1=>'控制器',2=>'操作'];
+    /**
      * 表名
      * @var string
      */
