@@ -9,7 +9,7 @@ use App\Model\Menu;
  */
 class Index extends Base{
     # 后台首页
-    public function index()
+    protected function index()
     {
         #渲染模板
         $this -> display();

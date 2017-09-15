@@ -25,13 +25,13 @@ class Base extends Controller{
 //            -> remember(3600*24)
             -> get());
 	    # 权限验证
-        if(!$this -> AuthCache()){
+        if(!$this -> __AuthCache()){
             $this -> error('权限不足');
         }
 
 	}
 	# 权限检查
-	public function AuthCache(){
+	public function __AuthCache(){
         # 获取控制器
         $controller = CONTROLLER_NAME;
         # 获取操作
@@ -60,7 +60,7 @@ class Base extends Controller{
             return false;
         }
     }
-    public function clear_cache()
+    public function __clear_cache()
     {
         # 清空数据缓存
         File::remove_dir(CACHE_DATA);
