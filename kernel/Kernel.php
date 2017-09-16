@@ -247,11 +247,11 @@ class Kernel
         Route::init(function($app,$controller,$action){
             C('view_path','sys',['app' => ROOT_PATH.'app'.DIRECTORY_SEPARATOR.$app.DIRECTORY_SEPARATOR.'View','message'=>ROOT_PATH.'message']);
             # 应用名
-            define('APP_NAME',self::$app);
+            define('APP_NAME',$app);
             # 控制器名
-            define('CONTROLLER_NAME',self::$controller);
+            define('CONTROLLER_NAME',$controller);
             # 操作名
-            define('ACTION_NAME',self::$action);
+            define('ACTION_NAME',$action);
         });
     }
 }
