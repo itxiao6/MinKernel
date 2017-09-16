@@ -9,11 +9,12 @@
     "itxiao6/view":"1.1",
     "maximebf/debugbar":"1.13.1",
     "itxiao6/wechat":"1.3",
+    "itxiao6/route":"1.0.1",
     "itxiao6/upload":"1.0.1"
   },
   "authors": [
     {
-      "name": "Small six",
+      "name": "itxiao6",
       "email": "itxiao6@qq.com"
     }
   ],
