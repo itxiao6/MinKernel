@@ -19,4 +19,6 @@ return [
     'default_timezone'      =>  'PRC',
     # ajax提交的默认变量
     'var_ajax_submit'=>'ajax',
+    # url 路由 分隔符
+    'url_split'=>'/',
 ];

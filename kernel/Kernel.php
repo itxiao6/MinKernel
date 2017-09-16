@@ -4,8 +4,9 @@ use Service\Timeer;
 use Whoops\Run;
 use Whoops\Handler\PrettyPageHandler;
 use Service\Session;
-use Service\Route;
-use Service\Http;
+use Itxiao6\Route\Route;
+use Itxiao6\Route\Http;
+use Itxiao6\Route\Resources;
 use DebugBar\StandardDebugBar;
 //
 use DebugBar\DebugBar;
@@ -238,7 +239,19 @@ class Kernel
             $_SERVER['PHP_SELF'] = $param_arr['U'];
             $_SERVER['QUERY_STRING'] = $param_arr['U'];
         }
+        # 设置url 分隔符
+        Route::set_key_word(C('url_split','sys'));
+        # 设置资源路由
+        Resources::set_folder(C('all','abstract'));
         # 加载路由
-        Route::init();
+        Route::init(function($app,$controller,$action){
+            C('view_path','sys',['app' => ROOT_PATH.'app'.DIRECTORY_SEPARATOR.$app.DIRECTORY_SEPARATOR.'View','message'=>ROOT_PATH.'message']);
+            # 应用名
+            define('APP_NAME',self::$app);
+            # 控制器名
+            define('CONTROLLER_NAME',self::$controller);
+            # 操作名
+            define('ACTION_NAME',self::$action);
+        });
     }
 }
