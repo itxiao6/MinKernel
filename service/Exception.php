@@ -37,6 +37,16 @@ class Exception extends \Exception
     }
 
     /**
+     * 抛出错误消息
+     * @param $message
+     * @throws Exception
+     */
+    public static function message($message)
+    {
+        throw new self($message);
+    }
+
+    /**
      * 设置错误文件
      * @param null $file
      * @return $this|bool

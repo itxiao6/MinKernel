@@ -4,6 +4,7 @@ use Itxiao6\View\Compilers\ViewCompiler;
 use Itxiao6\View\Engines\CompilerEngine;
 use Itxiao6\View\FileViewFinder;
 use Itxiao6\View\Factory;
+use Service\Exception;
 use Service\Http;
 use Service\DB;
 use Service\Timeer;
@@ -52,12 +53,12 @@ class Controller
         foreach(C('view_path','sys') as $value){
           # 判断模板目录是否存在
           if( !file_exists($value) ){
-              throw new \Exception("模板目录不存在或没有权限".$value);
+              Exception::message("模板目录不存在或没有权限".$value);
           }
         }
         # 判断模板编译目录是否存在并且有写入的权限
         if( (!file_exists(CACHE_VIEW)) or (!is_writable(CACHE_VIEW)) ){
-          throw new \Exception("模板编译目录不存在或没有权限");
+            Exception::message("模板编译目录不存在或没有权限");
         }
         # 实例化View 的编译器
         $compiler = new ViewCompiler(CACHE_VIEW);

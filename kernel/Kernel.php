@@ -103,8 +103,11 @@ class Kernel
 //            $whoops -> pushHandler(new \Whoops\Handler\CallbackHandler(function($ErrorException,$Inspector,$Run){
 //                dd(func_get_args());
 //            }));
+            $PrettyPageHandler =  new PrettyPageHandler();
+            # 设置错误页面标题
+            $PrettyPageHandler -> setPageTitle('Minkernel-哎呀-出错了');
             # 输入报错的页面
-            $whoops -> pushHandler(new PrettyPageHandler);
+            $whoops -> pushHandler($PrettyPageHandler);
             # 判断是否为ajax
             if (\Whoops\Util\Misc::isAjaxRequest()) {
                 $whoops->pushHandler(new \Whoops\Handler\JsonResponseHandler);
