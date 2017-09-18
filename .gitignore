@@ -1,8 +1,6 @@
-vendor
-runtime
+vendor/
+runtime/
 .gitattributes
-.gitignore
 composer.lock
 .env
-MinKernel.iml
-.idea
+.idea/
