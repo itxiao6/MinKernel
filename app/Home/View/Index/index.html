@@ -1,8 +1,7 @@
-<html>
-    <head>
-        <title>测试页面</title>
-    </head>
-    <body>
-        <h1>Minkernel测试页面</h1>
-    </body>
-</html>
+@extends('Public.index')
+{{-- 设置标题 --}}
+@section('title','测试页面')
+{{-- 填充页面内容 --}}
+@section('content')
+    <h1>Minkernel测试页面</h1>
+@endsection

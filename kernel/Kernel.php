@@ -99,7 +99,16 @@ class Kernel
             # 屏蔽所有notice 和 warning 级别的错误
             error_reporting(E_ALL^E_NOTICE^E_WARNING);
             $whoops = new Run;
-            $whoops->pushHandler(new PrettyPageHandler);
+            # 回调处理
+//            $whoops -> pushHandler(new \Whoops\Handler\CallbackHandler(function($ErrorException,$Inspector,$Run){
+//                dd(func_get_args());
+//            }));
+            # 输入报错的页面
+            $whoops -> pushHandler(new PrettyPageHandler);
+            # 判断是否为ajax
+            if (\Whoops\Util\Misc::isAjaxRequest()) {
+                $whoops->pushHandler(new \Whoops\Handler\JsonResponseHandler);
+            }
             $whoops->register();
             # 禁止所有页面缓存
             header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');

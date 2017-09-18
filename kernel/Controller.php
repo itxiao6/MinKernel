@@ -93,18 +93,21 @@ class Controller
         if(!$factory -> exists($view)){
           throw new \Exception('找不到 '.$view.' 模板');
         }
-        # 渲染模板并返回
-        $result = $factory -> make($view,$this -> viewData);
+        # 解析模板
+        $factory -> make($view,$this -> viewData);
+        # 获取渲染的结果
+        $result = $factory -> toString();
         # 计时开始
         Timeer::end('【View】'.$view.' 完成');
         return $result;
     }
 
-    /** 分配变量值
-    * @param  [String] 键名
-    * @param  [data] 数据(可选)
-    * @return [Object] 本对象(用于连贯操作)
-    */
+    /**
+     * 分配变量值
+     * @param $key
+     * @param array $data
+     * @return $this
+     */
     protected function assign($key,$data = []){
         # 判断传的是否为数组
         if( is_array($key) ){
