@@ -252,6 +252,14 @@ class Kernel
         Route::set_key_word(C('url_split','sys'));
         # 设置资源路由
         Resources::set_folder(C('all','abstract'));
+        # 设置资源路由的响应格式
+        Resources::set_file_type([
+            '.js'=>'application/javascript',
+            '.css'=>'text/css',
+            '.jpg'=>'image/jpg',
+            '.jpeg'=>'image/jpeg',
+            '.svg'=>'image/svg+xml',
+        ]);
         # 加载路由
         Route::init(function($app,$controller,$action){
             C('view_path','sys',['app' => ROOT_PATH.'app'.DIRECTORY_SEPARATOR.$app.DIRECTORY_SEPARATOR.'View','message'=>ROOT_PATH.'message']);
