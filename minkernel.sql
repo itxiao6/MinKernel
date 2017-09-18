@@ -1,8 +1,24 @@
-
+-- phpMyAdmin SQL Dump
+-- version 4.7.0
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost
+-- Generation Time: 2017-09-18 16:34:59
+-- 服务器版本： 5.6.32-log
+-- PHP Version: 7.1.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `minkernel`
+--
 
 -- --------------------------------------------------------
 
@@ -27,7 +43,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `username`, `password`, `nickname`, `headurl`, `roles`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'admin', '$2y$10$UIxhIMqETYR.ux5wKgm5ueAjeo0DR8YGq132mWLpigORC6hontK4a', '管理员', '/assets/avatars/user.jpg', '', '1503453690', '1503563338', NULL);
+(1, 'admin', '$2y$10$UIxhIMqETYR.ux5wKgm5ueAjeo0DR8YGq132mWLpigORC6hontK4a', '管理员', '/assets/avatars/user.jpg', '-1', '1503453690', '1503563338', NULL);
 
 -- --------------------------------------------------------
 
@@ -38,12 +54,23 @@ INSERT INTO `admin` (`id`, `username`, `password`, `nickname`, `headurl`, `roles
 CREATE TABLE `admin_node` (
   `id` int(11) NOT NULL COMMENT '数据ID',
   `name` varchar(50) NOT NULL COMMENT '结点名称',
+  `level` int(11) NOT NULL COMMENT '级别',
   `controller_name` varchar(50) NOT NULL COMMENT '控制器名称',
   `action_name` varchar(50) NOT NULL COMMENT '操作名称',
   `created_at` varchar(50) NOT NULL COMMENT '数据创建时间',
   `updated_at` varchar(50) NOT NULL COMMENT '数据最后修改时间',
   `deleted_at` varchar(50) DEFAULT NULL COMMENT '数据删除时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='后台权限结点管理';
+
+--
+-- 转存表中的数据 `admin_node`
+--
+
+INSERT INTO `admin_node` (`id`, `name`, `level`, `controller_name`, `action_name`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, '添加文章', 2, 'Word', 'add', '1497495611', '1497495611', NULL),
+(2, '删除文章', 2, 'Word', 'delete', '1497495611', '1497495611', NULL),
+(3, '修改文章', 2, 'Word', 'edit', '1497495611', '1497495611', NULL),
+(4, '浏览文章', 2, 'Index', 'index', '1497495611', '1497495611', NULL);
 
 -- --------------------------------------------------------
 
@@ -60,6 +87,13 @@ CREATE TABLE `admin_right` (
   `deleted_at` varchar(50) DEFAULT NULL COMMENT '数据删除时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='权限表';
 
+--
+-- 转存表中的数据 `admin_right`
+--
+
+INSERT INTO `admin_right` (`id`, `name`, `node`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, '文章管理', '1,2,3,4', '1497495611', '1497495611', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -74,6 +108,13 @@ CREATE TABLE `admin_roles` (
   `updated_at` varchar(50) NOT NULL COMMENT '最后更新时间',
   `deleted_at` varchar(50) DEFAULT NULL COMMENT '数据删除时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='管理员角色';
+
+--
+-- 转存表中的数据 `admin_roles`
+--
+
+INSERT INTO `admin_roles` (`id`, `name`, `right`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, '文章管理员', '1', '1505187539', '1505187539', NULL);
 
 -- --------------------------------------------------------
 
@@ -100,7 +141,7 @@ CREATE TABLE `config` (
 
 CREATE TABLE `menu` (
   `id` int(11) NOT NULL,
-  `name` varchar(50) NOT NULL COMMENT '导航名称',
+  `title` varchar(50) NOT NULL COMMENT '导航名称',
   `controller` varchar(50) DEFAULT NULL COMMENT '控制器名称',
   `action` varchar(50) DEFAULT NULL COMMENT '操作名称',
   `icon` varchar(50) NOT NULL DEFAULT 'fa-list-alt' COMMENT '图标',
@@ -115,14 +156,14 @@ CREATE TABLE `menu` (
 -- 转存表中的数据 `menu`
 --
 
-INSERT INTO `menu` (`id`, `name`, `controller`, `action`, `icon`, `pid`, `href`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, '微信管理', 'Wechat', NULL, 'fa-list-alt', 0, '', '1504598389', '1504598389', NULL),
-(2, '微信菜单管理', 'Wechat', 'menu', 'fa-list-alt', 1, '/Wechat/menu.html', '1504598389', '1504598389', NULL),
-(3, '微信参数配置', 'Wechat', 'config', 'fa-list-alt', 1, '/Wechat/config.html', '1504598389', '1504598389', NULL),
-(4, '权限管理', 'Jurisdiction', NULL, 'fa-list-alt', 0, NULL, '1504598389', '1504598389', NULL),
-(5, '角色管理', 'Jurisdiction', 'type', 'fa-list-alt', 4, '/Jurisdiction/type.html', '1504598389', '1504598389', NULL),
-(6, '权限管理', 'Jurisdiction', 'node', 'fa-list-alt', 4, '/Jurisdiction/node.html', '1504598389', '1504598389', NULL),
-(7, '用户管理', 'Jurisdiction', 'user', 'fa-list-alt', 4, '/Jurisdiction/user.html', '1504598389', '1504598389', NULL);
+INSERT INTO `menu` (`id`, `title`, `controller`, `action`, `icon`, `pid`, `href`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, '微信管理', 'Wechat', NULL, '&#xe641;', 0, '', '1504598389', '1504598389', NULL),
+(2, '微信菜单管理', 'Wechat', 'menu', '&#xe641;', 1, '/Wechat/menu.html', '1504598389', '1504598389', NULL),
+(3, '微信参数配置', 'Wechat', 'config', '&#xe641;', 1, '/Wechat/config.html', '1504598389', '1504598389', NULL),
+(4, '权限管理', 'Jurisdiction', NULL, '&#xe641;', 0, NULL, '1504598389', '1504598389', NULL),
+(5, '角色管理', 'Jurisdiction', 'type', '&#xe641;', 4, '/Jurisdiction/type.html', '1504598389', '1504598389', NULL),
+(6, '结点管理', 'Jurisdiction', 'node', '&#xe641;', 4, '/Jurisdiction/node.html', '1504598389', '1504598389', NULL),
+(7, '用户管理', 'Jurisdiction', 'user', '&#xe641;', 4, '/Jurisdiction/user.html', '1504598389', '1504598389', NULL);
 
 -- --------------------------------------------------------
 
@@ -179,10 +220,13 @@ CREATE TABLE `wechat_menu` (
 --
 
 INSERT INTO `wechat_menu` (`id`, `name`, `event`, `val`, `key`, `pid`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, '个人中心', NULL, NULL, '', 0, '1505109121', '1505109121', NULL),
-(2, '我的订单', 'view', 'http://www.taobao.com', '', 1, '1505109171', '1505109171', NULL),
-(3, '我的钱包', 'view', 'http://www.tianmao.com', '', 1, '1505109195', '1505109195', NULL),
-(4, '进入商城', 'view', 'http://www.tianmao.com', '', 0, '1505109220', '1505109220', NULL);
+(2, '个人中心', '', NULL, NULL, 0, '1505109121', '1505109121', NULL),
+(5, '我的钱包', 'view', 'http://www.tianmao.com', NULL, 2, '1505109195', '1505109195', NULL),
+(6, '企业官网', NULL, NULL, NULL, 0, '1497495611', '1497495611', NULL),
+(7, '我的订单', 'view', 'http://www.taobao.com', NULL, 2, '1505109171', '1505109171', NULL),
+(8, '进入商城', 'view', 'http://www.tianmao.com', NULL, 0, '1505109220', '1505109220', NULL),
+(9, '百度', 'view', 'http://www.baidu.com', '', 6, '1497495611', '1497495611', NULL),
+(10, '腾讯', 'view', 'http://www.qq.com', NULL, 6, '1497495611', '1497495611', NULL);
 
 --
 -- Indexes for dumped tables
@@ -249,17 +293,17 @@ ALTER TABLE `admin`
 -- 使用表AUTO_INCREMENT `admin_node`
 --
 ALTER TABLE `admin_node`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '数据ID';
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '数据ID', AUTO_INCREMENT=5;
 --
 -- 使用表AUTO_INCREMENT `admin_right`
 --
 ALTER TABLE `admin_right`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '数据ID';
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '数据ID', AUTO_INCREMENT=2;
 --
 -- 使用表AUTO_INCREMENT `admin_roles`
 --
 ALTER TABLE `admin_roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '数据ID';
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '数据ID', AUTO_INCREMENT=2;
 --
 -- 使用表AUTO_INCREMENT `config`
 --
@@ -279,7 +323,7 @@ ALTER TABLE `wechat_config`
 -- 使用表AUTO_INCREMENT `wechat_menu`
 --
 ALTER TABLE `wechat_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '数据ID', AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '数据ID', AUTO_INCREMENT=11;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
