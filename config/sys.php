@@ -14,7 +14,7 @@ return [
     #模板文件的后缀名
     'extensions'=>['php','html','tpl'],
     # 模板路径
-    'view_path'=>['message'=>ROOT_PATH.'message'],
+    'view_path'=>[],
     # 默认时区
     'default_timezone'      =>  'PRC',
     # ajax提交的默认变量
