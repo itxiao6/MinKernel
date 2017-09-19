@@ -8,6 +8,7 @@ use Service\Exception;
 use Service\Http;
 use Service\DB;
 use Service\Timeer;
+use Service\Umeditor;
 
 /**
  * 控制器父类
@@ -118,6 +119,23 @@ class Controller
         }
         # 返回本对象
         return $this;
+    }
+    public function umeditor_upload(){
+        //上传配置
+        $config = array(
+            // 存储文件夹
+            "savePath" => ROOT_PATH."public/upload/",
+            // 允许的文件最大尺寸，单位KB
+            "maxSize" => 3000,
+            // 允许的文件格式
+            "allowFiles" => array( ".gif" , ".png" , ".jpg" , ".jpeg" , ".bmp" )
+        );
+        # 实例化上传类
+        $up = new Umeditor( "upfile" , $config );
+        # 获取上传后的信息
+        $info = $up->getFileInfo();
+        # 返回信息
+        exit(json_encode($info));
     }
 
     /**

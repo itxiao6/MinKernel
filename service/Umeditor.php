@@ -1,12 +1,11 @@
 <?php
+namespace Service;
 /**
- * Created by JetBrains PhpStorm.
- * User: taoqili
- * Date: 12-7-18
- * Time: 上午11: 32
- * UEditor编辑器通用上传类
+ * 编辑器通用上传类
+ * Class Umeditor
+ * @package Service
  */
-class Uploader
+class Umeditor
 {
     private $fileField;            //文件域名
     private $file;                 //文件上传对象
