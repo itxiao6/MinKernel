@@ -62,7 +62,7 @@ class Kernel
             $line = preg_replace('!\s+!','',$line);
             if((!strstr($line,'#')) && $line!=''){
                 # 设置环境变量
-                putenv(rtrim($line,'\n'));
+                putenv(preg_replace('!\n$!','',$line));
             }
         }
         # 关闭文件
