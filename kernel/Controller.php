@@ -120,6 +120,8 @@ class Controller
         # 返回本对象
         return $this;
     }
+
+    # 百度编辑器上传文件
     public function umeditor_upload(){
         //上传配置
         $config = array(
