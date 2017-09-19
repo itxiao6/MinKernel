@@ -1,26 +1,15 @@
 <?php
 namespace Kernel;
 use Service\Exception;
-use Service\Timeer;
 use Whoops\Run;
 use Whoops\Handler\PrettyPageHandler;
-use Service\Session;
 use Itxiao6\Route\Route;
 use Itxiao6\Route\Http;
 use Itxiao6\Route\Resources;
-use DebugBar\StandardDebugBar;
-//
 use DebugBar\DebugBar;
 use DebugBar\DataCollector\ExceptionsCollector;
-use DebugBar\DataCollector\MemoryCollector;
 use DebugBar\DataCollector\MessagesCollector;
 use DebugBar\DataCollector\PhpInfoCollector;
-use DebugBar\DataCollector\RequestDataCollector;
-use DebugBar\DataCollector\TimeDataCollector;
-use DebugBar\DataCollector\LocalizationCollector;
-use DebugBar\DataCollector\DataCollector;
-use DebugBar\DataCollector\ConfigCollector;
-use DebugBar\DataCollector\AggregatedCollector;
 /**
 * 框架核心类
 */
@@ -121,7 +110,6 @@ class Kernel
             # 屏蔽所有错误
             error_reporting(0);
         }
-
         try{
             # 加载公用函数库
             include(ROOT_PATH.'common'.DIRECTORY_SEPARATOR.'functions.php');
