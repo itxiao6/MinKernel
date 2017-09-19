@@ -1,5 +1,6 @@
 <?php
 namespace Kernel;
+use Service\Exception;
 use Service\Timeer;
 use Whoops\Run;
 use Whoops\Handler\PrettyPageHandler;
@@ -91,8 +92,6 @@ class Kernel
             exit('请在项目根目录执行:composer install');
         }
 
-        # 加载公用函数库
-        require(ROOT_PATH.'common'.DIRECTORY_SEPARATOR.'functions.php');
 
         # 判断是否为调试模式
         if( DE_BUG === TRUE ){
@@ -121,6 +120,19 @@ class Kernel
         }else{
             # 屏蔽所有错误
             error_reporting(0);
+        }
+
+        try{
+            # 加载公用函数库
+            include(ROOT_PATH.'common'.DIRECTORY_SEPARATOR.'functions.php');
+        }catch (\Exception $exception){
+            # 抛出异常位置
+            Exception::__throw(
+                $exception -> getMessage(),
+                $exception -> getCode(),
+                $exception -> getPrevious(),
+                $exception ->getFile(),
+                $exception -> getLine());
         }
 
         # 设置时区
