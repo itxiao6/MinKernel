@@ -26,7 +26,7 @@ class Config extends Model
     /**
      * 配置类型
      */
-    CONST TYPE = [1=>'系统配置',2=>'微信配置',3=>'支付宝配置',4=>'七牛配置',5=>'阿里OSS配置'];
+    CONST TYPE = [1=>'系统配置',2=>'微信配置',3=>'支付宝配置',4=>'七牛配置',5=>'阿里OSS配置',6=>'redis'];
     /**
      * 表名
      * @var string
@@ -65,6 +65,23 @@ class Config extends Model
                 self::where(['type'=>5,'name'=>$name]) -> update(['value'=>$value]);
             }else{
                 self::insert(['type'=>5,'name'=>$name,'value'=>$value,'created_at'=>time(),'updated_at'=>time()]);
+            }
+        }
+    }
+    public function set_redis_config($name,$value = null)
+    {
+        if(is_array($name)){
+            foreach($name as $key=>$val){
+                self::set_redis_config($key,$val);
+            }
+        }else{
+            if($old_value = self::where(['type'=>5,'name'=>$name]) -> first()){
+                if($old_value -> value == $value){
+                    return true;
+                }
+                self::where(['type'=>6,'name'=>$name]) -> update(['value'=>$value]);
+            }else{
+                self::insert(['type'=>6,'name'=>$name,'value'=>$value,'created_at'=>time(),'updated_at'=>time()]);
             }
         }
     }

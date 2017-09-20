@@ -72,7 +72,24 @@ class Config extends Base
     # redis 管理
     public function redis()
     {
-
+        if(IS_POST){
+            $data = [];
+            # 主机
+            $data['host'] = $_POST['host'];
+            # 端口
+            $data['port'] = $_POST['port'];
+            try{
+                \App\Model\Config::set_redis_config($data);
+                $this -> ajaxReturn(['status'=>1,'message'=>'保存成功']);
+            }catch (\Exception $exception){
+                $this -> ajaxReturn(['status'=>2,'message'=>$exception -> getMessage()]);
+            }
+        }else{
+            # 获取七牛云的配置 并分配到模板引擎
+            $this -> assign('data',\App\Model\Config::where(['type'=>6]) -> pluck('value','name'));
+            # 渲染模板
+            $this -> display();
+        }
     }
     # memcache 管理
     public function memcache()
