@@ -64,4 +64,29 @@ class Config extends Base
             $this -> display();
         }
     }
+    # 存储管理
+    public function storage()
+    {
+
+    }
+    # redis 管理
+    public function redis()
+    {
+
+    }
+    # memcache 管理
+    public function memcache()
+    {
+
+    }
+    # 缓存管理
+    public function cache()
+    {
+
+    }
+    # 支付宝支付管理
+    public function alipay()
+    {
+
+    }
 }
