@@ -32,5 +32,41 @@ class Config extends Model
      * @var string
      */
     protected $table = 'config';
+    # 设置七牛配置
+    public static function set_qiniu_config($name,$value = null)
+    {
+        if(is_array($name)){
+            foreach($name as $key=>$val){
+                self::set_qiniu_config($key,$val);
+            }
+        }else{
+            if($old_value = self::where(['type'=>4,'name'=>$name]) -> first()){
+                if($old_value -> value == $value){
+                    return true;
+                }
+                self::where(['type'=>4,'name'=>$name]) -> update(['value'=>$value]);
+            }else{
+                self::insert(['type'=>4,'name'=>$name,'value'=>$value,'created_at'=>time(),'updated_at'=>time()]);
+            }
+        }
+    }
+    # 设置阿里oss配置
+    public static function set_alioss_config($name,$value = null)
+    {
+        if(is_array($name)){
+            foreach($name as $key=>$val){
+                self::set_alioss_config($key,$val);
+            }
+        }else{
+            if($old_value = self::where(['type'=>5,'name'=>$name]) -> first()){
+                if($old_value -> value == $value){
+                    return true;
+                }
+                self::where(['type'=>5,'name'=>$name]) -> update(['value'=>$value]);
+            }else{
+                self::insert(['type'=>5,'name'=>$name,'value'=>$value,'created_at'=>time(),'updated_at'=>time()]);
+            }
+        }
+    }
 
 }
