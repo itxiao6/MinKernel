@@ -1,9 +1,7 @@
 <?php
 namespace Service;
-use Itxiao6\Upload\Storage\FileSystem;
-use Itxiao6\Upload\Storage\QiniuSystem;
 use Itxiao6\Upload\File;
-use Itxiao6\Upload\Validation\Size;
+use Config;
 
 /**
  * 文件上传类
@@ -13,101 +11,43 @@ use Itxiao6\Upload\Validation\Size;
 class Upload
 {
     /**
-     * 储存
-     * @var bool
-     */
-    protected static $storage = false;
-    /**
      * 错误信息
      * @var
      */
-    protected static $errors = null;
-
-    protected static function __init()
-    {
-        if(self::$storage==false){
-            switch (C('type','storage')){
-                case 'local':
-                    self::$storage = new FileSystem(ROOT_PATH.'public/upload','http://test/upload/');
-                    break;
-                case 'qiniu':
-                    $storage = new QiniuSystem(
-                        C('accessKey','qiniu'),
-                        C('secretKey','qiniu'),
-                        C('Bucket_Name','qiniu'),
-                        C('Bucket_Host','qiniu'));
-                    break;
-            }
-        }
-    }
-
+    protected static $errors = false;
     /**
-     * 修饰者
+     * 上传类
+     * @var bool
+     */
+    protected static $upload = false;
+    /**
+     * 装饰者
      * @param $name
      * @param $arguments
+     * @return array|bool
      */
     public static function __callStatic($name, $arguments)
     {
-        switch($name){
-            case 'upload':
-                self::upload_file(...$arguments);
-                break;
-            case 'uploads':
-                self::upload_files(...$arguments);
-                break;
-            default:
-                break;
+        if(self::$upload===false){
+            # 初始化驱动
+            self::$upload = self::getDriver();
         }
-        // TODO: Implement __callStatic() method.
+        # 使用驱动方法
+        self::$upload -> $name(...$arguments);
     }
-
-    /**
-     * 上传多个文件
-     * @param array $file_field
-     * @param null $validations
-     * @return array
-     */
-    protected static function upload_files($file_field = [],$validations = null){
-        $result = [];
-        foreach ($file_field as $key=>$item){
-            $result[] = self::upload_file($item,$validations[$key]);
+    # 获取驱动
+    protected static function getDriver()
+    {
+        # 存储类型
+        $type = Config::where(['type'=>7,'name'=>'type']) -> value('value');
+        # 参数
+        $param = [];
+        if($type == 'local'){
+            # 上传文件夹
+            $param['directory'] = ROOT_PATH.'public/upload/';
         }
-        return $result;
-    }
-
-    /**
-     * 上传一个文件
-     * @param string $file_field
-     * @param null $validations
-     * @return bool
-     */
-    protected static function upload_file($file_field,$validations = null){
-        # 初始化文件上传系统
-        $file = new File($file_field, self::$storage);
-        # 随机生成文件名
-        $new_filename = uniqid();
-        # 设置文件名
-        $file->setName($new_filename);
-        # 添加验证规则
-        $file->addValidations(array(
-            $validations == null?
-            new Size('5M'):
-            $validations
-        ));
-        // 尝试上传文件
-        try {
-            // 成功!
-            $file->upload();
-        } catch (\Exception $e) {
-            // 失败!
-            $errors = $file->getErrors();
-        }
-        if($errors==null){
-            return $file -> getWebUrl();
-        }else{
-            self::$errors = $errors;
-            return false;
-        }
+        # 返回接口
+        return File::getInterface($type,$param);
     }
 
     /**
